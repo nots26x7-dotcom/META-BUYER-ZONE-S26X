@@ -128,6 +128,7 @@
             <span style="font-weight:800; display:block; margin-bottom:12px; color: var(--success);">🪙 Coin Management</span>
             <div style="background:rgba(255,255,255,0.02); padding:15px; border-radius:15px; border:1px dashed #475569; margin-bottom:15px;">
                 <input type="text" id="c-name" placeholder="Coin Name"> 
+                <input type="text" id="c-logo" placeholder="Coin Logo URL (Optional)"> 
                 <input type="text" id="c-tid" placeholder="Transfer ID">
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                     <input type="number" id="c-user-rate" placeholder="User Rate">
@@ -264,13 +265,19 @@ function renderCoinList() {
     db.ref('marketConfig').on('value', snap => { 
         let html = ""; snap.forEach(c => { 
             const v = c.val(); 
+            const logoPreview = v.logo ? `<img src="${v.logo}" style="width:24px; height:24px; border-radius:50%; object-fit:cover; margin-right:8px;">` : `<span style="margin-right:8px;">💎</span>`;
+            
             html += `
             <div class="coin-box" style="border-left-color: ${v.status ? '#10b981' : '#ef4444'}">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-weight:800; color:var(--primary); font-size:15px;">💎 ${c.key}</span>
+                    <div style="display:flex; align-items:center;">
+                        ${logoPreview}
+                        <span style="font-weight:800; color:var(--primary); font-size:15px;">${c.key}</span>
+                    </div>
                     <label class="switch"><input type="checkbox" ${v.status?'checked':''} onchange="db.ref('marketConfig/${c.key}').update({status:this.checked})"><span class="slider"></span></label>
                 </div>
-                <input type="text" value="${v.transferId || ''}" onchange="db.ref('marketConfig/${c.key}').update({transferId: this.value})">
+                <input type="text" value="${v.logo || ''}" placeholder="Logo URL (Optional)" onchange="db.ref('marketConfig/${c.key}').update({logo: this.value})">
+                <input type="text" value="${v.transferId || ''}" placeholder="Transfer ID" onchange="db.ref('marketConfig/${c.key}').update({transferId: this.value})">
                 <div class="rate-grid">
                     <div class="rate-box"><small style="color:var(--subtext)">USER RATE</small><input type="number" value="${v.userRate || 0}" onchange="db.ref('marketConfig/${c.key}').update({userRate: parseFloat(this.value) || 0})"></div>
                     <div class="rate-box"><small style="color:var(--subtext)">ADMIN RATE</small><input type="number" value="${v.adminRate || 0}" onchange="db.ref('marketConfig/${c.key}').update({adminRate: parseFloat(this.value) || 0})"></div>
@@ -288,6 +295,7 @@ function renderCoinList() {
 
 function addCoin() { 
     const n = document.getElementById('c-name').value.trim();
+    const l = document.getElementById('c-logo').value.trim();
     const tid = document.getElementById('c-tid').value.trim();
     const ur = document.getElementById('c-user-rate').value;
     const ar = document.getElementById('c-admin-rate').value;
@@ -297,6 +305,7 @@ function addCoin() {
     if(n && tid && ur && ar && arm && msl) {
         db.ref('marketConfig/'+n).set({
             transferId: tid,
+            logo: l,
             userRate: parseFloat(ur) || 0,
             adminRate: parseFloat(ar) || 0,
             adminRateMinCoins: parseFloat(arm) || 0,
@@ -304,6 +313,7 @@ function addCoin() {
             status: true
         }).then(() => {
             document.getElementById('c-name').value = '';
+            document.getElementById('c-logo').value = '';
             document.getElementById('c-tid').value = '';
             document.getElementById('c-user-rate').value = '';
             document.getElementById('c-admin-rate').value = '';
