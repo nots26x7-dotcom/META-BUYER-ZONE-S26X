@@ -39,7 +39,7 @@
         .main-card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 12px; border: 1px solid var(--border); } 
         
         .tab-menu { display: flex; background: rgba(0,0,0,0.2); border-radius: 12px; padding: 4px; margin-bottom: 12px; gap: 4px; overflow-x: auto; } 
-        .tab { flex: 1; text-align: center; padding: 10px 5px; font-size: 10px; font-weight: 800; cursor: pointer; border-radius: 10px; color: var(--subtext); display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 70px; } 
+        .tab { flex: 1; text-align: center; padding: 10px 5px; font-size: 10px; font-weight: 800; cursor: pointer; border-radius: 10px; color: var(--subtext); display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 70px; transition: 0.2s ease; } 
         .tab.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); } 
         .tab-count { font-size: 9px; padding: 1px 6px; border-radius: 10px; background: rgba(255,255,255,0.1); color: white; }
 
@@ -59,7 +59,7 @@
         .rate-box { background: rgba(0,0,0,0.2); padding: 8px; border-radius: 12px; border: 1px solid var(--border); }
         .rate-box input { border: none; background: transparent; width: 100%; font-weight: 700; outline: none; color: var(--primary); }
 
-        .btn { border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; } 
+        .btn { border: none; padding: 10px; border-radius: 12px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.15s ease;} 
         input, select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; box-sizing: border-box; background: rgba(0,0,0,0.2); color: white; outline: none; }
         
         .user-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 8px; border: 1px solid var(--border); }
@@ -70,8 +70,8 @@
         .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: white; border-radius: 50%; transition: .4s; }
         input:checked + .slider { background-color: var(--success); }
         input:checked + .slider:before { transform: translateX(16px); }
-        .main-card, .coin-box, .order-box, .stat-box, .user-row { animation: riseIn .45s ease both; }
-        .btn:active { transform: scale(.98); }
+        .main-card, .coin-box, .order-box, .stat-box, .user-row { animation: riseIn .3s ease both; }
+        .btn:active { transform: scale(.96); }
         @keyframes riseIn { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
     </style> 
 </head> 
@@ -89,14 +89,13 @@
 <div class="container" id="admin-panel"> 
     <div style="display:flex; justify-content:space-between; align-items:center; margin:0 auto 12px; max-width:500px;">
         <button class="btn" style="background:rgba(255,255,255,0.06); color:white; border:1px solid var(--border); width:auto; padding:10px 14px;" onclick="goBackToUserPanel()">← Back</button>
-        <div style="font-weight:800; color:var(--subtext); font-size:12px;">META BUYER ZONE Admin Panel</div>
+        <div style="font-weight:800; color:var(--subtext); font-size:12px;" id="admin-site-name">META BUYER ZONE Admin</div>
     </div>
     <div class="stats-row">
         <div class="stat-box">
             <small>PENDING ORDERS</small>
             <h3 id="stat-pending-count" style="color:var(--warning)">0</h3>
         </div>
-        
     </div>
 
     <div class="main-card"> 
@@ -138,7 +137,7 @@
                     <input type="number" id="c-admin-rate-min" placeholder="Admin Rate From Coin">
                     <input type="number" id="c-min-submit" placeholder="Min Submit Limit">
                 </div>
-                <button class="btn" style="background:var(--primary); color:white;" onclick="addCoin()">+ Add New Coin</button>
+                <button class="btn" style="background:var(--primary); color:white; margin-top:10px;" onclick="addCoin()">+ Add New Coin</button>
             </div>
             <div id="coin-list"></div>
             <hr style="margin:20px 0; border:0; border-top:1px solid var(--border);">
@@ -160,7 +159,7 @@
 
 <script> 
 const firebaseConfig = {
- apiKey: "AIzaSyAjd4BQRBAKS8buzNx8kLtCXeqUJxR6pI4",
+  apiKey: "AIzaSyAjd4BQRBAKS8buzNx8kLtCXeqUJxR6pI4",
   authDomain: "meta-buyer-zone-own.firebaseapp.com",
   databaseURL: "https://meta-buyer-zone-own-default-rtdb.firebaseio.com",
   projectId: "meta-buyer-zone-own",
@@ -175,13 +174,13 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-// IMPORTANT: ekhane user.html er sathe same admin Telegram user ID gulo rakhben
 const ADMIN_IDS = [8505710811, 8583821482];
 const tgUser = tg.initDataUnsafe.user || {};
 const currentUserId = Number(tgUser.id || 0);
 const isAdmin = ADMIN_IDS.includes(currentUserId);
 
 let currentTab = 'pending';
+let globalOrders = {}; // SUPER FAST CACHING
 
 function filterTab(t, el) { 
     currentTab = t; 
@@ -197,23 +196,24 @@ function filterTab(t, el) {
     } else {
         orderSection.style.display = 'block';
         settingsSection.style.display = 'none';
-        db.ref('orders').once('value', s => renderOrders(s.val() || {})); 
+        renderOrders(globalOrders); // Instant render without fetching again
     }
 }
 
 function startSystem() {
+    // Listen once, update global cache instantly
     db.ref('orders').on('value', snap => {
-        const orders = snap.val() || {};
+        globalOrders = snap.val() || {};
         let counts = { pending: 0, completed: 0, rejected: 0 };
-        Object.values(orders).forEach(o => {
-            counts[o.status]++;
+        Object.values(globalOrders).forEach(o => {
+            if(counts[o.status] !== undefined) counts[o.status]++;
         });
         document.getElementById('stat-pending-count').innerText = counts.pending;
         document.getElementById('count-pending').innerText = counts.pending;
         document.getElementById('count-completed').innerText = counts.completed;
         document.getElementById('count-rejected').innerText = counts.rejected;
         
-        if(currentTab !== 'settings') renderOrders(orders);
+        if(currentTab !== 'settings') renderOrders(globalOrders);
     });
 
     db.ref('leaderboard').on('value', s => {
@@ -221,17 +221,18 @@ function startSystem() {
         let lbHtml = "";
         Object.values(users).sort((a,b) => b.totalAmount - a.totalAmount).forEach(u => {
             const displayName = u.user.startsWith('@') ? u.user.slice(1) : u.user;
-lbHtml += `
-<div class="user-row">
-    <div><b style="color:white">${displayName}</b><br><small style="color:var(--success)">${u.totalAmount.toFixed(2)}৳</small></div>
-    <button style="border:none; color:var(--danger); background:none; font-weight:800; cursor:pointer;" onclick="if(confirm('Delete user?')) db.ref('leaderboard/${u.user}').remove()">DEL</button>
-</div>`;
+            lbHtml += `
+            <div class="user-row">
+                <div><b style="color:white">${displayName}</b><br><small style="color:var(--success)">${u.totalAmount.toFixed(2)}৳</small></div>
+                <button style="border:none; color:var(--danger); background:none; font-weight:800; cursor:pointer;" onclick="if(confirm('Delete user?')) db.ref('leaderboard/${u.user}').remove()">DEL</button>
+            </div>`;
         });
         document.getElementById('leaderboard-list').innerHTML = lbHtml || "<center style='color:var(--subtext)'>No Users</center>";
     });
 
     renderCoinList();
     renderPaymentList();
+    loadBranding();
 }
 
 function renderOrders(orders) { 
@@ -259,7 +260,19 @@ function renderOrders(orders) {
     document.getElementById('order-list').innerHTML = html || "<center style='color:var(--subtext); padding:20px;'>Empty</center>"; 
 }
 
-function updOrd(id, s, u, p) { db.ref('orders/'+id).update({status:s}); if(s === 'completed' && u) { db.ref('leaderboard/'+u).once('value', sn => { let d = sn.val() || {totalAmount:0, user: u}; db.ref('leaderboard/'+u).update({ user:u, totalAmount: (parseFloat(d.totalAmount)+p) }); }); } }
+function updOrd(id, s, u, p) { 
+    // Optimistic UI Update for ultra fast feeling
+    if(globalOrders[id]) globalOrders[id].status = s;
+    renderOrders(globalOrders);
+    
+    db.ref('orders/'+id).update({status:s}); 
+    if(s === 'completed' && u) { 
+        db.ref('leaderboard/'+u).once('value', sn => { 
+            let d = sn.val() || {totalAmount:0, user: u}; 
+            db.ref('leaderboard/'+u).update({ user:u, totalAmount: (parseFloat(d.totalAmount)+p) }); 
+        }); 
+    } 
+}
 
 function renderCoinList() {
     db.ref('marketConfig').on('value', snap => { 
@@ -348,18 +361,22 @@ function saveBrandingAndLinks() {
         alert('Saved!');
     });
 }
-db.ref('settings/branding').on('value', snap => {
-    const branding = snap.val() || {};
-    document.getElementById('site-name').value = branding.siteName || 'META BUYER ZONE';
-    document.title = (branding.siteName || 'META BUYER ZONE') + ' - Admin Panel';
-});
-db.ref('settings/links').on('value', snap => {
-    const data = snap.val() || {};
-    document.getElementById('link-channel').value = data.channel || '';
-    document.getElementById('link-help').value = data.help || '';
-});
 
-function addPayment() { const name = document.getElementById('new-pay-method').value; if(name) db.ref('paymentMethods/'+name).set({status: true}); }
+function loadBranding() {
+    db.ref('settings/branding').on('value', snap => {
+        const branding = snap.val() || {};
+        document.getElementById('site-name').value = branding.siteName || 'META BUYER ZONE';
+        document.title = (branding.siteName || 'META BUYER ZONE') + ' - Admin Panel';
+        document.getElementById('admin-site-name').innerText = (branding.siteName || 'META BUYER ZONE') + ' Admin';
+    });
+    db.ref('settings/links').on('value', snap => {
+        const data = snap.val() || {};
+        document.getElementById('link-channel').value = data.channel || '';
+        document.getElementById('link-help').value = data.help || '';
+    });
+}
+
+function addPayment() { const name = document.getElementById('new-pay-method').value; if(name) db.ref('paymentMethods/'+name).set({status: true}); document.getElementById('new-pay-method').value='';}
 function renderPaymentList() { db.ref('paymentMethods').on('value', snap => { let html = ""; snap.forEach(p => { html += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); align-items:center;"><span style="color:white">${p.key}</span><div style="display:flex; gap:8px;"><label class="switch"><input type="checkbox" ${p.val().status?'checked':''} onchange="db.ref('paymentMethods/${p.key}').update({status:this.checked})"><span class="slider"></span></label><button style="border:none; color:var(--danger); background:none; font-weight:800;" onclick="db.ref('paymentMethods/${p.key}').remove()">Del</button></div></div>`; }); document.getElementById('payment-list').innerHTML = html; }); }
 
 function goBackToUserPanel() {
