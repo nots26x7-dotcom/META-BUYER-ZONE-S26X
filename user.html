@@ -26,6 +26,9 @@
         * { box-sizing: border-box; font-family: 'Urbanist', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
         body { background: var(--bg); margin: 0; padding: 15px; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
 
+        /* --- PARTICLES BACKGROUND --- */
+        #particles-bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+
         /* --- CYBER TECH WAVE STRIKE LOADING SCREEN --- */
         #loading { 
             position: fixed; inset: 0; background: #020617; 
@@ -114,7 +117,6 @@
         .fee-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
 
         .nav-dock { position: fixed; bottom: 20px; left: 20px; right: 20px; height: 75px; background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 26px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .nav-dock { position: fixed; bottom: 20px; left: 20px; right: 20px; height: 75px; background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 26px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
         .nav-tab { border: none; background: none; color: #4b5563; font-size: 24px; transition: 0.3s; padding: 10px; }
         .nav-tab.active { color: var(--primary); transform: translateY(-8px); text-shadow: 0 0 15px var(--primary-glow); }
         .action-card { background: var(--card); border-radius: 18px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
@@ -138,6 +140,9 @@
     </style>
 </head>
 <body>
+
+<!-- Partcles Background Canvas -->
+<canvas id="particles-bg"></canvas>
 
 <div id="loading">
     <div class="cyber-loader">
@@ -256,6 +261,63 @@
 </div>
 
 <script>
+    // --- PARTICLES BACKGROUND SYSTEM (90 FPS Target) ---
+    const canvas = document.getElementById('particles-bg');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let particles = [];
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedY = Math.random() * 1.5 + 0.5; 
+            this.speedX = (Math.random() - 0.5) * 0.5; 
+            this.color = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.4)' : 'rgba(59, 130, 246, 0.5)';
+        }
+        update() {
+            this.y += this.speedY;
+            this.x += this.speedX;
+            if (this.y > height) {
+                this.y = -this.size;
+                this.x = Math.random() * width;
+            }
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        let count = Math.floor(width / 12); // adjusting density
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, width, height);
+        for(let i=0; i<particles.length; i++){
+            particles[i].update();
+            particles[i].draw();
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    initParticles();
+    animateParticles();
+    // ----------------------------------------------------
+
     const firebaseConfig = {
       apiKey: "AIzaSyAjd4BQRBAKS8buzNx8kLtCXeqUJxR6pI4",
       authDomain: "meta-buyer-zone-own.firebaseapp.com",
@@ -297,7 +359,7 @@
                 document.querySelector('.profile-card')?.classList.add('fade-up');
                 document.querySelector('.quick-actions')?.classList.add('fade-up');
             }, 800);
-        }, 3000); // ৩ সেকেন্ড পর মেইন ইন্টারফেস লোড হবে
+        }, 3000); 
     });
 
     if (isAdmin) {
@@ -372,9 +434,10 @@
             const adminRateMinCoins = Number(v.adminRateMinCoins || 0);
             const minSubmitLimit = Number(v.minSubmitLimit || 5000);
             const transferId = v.transferId || '';
+            const inputType = v.inputType || 'username'; // Extract input type, default to username
             const logoHtml = v.logo ? `<img src="${v.logo}" style="width:100%; height:100%; object-fit:cover; border-radius:14px;">` : `<span style="font-size:22px; color:var(--primary);">💰</span>`;
             
-            h += `<div class="coin-card fade-up" onclick="${on?`openM('${c.key}',${Number(v.userRate || 0)},'${transferId}',${adminRate},${adminRateMinCoins},${minSubmitLimit})`:''}" style="opacity: ${on?1:0.6}; animation-delay:${idx * 0.05}s;">
+            h += `<div class="coin-card fade-up" onclick="${on?`openM('${c.key}',${Number(v.userRate || 0)},'${transferId}',${adminRate},${adminRateMinCoins},${minSubmitLimit},'${inputType}')`:''}" style="opacity: ${on?1:0.6}; animation-delay:${idx * 0.05}s;">
                 <div style="position:absolute; top:15px; right:15px; font-size:10px; font-weight:900; color:${on?`#3b82f6`:'#ef4444'};">${on?'● ONLINE':'● OFFLINE'}</div>
                 <div style="display:flex; align-items:center; gap:15px;">
                     <div style="width:48px; height:48px; background:rgba(59,130,246,0.1); border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
@@ -402,16 +465,26 @@
         document.getElementById('m-select').innerHTML = o;
     });
 
-    function openM(n, r, t, adminRate = 0, adminRateMinCoins = 0, minSubmitLimit = 5000) {
+    function openM(n, r, t, adminRate = 0, adminRateMinCoins = 0, minSubmitLimit = 5000, inputType = 'username') {
         selC = n;
         selR = Number(r || 0);
         currentTID = t || '';
         selAdminRate = Number(adminRate || 0);
         selAdminRateMinCoins = Number(adminRateMinCoins || 0);
         selMinSubmitLimit = Number(minSubmitLimit || 5000);
+        
         document.getElementById('m-title').innerText = "Sell " + n;
         document.getElementById('admin-id').innerText = currentTID || '---';
         document.getElementById('c-qty').placeholder = `Amount (Min ${selMinSubmitLimit})`;
+        
+        // Dynamically change input placeholder based on admin's preference
+        const senderInput = document.getElementById('c-sender');
+        if (inputType === 'code') {
+            senderInput.placeholder = "Enter Your Transfer Code";
+        } else {
+            senderInput.placeholder = "Sender Username";
+        }
+
         document.getElementById('order-modal').style.display = 'flex';
         setTimeout(() => document.getElementById('order-modal').classList.add('active'), 10);
         calc();
