@@ -1,494 +1,897 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>META BUYER ZONE</title>
-    <!-- Moved Firebase to top for faster loading -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root { 
-            --primary: #3b82f6; 
-            --primary-glow: rgba(59, 130, 246, 0.4);
-            --bg: #030712; 
-            --card: #111827; 
-            --text: #f8fafc; 
-            --subtext: #94a3b8;
-            --border: rgba(255,255,255,0.06);
-            --glass: rgba(255,255,255,0.03);
-            --danger: #ef4444;
-            --neon-cyan: #00f2fe;
-            --neon-blue: #4facfe;
-        }
-        
-        * { box-sizing: border-box; font-family: 'Urbanist', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; }
-        body { background: var(--bg); margin: 0; padding: 15px; padding-bottom: 120px; color: var(--text); overflow-x: hidden; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>META BUYER ZONE</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #030712;
+      --bg2:        #070b14;
+      --card:       rgba(13,20,40,0.85);
+      --card-solid: #0d1428;
+      --glass:      rgba(255,255,255,0.03);
+      --border:     rgba(255,255,255,0.06);
+      --border-hi:  rgba(255,255,255,0.12);
+      --text:       #f0f4ff;
+      --subtext:    #6b7fa3;
+      --blue:       #3b82f6;
+      --blue-glow:  rgba(59,130,246,0.35);
+      --cyan:       #00e5ff;
+      --cyan-glow:  rgba(0,229,255,0.3);
+      --purple:     #a855f7;
+      --purple-glow:rgba(168,85,247,0.3);
+      --emerald:    #10d980;
+      --emerald-glow:rgba(16,217,128,0.3);
+      --crimson:    #f43f5e;
+      --crimson-glow:rgba(244,63,94,0.3);
+      --gold:       #fbbf24;
+      --gold-glow:  rgba(251,191,36,0.3);
+    }
 
-        /* --- PARTICLES BACKGROUND --- */
-        #particles-bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
+    * { box-sizing: border-box; font-family: 'Urbanist', sans-serif; -webkit-tap-highlight-color: transparent; outline: none; margin: 0; padding: 0; }
 
-        /* --- CYBER TECH WAVE STRIKE LOADING SCREEN --- */
-        #loading { 
-            position: fixed; inset: 0; background: #020617; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 0.4s ease;
-            overflow: hidden;
-        }
+    html, body { background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* Ambient Light Glow Behind Loader */
-        #loading::before {
-            content: ''; position: absolute; width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
-            filter: blur(30px); animation: ambientGlow 4s ease-in-out infinite alternate;
-        }
+    body { padding: 16px 14px 130px; min-height: 100vh; position: relative; }
 
-        .cyber-loader { position: relative; width: 140px; height: 140px; display: flex; align-items: center; justify-content: center; }
-        
-        /* Wave Strike Elements */
-        .wave-strike {
-            position: absolute; inset: 0; border: 2px solid transparent; border-radius: 50%;
-            background: linear-gradient(var(--bg), var(--bg)) padding-box,
-                        linear-gradient(135deg, var(--neon-cyan), var(--neon-blue)) border-box;
-            opacity: 0; transform: scale(0.4);
-            animation: waveStrikeEffect 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(79, 172, 254, 0.2);
-        }
-        .wave-strike:nth-child(2) { animation-delay: 0.8s; }
-        .wave-strike:nth-child(3) { animation-delay: 1.6s; }
-        
-        .loading-logo {
-            position: absolute; width: 75px; height: 75px; z-index: 2;
-            background: url('https://i.ibb.co.com/Ldvq1Thv/META-BUYER-ZONE.png') center/cover;
-            border-radius: 22px; box-shadow: 0 0 35px var(--primary-glow); 
-            border: 1px solid rgba(255,255,255,0.15);
-            animation: logoPulse 2s ease-in-out infinite alternate;
-        }
+    /* ===== PARTICLES ===== */
+    #cv { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
 
-        /* Animations */
-        @keyframes waveStrikeEffect {
-            0% { transform: scale(0.5); opacity: 0; }
-            10% { opacity: 0.8; border-width: 3px; }
-            40% { opacity: 0.5; }
-            100% { transform: scale(1.4); opacity: 0; border-width: 1px; filter: blur(1px); }
-        }
-        @keyframes logoPulse {
-            0% { transform: scale(1); box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
-            100% { transform: scale(1.05); box-shadow: 0 0 45px rgba(0, 242, 254, 0.6); }
-        }
-        @keyframes ambientGlow {
-            0% { transform: translate(-5%, -5%) scale(0.9); opacity: 0.7; }
-            100% { transform: translate(5%, 5%) scale(1.1); opacity: 1; }
-        }
-        
-        .load-text { 
-            margin-top: 40px; font-weight: 900; font-size: 11px; letter-spacing: 5px; 
-            color: #f8fafc; text-transform: uppercase; z-index: 2;
-            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
-            animation: textGlowPop 1.5s ease-in-out infinite alternate; 
-        }
-        @keyframes textGlowPop { 
-            0% { opacity: 0.6; text-shadow: 0 0 8px rgba(59, 130, 246, 0.4); } 
-            100% { opacity: 1; text-shadow: 0 0 18px rgba(0, 242, 254, 0.8); color: var(--neon-cyan); } 
-        }
+    /* ===== LOADING SCREEN ===== */
+    #loading {
+      position: fixed; inset: 0; background: var(--bg); z-index: 10000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease;
+    }
+    #loading::before {
+      content: ''; position: absolute;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: ambGlow 5s ease-in-out infinite alternate;
+    }
+    .cyber-loader { position: relative; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; }
+    .wave-ring {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--bg), var(--bg)) padding-box,
+                  linear-gradient(135deg, var(--cyan), var(--blue)) border-box;
+      animation: waveOut 2.4s cubic-bezier(0.1,0.8,0.3,1) infinite;
+      opacity: 0;
+    }
+    .wave-ring:nth-child(2) { animation-delay: 0.8s; }
+    .wave-ring:nth-child(3) { animation-delay: 1.6s; }
+    .load-logo {
+      position: absolute; width: 80px; height: 80px; border-radius: 24px;
+      background: url('https://i.ibb.co.com/Ldvq1Thv/META-BUYER-ZONE.png') center/cover;
+      border: 1px solid rgba(0,229,255,0.2);
+      box-shadow: 0 0 30px var(--cyan-glow), 0 0 60px rgba(59,130,246,0.15);
+      animation: logoPulse 2s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+    .load-title {
+      margin-top: 44px; font-size: 11px; font-weight: 900; letter-spacing: 6px;
+      text-transform: uppercase; color: var(--cyan);
+      text-shadow: 0 0 18px var(--cyan-glow);
+      animation: titleFlick 1.6s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+    .load-sub {
+      margin-top: 8px; font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--subtext); opacity: 0.7; z-index: 2;
+    }
 
-        /* --- UI COMPONENTS --- */
-        .profile-card { background: linear-gradient(135deg, #1d4ed8, #3b82f6); border-radius: 24px; padding: 20px; display: flex; align-items: center; margin-top: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); }
-        .user-avatar { width: 55px; height: 55px; border-radius: 18px; border: 2px solid rgba(255,255,255,0.2); object-fit: cover; }
-        
-        .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .action-btn { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 14px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; font-size: 13px; font-weight: 700; transition: 0.2s; }
-        .action-btn:active { transform: scale(0.95); background: var(--glass); }
-        .icon-circle { width: 34px; height: 34px; border-radius: 12px; background: rgba(59, 130, 246, 0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 18px; }
+    @keyframes waveOut {
+      0%   { transform: scale(0.45); opacity: 0; }
+      8%   { opacity: 0.85; border-width: 3px; }
+      100% { transform: scale(1.5); opacity: 0; border-width: 1px; filter: blur(1px); }
+    }
+    @keyframes logoPulse {
+      0%   { transform: scale(1);    box-shadow: 0 0 25px var(--blue-glow); }
+      100% { transform: scale(1.06); box-shadow: 0 0 50px var(--cyan-glow), 0 0 80px rgba(59,130,246,0.2); }
+    }
+    @keyframes ambGlow {
+      0%   { transform: translate(-8%,-8%) scale(0.9); opacity: 0.6; }
+      100% { transform: translate(8%,8%)  scale(1.1); opacity: 1; }
+    }
+    @keyframes titleFlick {
+      0%   { opacity: 0.6; text-shadow: 0 0 10px rgba(59,130,246,0.4); color: var(--blue); }
+      100% { opacity: 1;   text-shadow: 0 0 22px var(--cyan-glow); color: var(--cyan); }
+    }
 
-        .coin-card { background: var(--card); border-radius: 22px; padding: 20px; margin-bottom: 15px; border: 1px solid var(--border); position: relative; transition: 0.3s; }
-        .rate-box { background: var(--glass); padding: 12px; border-radius: 16px; text-align: center; border: 1px solid var(--border); }
+    /* ===== MAIN CONTENT ===== */
+    #app { position: relative; z-index: 1; display: none; }
 
-        .modal-mask { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); display: none; align-items: flex-end; z-index: 2000; }
-        .bottom-sheet { background: #0f172a; border-top: 1px solid var(--border); width: 100%; border-radius: 30px 30px 0 0; padding: 25px; transform: translateY(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); color: var(--text); }
-        .modal-mask.active .bottom-sheet { transform: translateY(0); }
-        
-        .form-input { width: 100%; background: #1f2937; border: 1px solid var(--border); padding: 15px; border-radius: 15px; font-size: 14px; color: white; margin-bottom: 12px; transition: 0.3s; }
-        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--primary-glow); }
+    /* ===== PROFILE CARD ===== */
+    .profile-card {
+      background: linear-gradient(135deg, rgba(17,34,85,0.9) 0%, rgba(29,78,216,0.7) 100%);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 28px; padding: 20px 22px;
+      display: flex; align-items: center; gap: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      margin-top: 44px;
+    }
+    .user-avatar {
+      width: 58px; height: 58px; border-radius: 18px;
+      border: 2px solid rgba(0,229,255,0.3);
+      object-fit: cover; flex-shrink: 0;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .profile-info { flex: 1; min-width: 0; }
+    .profile-name { font-size: 19px; font-weight: 900; color: #fff; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .profile-tag  { font-size: 12px; font-weight: 600; color: rgba(0,229,255,0.7); margin-top: 3px; }
+    .approved-badge {
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 16px; padding: 10px 16px; text-align: center; flex-shrink: 0;
+      backdrop-filter: blur(10px);
+    }
+    .approved-badge small { font-size: 8px; font-weight: 900; letter-spacing: 2px; color: var(--cyan); display: block; margin-bottom: 3px; }
+    .approved-badge b { font-size: 22px; font-weight: 900; color: #fff; }
 
-        .btn-primary { background: var(--primary); color: white; border: none; width: 100%; padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 800; box-shadow: 0 8px 20px var(--primary-glow); transition: 0.2s; }
+    /* ===== SECTION HEADER ===== */
+    .sec-header {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 900; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--subtext);
+      margin: 28px 0 14px 2px;
+    }
+    .sec-bar { width: 4px; height: 18px; border-radius: 10px; flex-shrink: 0; }
 
-        .fee-info { background: rgba(239, 68, 68, 0.05); border-radius: 14px; padding: 12px; margin-bottom: 15px; border: 1px solid rgba(239, 68, 68, 0.1); }
-        .fee-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; }
+    /* ===== QUICK ACTIONS ===== */
+    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .quick-actions.single { grid-template-columns: 1fr; }
+    .qa-btn {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 14px 16px;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--text); font-size: 13px; font-weight: 800;
+      cursor: pointer; transition: all 0.2s ease;
+      text-decoration: none; backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .qa-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.04); }
+    .qa-icon {
+      width: 36px; height: 36px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .qa-admin {
+      background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(59,130,246,0.2));
+      border-color: rgba(168,85,247,0.3);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 20px rgba(168,85,247,0.1);
+    }
 
-        .nav-dock { position: fixed; bottom: 20px; left: 20px; right: 20px; height: 75px; background: rgba(17, 24, 39, 0.85); backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 26px; display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
-        .nav-tab { border: none; background: none; color: #4b5563; font-size: 24px; transition: 0.3s; padding: 10px; cursor: pointer; }
-        .nav-tab.active { color: var(--primary); transform: translateY(-8px); text-shadow: 0 0 15px var(--primary-glow); }
-        .action-card { background: var(--card); border-radius: 18px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    /* ===== COIN CARDS ===== */
+    .coin-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 20px;
+      margin-bottom: 14px; position: relative;
+      overflow: hidden; cursor: pointer;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      animation: riseUp 0.45s ease both;
+    }
+    .coin-card:active { transform: scale(0.985); }
+    .coin-card.online:active { box-shadow: 0 4px 40px var(--cyan-glow); border-color: rgba(0,229,255,0.3); }
+    .coin-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+      transform: translateX(-120%); transition: transform 0.6s ease; pointer-events: none;
+    }
+    .coin-card:hover::after { transform: translateX(120%); }
+    .coin-logo {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.15);
+      display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;
+    }
+    .coin-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
+    .coin-name { font-size: 19px; font-weight: 900; }
+    .coin-label { font-size: 9px; font-weight: 800; letter-spacing: 2px; color: var(--subtext); margin-top: 2px; }
+    .status-dot {
+      position: absolute; top: 18px; right: 18px;
+      font-size: 10px; font-weight: 900; letter-spacing: 1px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .dot.on  { background: var(--cyan);   box-shadow: 0 0 8px var(--cyan);   animation: blink 2s ease-in-out infinite; }
+    .dot.off { background: var(--crimson); }
+    .rates-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .rate-box {
+      background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+      border-radius: 14px; padding: 12px; text-align: center;
+    }
+    .rate-box small { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; color: var(--subtext); display: block; margin-bottom: 4px; }
+    .rate-box b { font-size: 16px; font-weight: 900; }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .tag {
+      font-size: 10px; font-weight: 800; padding: 5px 12px;
+      border-radius: 999px; border: 1px solid;
+    }
+    .tag-blue   { background: rgba(59,130,246,0.08);  color: #93c5fd; border-color: rgba(59,130,246,0.2); }
+    .tag-purple { background: rgba(168,85,247,0.08); color: #c084fc; border-color: rgba(168,85,247,0.2); }
 
-        .fade-up { animation: fadeUp 0.55s ease both; }
-        .glow-pop { animation: glowPop 0.45s ease; }
-        .coin-card { overflow: hidden; }
-        .coin-card::after { content:''; position:absolute; inset:0; background:linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.05) 45%, transparent 100%); transform:translateX(-120%); transition:transform 0.7s ease; pointer-events:none; }
-        .coin-card:hover::after { transform:translateX(120%); }
-        .coin-card:active { transform: scale(0.985); }
-        .profile-card, .quick-actions, .coin-card, .action-card, .bottom-sheet { will-change: transform, opacity; }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes glowPop {
-            0% { transform: scale(0.98); box-shadow: 0 0 0 rgba(59,130,246,0); }
-            50% { transform: scale(1.01); box-shadow: 0 0 28px rgba(59,130,246,0.22); }
-            100% { transform: scale(1); box-shadow: 0 0 0 rgba(59,130,246,0); }
-        }
-    </style>
+    /* ===== NAV DOCK ===== */
+    .nav-dock {
+      position: fixed; bottom: 18px; left: 16px; right: 16px; height: 72px;
+      background: rgba(7,11,20,0.9); backdrop-filter: blur(30px);
+      border: 1px solid var(--border); border-radius: 28px;
+      display: flex; justify-content: space-around; align-items: center;
+      z-index: 1000;
+      box-shadow: 0 -4px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .nav-tab {
+      border: none; background: none; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 8px 14px; border-radius: 18px; transition: all 0.25s ease;
+      color: var(--subtext);
+    }
+    .nav-tab .nav-icon { font-size: 22px; transition: transform 0.25s ease; }
+    .nav-tab .nav-label { font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .nav-tab.active { color: var(--cyan); }
+    .nav-tab.active .nav-icon { transform: translateY(-4px); filter: drop-shadow(0 0 8px var(--cyan-glow)); }
+
+    /* ===== HISTORY CARDS ===== */
+    .hist-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 16px; margin-bottom: 12px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      backdrop-filter: blur(16px); animation: riseUp 0.35s ease both;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .hist-status {
+      font-size: 10px; font-weight: 900; letter-spacing: 1.5px;
+      padding: 5px 10px; border-radius: 8px;
+    }
+    .s-pending   { background: rgba(251,191,36,0.1);  color: var(--gold);    border: 1px solid rgba(251,191,36,0.2); }
+    .s-completed { background: rgba(0,229,255,0.08);  color: var(--cyan);    border: 1px solid rgba(0,229,255,0.2); }
+    .s-rejected  { background: rgba(244,63,94,0.08);  color: var(--crimson); border: 1px solid rgba(244,63,94,0.2); }
+
+    /* ===== LEADERBOARD ===== */
+    .lb-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 18px; padding: 14px 16px; margin-bottom: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(16px); animation: riseUp 0.35s ease both;
+    }
+    .lb-rank {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900; flex-shrink: 0;
+    }
+    .rank-1 { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #000; box-shadow: 0 0 16px rgba(251,191,36,0.5); }
+    .rank-2 { background: linear-gradient(135deg, #64748b, #94a3b8); color: #000; }
+    .rank-3 { background: linear-gradient(135deg, #92400e, #b45309); color: #fff; }
+    .rank-n { background: rgba(59,130,246,0.1); color: var(--blue); border: 1px solid rgba(59,130,246,0.2); }
+
+    /* ===== BOTTOM SHEET / MODAL ===== */
+    .modal-mask {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(14px); display: none; align-items: flex-end; z-index: 2000;
+    }
+    .modal-mask.active { display: flex; }
+    .bottom-sheet {
+      background: rgba(7,11,25,0.98); border: 1px solid var(--border-hi);
+      border-bottom: none; width: 100%; border-radius: 32px 32px 0 0;
+      padding: 24px 20px 30px; max-height: 92vh; overflow-y: auto;
+      transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 -20px 60px rgba(0,0,0,0.7);
+    }
+    .modal-mask.active .bottom-sheet { transform: translateY(0); }
+    .sheet-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.12); border-radius: 2px; margin: 0 auto 20px; }
+    .sheet-title { font-size: 22px; font-weight: 900; }
+
+    .transfer-id-box {
+      background: rgba(0,229,255,0.04); border: 1px dashed rgba(0,229,255,0.3);
+      border-radius: 20px; padding: 16px; text-align: center; margin-bottom: 16px;
+    }
+    .transfer-id-box small { font-size: 9px; font-weight: 900; letter-spacing: 2px; color: var(--cyan); display: block; margin-bottom: 6px; }
+    .tid-value { font-size: 22px; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px; word-break: break-all; }
+    .copy-btn {
+      background: var(--cyan); color: #000; border: none;
+      padding: 7px 20px; border-radius: 10px; font-size: 10px; font-weight: 900;
+      letter-spacing: 1px; cursor: pointer; transition: all 0.15s;
+    }
+    .copy-btn:active { transform: scale(0.95); }
+
+    .form-input {
+      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 16px; font-size: 14px; font-weight: 600;
+      color: var(--text); margin-bottom: 10px; transition: all 0.25s;
+    }
+    .form-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
+    .form-input option { background: #0d1428; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; }
+
+    .calc-box {
+      background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+      border-radius: 18px; padding: 14px; margin-bottom: 14px;
+    }
+    .calc-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; align-items: center; }
+    .calc-row:last-child { margin-bottom: 0; font-size: 17px; font-weight: 900; }
+    .calc-divider { height: 1px; background: var(--border); margin: 10px 0; }
+
+    .btn-primary {
+      width: 100%; background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border: none; padding: 17px; border-radius: 18px;
+      font-size: 15px; font-weight: 900; letter-spacing: 1px; color: #000;
+      cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 8px 30px var(--blue-glow);
+    }
+    .btn-primary:active { transform: scale(0.96); box-shadow: 0 4px 20px var(--blue-glow); }
+
+    /* ===== CONFIRM MODAL ===== */
+    .confirm-mask {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(18px); display: none;
+      justify-content: center; align-items: center; z-index: 3000; padding: 20px;
+    }
+    .confirm-mask.active { display: flex; }
+    .confirm-box {
+      background: rgba(13,20,40,0.98); border: 1px solid var(--border-hi);
+      border-radius: 30px; padding: 28px; width: 100%; max-width: 360px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .confirm-icon { font-size: 42px; text-align: center; margin-bottom: 10px; }
+    .confirm-title { font-size: 18px; font-weight: 900; text-align: center; margin-bottom: 18px; }
+    .confirm-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; }
+    .confirm-row span:first-child { color: var(--subtext); }
+    .confirm-row span:last-child  { font-weight: 800; }
+    .confirm-total { font-size: 20px; font-weight: 900; display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 14px; margin-top: 8px; }
+    .confirm-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .btn-back {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--text); padding: 15px; border-radius: 16px; font-size: 14px; font-weight: 800;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-back:active { transform: scale(0.96); }
+    .btn-go {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border: none; color: #000; padding: 15px; border-radius: 16px; font-size: 14px; font-weight: 900;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .btn-go:active { transform: scale(0.96); }
+
+    /* ===== TOASTS ===== */
+    .toast {
+      position: fixed; bottom: 110px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: rgba(13,20,40,0.95); border: 1px solid var(--border-hi);
+      border-radius: 14px; padding: 12px 22px; font-size: 13px; font-weight: 800;
+      z-index: 9000; opacity: 0; transition: all 0.3s ease; white-space: nowrap;
+      backdrop-filter: blur(20px); pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes riseUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    /* ===== EMPTY STATES ===== */
+    .empty-state {
+      text-align: center; padding: 50px 20px; color: var(--subtext);
+      font-size: 13px; font-weight: 600;
+    }
+    .empty-state .empty-icon { font-size: 38px; margin-bottom: 12px; opacity: 0.5; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  </style>
 </head>
 <body>
 
-<!-- Partcles Background Canvas -->
-<canvas id="particles-bg"></canvas>
+<canvas id="cv"></canvas>
 
+<!-- LOADING SCREEN -->
 <div id="loading">
-    <div class="cyber-loader">
-        <div class="wave-strike"></div>
-        <div class="wave-strike"></div>
-        <div class="wave-strike"></div>
-        <div class="loading-logo"></div>
-    </div>
-    <div class="load-text" id="brand-loading-text">META BUYER ZONE</div>
+  <div class="cyber-loader">
+    <div class="wave-ring"></div>
+    <div class="wave-ring"></div>
+    <div class="wave-ring"></div>
+    <div class="load-logo"></div>
+  </div>
+  <div class="load-title" id="brand-text">META BUYER ZONE</div>
+  <div class="load-sub">DIGITAL ASSET EXCHANGE</div>
 </div>
 
-<div id="main-content" style="display: none;">
-    <div class="profile-card">
-        <img src="https://i.ibb.co.com/PZ5B9y0x/images.jpg" id="pfp" class="user-avatar">
-        <div style="flex:1; margin-left:15px;">
-            <h3 id="u-name" style="margin:0; font-size:18px;">Welcome</h3>
-            <p id="u-tag" style="margin:0; font-size:12px; opacity:0.8;">@username</p>
-        </div>
-        <div style="background:rgba(255,255,255,0.1); padding:10px 15px; border-radius:15px; text-align:center;">
-            <small style="font-size:9px; font-weight:800; display:block;">APPROVED</small>
-            <b id="suc-count" style="font-size:16px;">0</b>
-        </div>
-    </div>
+<!-- MAIN APP -->
+<div id="app">
 
-    <div class="quick-actions">
-        <button type="button" class="action-btn" id="help-link" onclick="openSafeLink(helpLinkValue)" style="cursor:pointer;">
-            <div class="icon-circle">🎧</div> Help Line
-        </button>
-        <button type="button" class="action-btn" id="channel-link" onclick="openSafeLink(channelLinkValue)" style="cursor:pointer;">
-            <div class="icon-circle">📢</div> Channel
-        </button>
-        <button type="button" class="action-btn" id="admin-access-btn" onclick="openAdminPanel()" style="display:none; width:100%; cursor:pointer; background:linear-gradient(135deg,#1d4ed8,#3b82f6);">
-            <div class="icon-circle" style="background:rgba(255,255,255,0.12); color:#fff;">🛡️</div> Access Admin Panel
-        </button>
+  <!-- PROFILE CARD -->
+  <div class="profile-card" style="animation: riseUp 0.5s ease both;">
+    <img id="pfp" src="https://i.ibb.co.com/PZ5B9y0x/images.jpg" class="user-avatar" onerror="this.style.background='rgba(59,130,246,0.2)';this.src=''">
+    <div class="profile-info">
+      <div class="profile-name" id="u-name">—</div>
+      <div class="profile-tag" id="u-tag">@—</div>
     </div>
-
-    <div id="home-scr">
-        <div style="font-size:20px; font-weight:800; margin:30px 0 15px 5px; display:flex; align-items:center; gap:12px;">
-            <span style="width:4px; height:20px; background:var(--primary); border-radius:10px;"></span> LIVE MARKET -
-        </div>
-        <div id="market-list"></div>
+    <div class="approved-badge">
+      <small>APPROVED</small>
+      <b id="suc-count">0</b>
     </div>
+  </div>
 
-    <div id="history-scr" style="display:none; padding-top:10px;">
-        <div style="font-size:18px; font-weight:800; margin:10px 0 15px 5px; display:flex; align-items:center; gap:10px; color: var(--subtext);">
-            <span style="width:4px; height:18px; background:var(--primary); border-radius:10px;"></span> Your Order History
-        </div>
-        <div id="history-list"></div>
+  <!-- QUICK ACTIONS -->
+  <div class="sec-header" style="animation: riseUp 0.5s 0.05s ease both;">
+    <div class="sec-bar" style="background:var(--blue);"></div>
+    QUICK ACCESS
+  </div>
+  <div class="quick-actions" id="quick-grid" style="animation: riseUp 0.5s 0.08s ease both;">
+    <button class="qa-btn" onclick="openSafeLink(helpLinkValue)">
+      <div class="qa-icon" style="background:rgba(0,229,255,0.1); color:var(--cyan);">🎧</div>
+      <div><div style="font-size:14px; font-weight:900;">Help Line</div><div style="font-size:10px; font-weight:600; color:var(--subtext); margin-top:1px;">24/7 Support</div></div>
+    </button>
+    <button class="qa-btn" onclick="openSafeLink(channelLinkValue)">
+      <div class="qa-icon" style="background:rgba(168,85,247,0.1); color:var(--purple);">📢</div>
+      <div><div style="font-size:14px; font-weight:900;">Channel</div><div style="font-size:10px; font-weight:600; color:var(--subtext); margin-top:1px;">News & Updates</div></div>
+    </button>
+    <button class="qa-btn qa-admin" id="admin-btn" onclick="openAdminPanel()" style="display:none; grid-column:1/-1;">
+      <div class="qa-icon" style="background:rgba(255,255,255,0.08); color:#fff;">🛡️</div>
+      <div><div style="font-size:14px; font-weight:900; color:#fff;">Admin Panel</div><div style="font-size:10px; font-weight:600; color:rgba(168,85,247,0.8); margin-top:1px;">RESTRICTED ACCESS</div></div>
+    </button>
+  </div>
+
+  <!-- HOME SCREEN (MARKET) -->
+  <div id="home-scr">
+    <div class="sec-header" style="margin-top:30px;">
+      <div class="sec-bar" style="background:var(--cyan);"></div>
+      LIVE MARKET
+      <div class="dot on" style="margin-left:4px;"></div>
     </div>
+    <div id="market-list"></div>
+  </div>
 
-    <div id="rank-scr" style="display:none; padding-top:10px;">
-        <div style="font-size:18px; font-weight:800; margin:10px 0 15px 5px; display:flex; align-items:center; gap:10px; color: #fbbf24;">
-            <span style="width:4px; height:18px; background:#fbbf24; border-radius:10px;"></span> Top Sellers
-        </div>
-        <div id="rank-list"></div>
+  <!-- HISTORY SCREEN -->
+  <div id="history-scr" style="display:none; padding-top:8px;">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--gold);"></div>
+      ORDER HISTORY
     </div>
+    <div id="history-list"></div>
+  </div>
 
-    <nav class="nav-dock">
-        <button class="nav-tab active" onclick="tab('home-scr', this)">🏠</button>
-        <button class="nav-tab" onclick="tab('history-scr', this)">🕒</button>
-        <button class="nav-tab" onclick="tab('rank-scr', this)">🏆</button>
-    </nav>
+  <!-- LEADERBOARD SCREEN -->
+  <div id="rank-scr" style="display:none; padding-top:8px;">
+    <div class="sec-header">
+      <div class="sec-bar" style="background:var(--gold);"></div>
+      TOP SELLERS
+    </div>
+    <div id="rank-list"></div>
+  </div>
+
+  <!-- NAV DOCK -->
+  <nav class="nav-dock">
+    <button class="nav-tab active" id="tab-home" onclick="switchTab('home-scr', 'tab-home')">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Market</span>
+    </button>
+    <button class="nav-tab" id="tab-hist" onclick="switchTab('history-scr', 'tab-hist')">
+      <span class="nav-icon">🕒</span>
+      <span class="nav-label">History</span>
+    </button>
+    <button class="nav-tab" id="tab-rank" onclick="switchTab('rank-scr', 'tab-rank')">
+      <span class="nav-icon">🏆</span>
+      <span class="nav-label">Ranks</span>
+    </button>
+  </nav>
 </div>
 
-<div id="order-modal" class="modal-mask">
-    <div class="bottom-sheet">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-            <h2 id="m-title" style="margin:0; font-size:20px; font-weight:900;">Sell COIN</h2>
-            <button onclick="closeM()" style="background:var(--glass); border:none; width:35px; height:35px; border-radius:50%; color:white; cursor:pointer;">✕</button>
-        </div>
-        
-        <div style="background: rgba(59, 130, 246, 0.05); border: 1px dashed var(--primary); padding:12px; border-radius:18px; text-align:center; margin-bottom:15px;">
-            <small style="font-weight:700; color:var(--primary); letter-spacing:1px;">SEND COIN TO THIS ID</small>
-            <div id="admin-id" style="font-size:20px; font-weight:900; margin:5px 0;">---</div>
-            <button onclick="copyID()" style="background:var(--primary); border:none; padding:6px 15px; border-radius:8px; font-size:10px; font-weight:800; color:white; cursor:pointer;">COPY ID</button>
-        </div>
-
-        <input type="number" id="c-qty" class="form-input" placeholder="Amount (Min 5000)" oninput="calc()">
-        <input type="text" id="c-sender" class="form-input" placeholder="Sender Username">
-        
-        <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:10px;">
-            <select id="m-select" class="form-input"></select>
-            <input type="text" id="m-num" class="form-input" placeholder="Payment Number">
-        </div>
-
-        <div class="fee-info">
-            <div class="fee-row"><span>Base Amount:</span> <span id="base-val">0.00 ৳</span></div>
-            <div class="fee-row" style="color:var(--danger)"><span>Send Money Fee:</span> <span>- 5.00 ৳</span></div>
-            <div style="height:1px; background:rgba(255,255,255,0.05); margin:8px 0;"></div>
-            <div class="fee-row" style="font-weight:800; font-size:16px;">
-                <span>Net Payable:</span> <span id="c-res" style="color:var(--primary);">0.00 ৳</span>
-            </div>
-        </div>
-        
-        <button class="btn-primary" onclick="showConfirm()" style="cursor:pointer;">CONFIRM ORDER →</button>
+<!-- BUY/SELL BOTTOM SHEET -->
+<div id="order-modal" class="modal-mask" onclick="handleMaskClick(event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <div class="sheet-title" id="m-title">Sell COIN</div>
+      <button onclick="closeM()" style="background:rgba(255,255,255,0.06); border:1px solid var(--border); width:36px; height:36px; border-radius:50%; color:var(--subtext); cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center;">✕</button>
     </div>
+
+    <div class="transfer-id-box">
+      <small>⚡ SEND COIN TO THIS TRANSFER ID</small>
+      <div class="tid-value" id="admin-id">—</div>
+      <button class="copy-btn" onclick="copyID()">⧉ COPY ID</button>
+    </div>
+
+    <input type="number" id="c-qty" class="form-input" placeholder="Enter Amount (Min: 5000)" oninput="calc()" inputmode="numeric">
+    <input type="text" id="c-sender" class="form-input" placeholder="Sender Username / Transfer Code">
+
+    <div class="form-row" style="margin-bottom:10px;">
+      <select id="m-select" class="form-input" style="margin-bottom:0;"></select>
+      <input type="text" id="m-num" class="form-input" style="margin-bottom:0;" placeholder="Payment Number">
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-row"><span style="color:var(--subtext)">Base Amount</span><span id="base-val" style="font-weight:800;">0.00 ৳</span></div>
+      <div class="calc-row"><span style="color:var(--crimson)">Send Fee</span><span style="color:var(--crimson); font-weight:800;">- 5.00 ৳</span></div>
+      <div class="calc-divider"></div>
+      <div class="calc-row"><span style="color:var(--subtext)">Net Payable</span><span id="c-res" style="color:var(--cyan);">0.00 ৳</span></div>
+    </div>
+
+    <button class="btn-primary" onclick="showConfirm()">CONFIRM ORDER →</button>
+  </div>
 </div>
 
-<div id="confirm-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 3000; padding:20px;">
-    <div style="background: #111827; border: 1px solid var(--border); width: 100%; max-width: 350px; border-radius: 28px; padding: 25px; text-align: center;">
-        <div style="width:60px; height:60px; background:rgba(59, 130, 246, 0.1); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; color:var(--primary); font-size:30px; border:1px solid var(--primary);">✓</div>
-        <h3 style="margin:0 0 20px; font-weight:800;">Review Details</h3>
-        <div id="confirm-rows" style="text-align:left; margin-bottom:20px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; color:var(--subtext);">Coin <span id="sum-amt" style="color:white; font-weight:700;">--</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; color:var(--subtext);">Method: <span id="sum-method" style="color:white; font-weight:700;">--</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px; color:var(--subtext);">Number: <span id="sum-number" style="color:white; font-weight:700;">--</span></div>
-            <div style="height:1px; background:var(--border); margin:15px 0;"></div>
-            <div style="display:flex; justify-content:space-between; font-size:18px; font-weight:800;">Total Payout: <span id="sum-total" style="color:var(--primary);">0.00 ৳</span></div>
-            <small style="color:var(--danger); display:block; text-align:center; margin-top:10px; font-size:10px;">(5 TK Send Money Fee Deducted)</small>
-        </div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
-            <button onclick="hideConfirm()" style="background:var(--glass); color:white; border:1px solid var(--border); padding:15px; border-radius:14px; font-weight:700; cursor:pointer;">Back</button>
-            <button onclick="submit()" style="background:var(--primary); color:white; border:none; padding:15px; border-radius:14px; font-weight:700; cursor:pointer;">Confirm</button>
-        </div>
+<!-- CONFIRM MODAL -->
+<div id="confirm-modal" class="confirm-mask" onclick="handleConfirmMask(event)">
+  <div class="confirm-box">
+    <div class="confirm-icon">🔐</div>
+    <div class="confirm-title">Confirm Your Order</div>
+    <div class="confirm-row"><span>Coin / Amount</span><span id="sum-amt">—</span></div>
+    <div class="confirm-row"><span>Payment Method</span><span id="sum-method">—</span></div>
+    <div class="confirm-row"><span>Payment Number</span><span id="sum-number">—</span></div>
+    <div class="confirm-total">
+      <span>Total Payout</span>
+      <span id="sum-total" style="color:var(--cyan);">0.00 ৳</span>
     </div>
+    <small style="color:var(--crimson); display:block; text-align:center; margin-top:8px; font-size:10px; font-weight:700;">5 TK Send Money Fee Deducted</small>
+    <div class="confirm-btns">
+      <button class="btn-back" onclick="hideConfirm()">← Back</button>
+      <button class="btn-go" id="submit-btn" onclick="submit()">✓ Submit</button>
+    </div>
+  </div>
 </div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
 <script>
-    // --- PARTICLES BACKGROUND SYSTEM ---
-    const canvas = document.getElementById('particles-bg');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    let particles = [];
+/* ===== PARTICLES ===== */
+(function(){
+  const cv = document.getElementById('cv');
+  const cx = cv.getContext('2d');
+  let W, H, pts = [];
+  const MAX = 55;
+  const COLORS = ['rgba(0,229,255,0.45)', 'rgba(59,130,246,0.5)', 'rgba(168,85,247,0.35)', 'rgba(255,255,255,0.25)'];
 
-    window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
+  function resize(){ W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
 
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width; this.y = Math.random() * height;
-            this.size = Math.random() * 2 + 0.5; this.speedY = Math.random() * 1.5 + 0.5; 
-            this.speedX = (Math.random() - 0.5) * 0.5; 
-            this.color = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.4)' : 'rgba(59, 130, 246, 0.5)';
-        }
-        update() {
-            this.y += this.speedY; this.x += this.speedX;
-            if (this.y > height) { this.y = -this.size; this.x = Math.random() * width; }
-        }
-        draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+  function mkPt(){ return { x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.6+0.3, vx:(Math.random()-0.5)*0.35, vy:-(Math.random()*0.8+0.2), c:COLORS[Math.floor(Math.random()*COLORS.length)], a:Math.random()*0.6+0.3 }; }
+  for(let i=0;i<MAX;i++) pts.push(mkPt());
+
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    for(let p of pts){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.y < -4){ p.y=H+4; p.x=Math.random()*W; }
+      if(p.x < -4 || p.x > W+4){ p.x=Math.random()*W; p.y=H+4; }
+      cx.globalAlpha = p.a;
+      cx.fillStyle = p.c;
+      cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2); cx.fill();
     }
+    cx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 
-    function initParticles() { particles = []; let count = Math.floor(width / 12); for (let i = 0; i < count; i++) { particles.push(new Particle()); } }
-    function animateParticles() { ctx.clearRect(0, 0, width, height); for(let i=0; i<particles.length; i++){ particles[i].update(); particles[i].draw(); } requestAnimationFrame(animateParticles); }
-    initParticles(); animateParticles();
+/* ===== FIREBASE ===== */
+const firebaseConfig = {
+  apiKey: "AIzaSyAjd4BQRBAKS8buzNx8kLtCXeqUJxR6pI4",
+  authDomain: "meta-buyer-zone-own.firebaseapp.com",
+  databaseURL: "https://meta-buyer-zone-own-default-rtdb.firebaseio.com",
+  projectId: "meta-buyer-zone-own",
+  storageBucket: "meta-buyer-zone-own.firebasestorage.app",
+  messagingSenderId: "158473925880",
+  appId: "1:158473925880:web:3ee33243dc630c4deeb70d",
+  measurementId: "G-56L533FCNJ"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-    // --- FIREBASE SETUP ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyAjd4BQRBAKS8buzNx8kLtCXeqUJxR6pI4", authDomain: "meta-buyer-zone-own.firebaseapp.com", databaseURL: "https://meta-buyer-zone-own-default-rtdb.firebaseio.com",
-      projectId: "meta-buyer-zone-own", storageBucket: "meta-buyer-zone-own.firebasestorage.app", messagingSenderId: "158473925880", appId: "1:158473925880:web:3ee33243dc630c4deeb70d", measurementId: "G-56L533FCNJ"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const tg = window.Telegram.WebApp;
-    tg.ready(); tg.expand();
+/* ===== TELEGRAM ===== */
+const tg = window.Telegram.WebApp;
+tg.ready(); tg.expand();
 
-    const ADMIN_IDS = [8505710811, 8583821482];
-    const user = tg.initDataUnsafe.user || { id: "000", first_name: "Guest", username: "guest_user", photo_url: "" };
-    const currentUserId = Number(user.id || 0);
-    const isAdmin = ADMIN_IDS.includes(currentUserId);
+const ADMIN_IDS = [8505710811, 8583821482];
+const user = tg.initDataUnsafe.user || { id: 0, first_name: 'Guest', username: 'guest_user', photo_url: '' };
+const currentUserId = Number(user.id || 0);
+const isAdmin = ADMIN_IDS.includes(currentUserId);
 
-    document.getElementById('u-name').innerText = user.first_name;
-    document.getElementById('u-tag').innerText = "@" + (user.username || "no_username");
-    const userRefName = user.first_name || "Guest User";
+// Use first_name as the user reference (consistent key for orders)
+const userRefName = (user.first_name || 'Guest').trim();
 
-    let selC = "", selR = 0, currentTID = "", finalP = 0, selAdminRate = 0, selAdminRateMinCoins = 0, selMinSubmitLimit = 5000;
-    let channelLinkValue = 'https://t.me/your_channel';
-    let helpLinkValue = 'https://t.me/your_helpline';
+/* ===== POPULATE USER INFO ===== */
+document.getElementById('u-name').textContent = user.first_name || 'Guest';
+document.getElementById('u-tag').textContent  = '@' + (user.username || 'no_username');
+if (user.photo_url) document.getElementById('pfp').src = user.photo_url;
+if (isAdmin) document.getElementById('admin-btn').style.display = 'flex';
 
-    // --- ULTRA FAST APP BOOT (No more 3 second artificial delay!) ---
-    let appLoaded = false;
-    function finishLoading() {
-        if(appLoaded) return;
-        appLoaded = true;
-        document.getElementById('loading').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            document.querySelector('.profile-card')?.classList.add('fade-up');
-            document.querySelector('.quick-actions')?.classList.add('fade-up');
-        }, 400); 
-    }
-    // Fallback timer just in case internet is completely dead
-    setTimeout(finishLoading, 2000); 
+/* ===== LOADING LOGIC ===== */
+let appLoaded = false;
+function finishLoading(){
+  if(appLoaded) return;
+  appLoaded = true;
+  const el = document.getElementById('loading');
+  el.style.opacity = '0';
+  setTimeout(()=>{
+    el.style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('app').style.animation = 'fadeIn 0.4s ease';
+  }, 420);
+}
+setTimeout(finishLoading, 2500); // Safety fallback
 
-    if (isAdmin) document.getElementById('admin-access-btn').style.display = 'flex';
-    function openAdminPanel() { if (!isAdmin) return; tg.HapticFeedback.impactOccurred('medium'); window.location.href = 'admin.html'; }
+/* ===== STATE ===== */
+let selC='', selR=0, currentTID='', finalP=0;
+let selAdminRate=0, selAdminRateMinCoins=0, selMinSubmitLimit=5000;
+let channelLinkValue='', helpLinkValue='';
+let submitting = false;
 
-    function normalizeLink(url) {
-        const value = (url || '').trim(); if (!value) return '';
-        if (/^https?:\/\//i.test(value) || /^tg:\/\//i.test(value)) return value;
-        if (/^(t\.me|telegram\.me)\//i.test(value)) return 'https://' + value;
-        if (/^@/.test(value)) return 'https://t.me/' + value.slice(1);
-        return 'https://' + value;
-    }
+/* ===== TOAST ===== */
+function showToast(msg, color='var(--cyan)'){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.borderColor = color; t.style.color = color;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2400);
+}
 
-    function openSafeLink(url) {
-        const safeUrl = normalizeLink(url); if (!safeUrl) { alert('Link not set by admin yet.'); return; }
-        try {
-            if (/^(https?:\/\/)?(t\.me|telegram\.me)\//i.test(safeUrl) && tg && typeof tg.openTelegramLink === 'function') { tg.openTelegramLink(safeUrl); return; }
-            if (tg && typeof tg.openLink === 'function') { tg.openLink(safeUrl, { try_instant_view: false }); return; }
-        } catch (e) { console.error(e); }
-        window.open(safeUrl, '_blank', 'noopener,noreferrer');
-    }
+/* ===== TABS ===== */
+const SCREENS = ['home-scr','history-scr','rank-scr'];
+const TABS    = ['tab-home','tab-hist','tab-rank'];
+function switchTab(screenId, tabId){
+  SCREENS.forEach(s => document.getElementById(s).style.display = s===screenId ? 'block' : 'none');
+  TABS.forEach(t => document.getElementById(t).classList.toggle('active', t===tabId));
+  try{ tg.HapticFeedback.impactOccurred('light'); }catch(e){}
+}
 
-    // --- BACKGROUND PRE-FETCHING DATA (Instant tabs) ---
-    db.ref('settings/links').on('value', snap => {
-        const links = snap.val() || {}; channelLinkValue = normalizeLink(links.channel || ''); helpLinkValue = normalizeLink(links.help || '');
-    });
+/* ===== LINK HELPERS ===== */
+function normalizeLink(url){
+  const v = (url||'').trim(); if(!v) return '';
+  if(/^https?:\/\//i.test(v)||/^tg:\/\//i.test(v)) return v;
+  if(/^(t\.me|telegram\.me)\//i.test(v)) return 'https://'+v;
+  if(/^@/.test(v)) return 'https://t.me/'+v.slice(1);
+  return 'https://'+v;
+}
+function openSafeLink(url){
+  const s = normalizeLink(url); if(!s){ showToast('Link not set by admin yet.','var(--crimson)'); return; }
+  try{
+    if(/^(https?:\/\/)?(t\.me|telegram\.me)\//i.test(s)&&typeof tg.openTelegramLink==='function'){ tg.openTelegramLink(s); return; }
+    if(typeof tg.openLink==='function'){ tg.openLink(s,{try_instant_view:false}); return; }
+  }catch(e){}
+  window.open(s,'_blank','noopener,noreferrer');
+}
+function openAdminPanel(){ if(!isAdmin) return; try{tg.HapticFeedback.impactOccurred('medium');}catch(e){} window.location.href='admin.html'; }
 
-    db.ref('settings/branding').on('value', snap => {
-        const branding = snap.val() || {};
-        document.title = branding.siteName || 'META BUYER ZONE';
-        if (document.getElementById('brand-loading-text')) document.getElementById('brand-loading-text').innerText = branding.siteName || 'META BUYER ZONE';
-    });
+/* ===== FIREBASE LISTENERS ===== */
 
-    db.ref('marketConfig').on('value', snap => {
-        let h = ""; let idx = 0;
-        snap.forEach(c => {
-            const v = c.val(); const on = v.status !== false;
-            const logoHtml = v.logo ? `<img src="${v.logo}" style="width:100%; height:100%; object-fit:cover; border-radius:14px;">` : `<span style="font-size:22px; color:var(--primary);">💰</span>`;
-            h += `<div class="coin-card fade-up" onclick="${on?`openM('${c.key}',${Number(v.userRate||0)},'${v.transferId||''}',${Number(v.adminRate||0)},${Number(v.adminRateMinCoins||0)},${Number(v.minSubmitLimit||5000)},'${v.inputType||'username'}')`:''}" style="opacity: ${on?1:0.6}; animation-delay:${idx * 0.05}s;">
-                <div style="position:absolute; top:15px; right:15px; font-size:10px; font-weight:900; color:${on?`#3b82f6`:'#ef4444'};">${on?'● ONLINE':'● OFFLINE'}</div>
-                <div style="display:flex; align-items:center; gap:15px;">
-                    <div style="width:48px; height:48px; background:rgba(59,130,246,0.1); border-radius:14px; display:flex; align-items:center; justify-content:center; overflow:hidden;">${logoHtml}</div>
-                    <div><b style="font-size:18px;">${c.key}</b><br><small style="color:var(--subtext); font-weight:700; font-size:10px;">MARKET ASSET</small></div>
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:18px;">
-                    <div class="rate-box"><small style="font-size:10px; color:var(--subtext); display:block; margin-bottom:4px;">USER RATE</small><b style="color:var(--primary);">${Number(v.userRate || 0)}৳</b></div>
-                    <div class="rate-box"><small style="font-size:10px; color:var(--subtext); display:block; margin-bottom:4px;">ADMIN RATE</small><b>${Number(v.adminRate||0)}৳</b></div>
-                </div>
-                <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
-                    <span style="font-size:10px; font-weight:800; padding:7px 10px; border-radius:999px; background:rgba(59,130,246,0.1); color:#93c5fd; border:1px solid rgba(59,130,246,0.18);">Min Submit: ${Number(v.minSubmitLimit||5000)}</span>
-                    <span style="font-size:10px; font-weight:800; padding:7px 10px; border-radius:999px; background:rgba(255,255,255,0.04); color:#cbd5e1; border:1px solid rgba(255,255,255,0.06);">Admin Rate From: ${v.adminRateMinCoins || 'N/A'}</span>
-                </div>
-            </div>`;
-            idx++;
-        });
-        document.getElementById('market-list').innerHTML = h || "<center style='margin-top:40px; color:#4b5563;'>No coins available</center>";
-        finishLoading(); // Close loader instantly when market data arrives!
-    });
+// Settings
+db.ref('settings/branding').on('value', snap=>{
+  const b = snap.val()||{};
+  const name = b.siteName||'META BUYER ZONE';
+  document.title = name;
+  document.getElementById('brand-text').textContent = name;
+});
+db.ref('settings/links').on('value', snap=>{
+  const l = snap.val()||{};
+  channelLinkValue = normalizeLink(l.channel||'');
+  helpLinkValue    = normalizeLink(l.help||'');
+});
 
-    db.ref('paymentMethods').on('value', s => {
-        let o = "<option value='' disabled selected>Select Method</option>"; 
-        s.forEach(p => { if(p.val().status) o += `<option value="${p.key}">${p.key}</option>`; });
-        document.getElementById('m-select').innerHTML = o;
-    });
+// Market
+db.ref('marketConfig').on('value', snap=>{
+  let h='', idx=0;
+  snap.forEach(c=>{
+    const v = c.val(); const on = v.status !== false;
+    const logoHtml = v.logo
+      ? `<img src="${v.logo}" style="width:100%;height:100%;object-fit:cover;border-radius:16px;" onerror="this.parentNode.innerHTML='<span style=\\'font-size:24px;\\'>💰</span>'">`
+      : `<span style="font-size:24px;">💰</span>`;
+    const clickFn = on
+      ? `openM('${c.key.replace(/'/g,"\\'")}',${Number(v.userRate||0)},'${(v.transferId||'').replace(/'/g,"\\'")}',${Number(v.adminRate||0)},${Number(v.adminRateMinCoins||0)},${Number(v.minSubmitLimit||5000)},'${(v.inputType||'username').replace(/'/g,"\\'")}')` : '';
+    h += `<div class="coin-card ${on?'online':''}" onclick="${clickFn}" style="animation-delay:${idx*0.06}s; ${!on?'opacity:0.5;cursor:default;':''}">
+      <div class="status-dot">
+        <div class="dot ${on?'on':'off'}"></div>
+        <span style="font-size:10px;font-weight:900;color:${on?'var(--cyan)':'var(--crimson)'};">${on?'ONLINE':'OFFLINE'}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div class="coin-logo">${logoHtml}</div>
+        <div>
+          <div class="coin-name">${c.key}</div>
+          <div class="coin-label">MARKET ASSET</div>
+        </div>
+      </div>
+      <div class="rates-row">
+        <div class="rate-box">
+          <small>USER RATE</small>
+          <b style="color:var(--cyan);">${Number(v.userRate||0)}৳</b>
+        </div>
+        <div class="rate-box">
+          <small>ADMIN RATE</small>
+          <b style="color:var(--purple);">${Number(v.adminRate||0)}৳</b>
+        </div>
+      </div>
+      <div class="tags-row">
+        <span class="tag tag-blue">Min: ${Number(v.minSubmitLimit||5000).toLocaleString()}</span>
+        <span class="tag tag-purple">Admin From: ${v.adminRateMinCoins?Number(v.adminRateMinCoins).toLocaleString():'N/A'}</span>
+      </div>
+    </div>`;
+    idx++;
+  });
+  document.getElementById('market-list').innerHTML = h || '<div class="empty-state"><div class="empty-icon">📭</div>No coins available</div>';
+  finishLoading(); // Trigger app boot as soon as data arrives
+});
 
-    // INSTANT TABS: Fetch history and rank in background on app load!
-    db.ref('orders').orderByChild('user').equalTo(userRefName).on('value', s => {
-        let h = ""; let count = 0; let arr = [];
-        s.forEach(o => arr.push(o.val()));
-        arr.reverse().forEach(d => { 
-            if(d.status === 'completed') count++;
-            const color = d.status==='pending'?'#f59e0b':d.status==='completed'?'#3b82f6':'#ef4444';
-            h += `<div class="action-card" style="flex-direction:column; align-items:flex-start; gap:8px;">
-                <div style="display:flex; justify-content:space-between; width:100%;"><b>${d.amt} ${d.coin}</b> <span style="color:${color}; font-weight:800; font-size:11px; text-transform:uppercase;">${d.status}</span></div>
-                <small style="color:var(--subtext); font-size:11px;">Payable: ${d.payable}৳ | To: ${d.targetId}</small>
-            </div>`;
-        });
-        document.getElementById('history-list').innerHTML = h || "<center style='margin-top:40px; color:#4b5563;'>No history found</center>";
-        document.getElementById('suc-count').innerText = count;
-    });
+// Payment Methods
+db.ref('paymentMethods').on('value', snap=>{
+  let o = '<option value="" disabled selected>Select Method</option>';
+  snap.forEach(p=>{ if(p.val().status) o+=`<option value="${p.key}">${p.key}</option>`; });
+  document.getElementById('m-select').innerHTML = o;
+});
 
-    db.ref('leaderboard').on('value', s => {
-        let h = ""; let arr = []; s.forEach(u => arr.push(u.val()));
-        arr.sort((a,b) => b.totalAmount - a.totalAmount).slice(0,20).forEach((u,i) => {
-            const displayName = u.user.startsWith('@') ? u.user.slice(1) : u.user;
-            h += `<div class="action-card"><div style="display:flex; align-items:center; gap:12px;"><div style="width:30px; height:30px; background:rgba(59,130,246,0.1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--primary); font-size:12px;">${i+1}</div><b>${displayName}</b></div><b style="color:var(--primary);">${u.totalAmount}৳</b></div>`;
-        });
-        document.getElementById('rank-list').innerHTML = h || "<center style='margin-top:40px; color:#4b5563;'>Empty leaderboard</center>";
-    });
+// Order History — real-time, zero miss, filtered by userRefName
+db.ref('orders').orderByChild('user').equalTo(userRefName).on('value', snap=>{
+  let h='', count=0, arr=[];
+  snap.forEach(o=>arr.push(o.val()));
+  arr.sort((a,b)=>(b.timestamp||b.id)-(a.timestamp||a.id));
+  arr.forEach((d,i)=>{
+    if(d.status==='completed') count++;
+    const statusClass = d.status==='pending'?'s-pending':d.status==='completed'?'s-completed':'s-rejected';
+    const ts = d.timestamp ? new Date(d.timestamp).toLocaleString('en-BD',{hour12:true,month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+    h += `<div class="hist-card" style="animation-delay:${i*0.04}s;">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:16px;font-weight:900;margin-bottom:4px;">${d.amt} ${d.coin}</div>
+        <div style="font-size:12px;color:var(--subtext);font-weight:600;margin-bottom:3px;">Payable: <span style="color:var(--cyan);">${d.payable}৳</span> · ${d.method}</div>
+        <div style="font-size:11px;color:var(--subtext);">${ts}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <span class="hist-status ${statusClass}">${d.status.toUpperCase()}</span>
+        <span style="font-size:10px;color:var(--subtext);">#${String(d.id).slice(-5)}</span>
+      </div>
+    </div>`;
+  });
+  document.getElementById('history-list').innerHTML = h || '<div class="empty-state"><div class="empty-icon">🕒</div>No orders yet</div>';
+  document.getElementById('suc-count').textContent = count;
+});
 
-    // --- MODAL LOGIC ---
-    function openM(n, r, t, adminRate = 0, adminRateMinCoins = 0, minSubmitLimit = 5000, inputType = 'username') {
-        selC = n; selR = Number(r || 0); currentTID = t || '';
-        selAdminRate = Number(adminRate || 0); selAdminRateMinCoins = Number(adminRateMinCoins || 0); selMinSubmitLimit = Number(minSubmitLimit || 5000);
-        document.getElementById('m-title').innerText = "Sell " + n;
-        document.getElementById('admin-id').innerText = currentTID || '---';
-        document.getElementById('c-qty').placeholder = `Amount (Min ${selMinSubmitLimit})`;
-        document.getElementById('c-sender').placeholder = inputType === 'code' ? "Enter Your Transfer Code" : "Sender Username";
-        document.getElementById('order-modal').style.display = 'flex';
-        setTimeout(() => document.getElementById('order-modal').classList.add('active'), 10);
-        calc();
-    }
-    function closeM() { document.getElementById('order-modal').classList.remove('active'); setTimeout(() => { document.getElementById('order-modal').style.display = 'none'; resetForm(); }, 400); }
-    function resetForm() { document.getElementById('c-qty').value = ""; document.getElementById('c-sender').value = ""; document.getElementById('m-num').value = ""; document.getElementById('m-select').value = ""; document.getElementById('c-res').innerText = "0.00 ৳"; document.getElementById('base-val').innerText = "0.00 ৳"; }
+// Leaderboard
+db.ref('leaderboard').on('value', snap=>{
+  let arr=[]; snap.forEach(u=>arr.push(u.val()));
+  arr.sort((a,b)=>b.totalAmount-a.totalAmount);
+  const h = arr.slice(0,20).map((u,i)=>{
+    const name = u.user.startsWith('@')?u.user.slice(1):u.user;
+    const rClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
+    return `<div class="lb-card" style="animation-delay:${i*0.03}s;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="lb-rank ${rClass}">${i+1}</div>
+        <div><div style="font-weight:800;font-size:15px;">${name}</div><div style="font-size:11px;color:var(--subtext);">Total Approved</div></div>
+      </div>
+      <b style="color:var(--cyan);font-size:16px;">${Number(u.totalAmount||0).toFixed(2)}৳</b>
+    </div>`;
+  }).join('');
+  document.getElementById('rank-list').innerHTML = h || '<div class="empty-state"><div class="empty-icon">🏆</div>Leaderboard empty</div>';
+});
 
-    function calc() {
-        const q = Number(document.getElementById('c-qty').value || 0);
-        const activeRate = (selAdminRate > 0 && selAdminRateMinCoins > 0 && q >= selAdminRateMinCoins) ? selAdminRate : selR;
-        const base = (q / 1000) * activeRate;
-        document.getElementById('base-val').innerText = base.toFixed(2) + " ৳";
-        finalP = Math.max(base - 5, 0).toFixed(2);
-        document.getElementById('c-res').innerText = finalP + " ৳";
-    }
+/* ===== MODAL LOGIC ===== */
+function openM(n, r, t, adminRate=0, adminRateMinCoins=0, minSubmitLimit=5000, inputType='username'){
+  selC=n; selR=Number(r||0); currentTID=t||'';
+  selAdminRate=Number(adminRate||0); selAdminRateMinCoins=Number(adminRateMinCoins||0);
+  selMinSubmitLimit=Number(minSubmitLimit||5000);
+  document.getElementById('m-title').textContent = '⚡ Sell '+n;
+  document.getElementById('admin-id').textContent = currentTID || '—';
+  document.getElementById('c-qty').placeholder = `Enter Amount (Min: ${selMinSubmitLimit.toLocaleString()})`;
+  document.getElementById('c-sender').placeholder = inputType==='code' ? 'Enter Transfer Code' : 'Sender Username';
+  document.getElementById('c-qty').value='';
+  document.getElementById('c-sender').value='';
+  document.getElementById('m-num').value='';
+  document.getElementById('m-select').value='';
+  document.getElementById('base-val').textContent='0.00 ৳';
+  document.getElementById('c-res').textContent='0.00 ৳';
+  finalP=0;
+  const modal = document.getElementById('order-modal');
+  modal.classList.add('active');
+  try{tg.HapticFeedback.impactOccurred('light');}catch(e){}
+}
+function closeM(){
+  document.getElementById('order-modal').classList.remove('active');
+}
+function handleMaskClick(e){
+  if(e.target===document.getElementById('order-modal')) closeM();
+}
+function handleConfirmMask(e){
+  if(e.target===document.getElementById('confirm-modal')) hideConfirm();
+}
 
-    function copyID() { navigator.clipboard.writeText(currentTID); tg.HapticFeedback.impactOccurred('medium'); }
+function calc(){
+  const q = Number(document.getElementById('c-qty').value||0);
+  const activeRate = (selAdminRate>0 && selAdminRateMinCoins>0 && q>=selAdminRateMinCoins) ? selAdminRate : selR;
+  const base = (q/1000)*activeRate;
+  document.getElementById('base-val').textContent = base.toFixed(2)+' ৳';
+  finalP = Math.max(base-5, 0);
+  document.getElementById('c-res').textContent = finalP.toFixed(2)+' ৳';
+}
 
-    function showConfirm() {
-        const q = Number(document.getElementById('c-qty').value || 0);
-        const n = document.getElementById('m-num').value.trim();
-        const s = document.getElementById('c-sender').value.trim();
-        const m = document.getElementById('m-select').value;
-        if (!q || !n || !s || !m) { alert("Fill all details first!"); return; }
-        if (q < selMinSubmitLimit) { alert(`MIN COIN AMOUNT IS ${selMinSubmitLimit}`); return; }
-        calc();
-        const activeRate = (selAdminRate > 0 && selAdminRateMinCoins > 0 && q >= selAdminRateMinCoins) ? selAdminRate : selR;
-        document.getElementById('sum-amt').innerText = q + " " + selC;
-        document.getElementById('sum-method').innerText = m + ` @ ${activeRate}৳`;
-        document.getElementById('sum-number').innerText = n;
-        document.getElementById('sum-total').innerText = finalP + " ৳";
-        document.getElementById('confirm-modal').style.display = 'flex';
-    }
-    function hideConfirm() { document.getElementById('confirm-modal').style.display = 'none'; }
+function copyID(){
+  if(!currentTID){ showToast('No ID to copy','var(--crimson)'); return; }
+  navigator.clipboard.writeText(currentTID).then(()=>{
+    showToast('✓ Transfer ID Copied!','var(--emerald)');
+    try{tg.HapticFeedback.impactOccurred('medium');}catch(e){}
+  }).catch(()=>{
+    // Fallback
+    const el = document.createElement('textarea');
+    el.value = currentTID; document.body.appendChild(el);
+    el.select(); document.execCommand('copy'); document.body.removeChild(el);
+    showToast('✓ Transfer ID Copied!','var(--emerald)');
+  });
+}
 
-    function submit() {
-        const q = Number(document.getElementById('c-qty').value || 0);
-        const s = document.getElementById('c-sender').value.trim();
-        const n = document.getElementById('m-num').value.trim();
-        const m = document.getElementById('m-select').value;
-        if (q < selMinSubmitLimit) return;
-        const activeRate = (selAdminRate > 0 && selAdminRateMinCoins > 0 && q >= selAdminRateMinCoins) ? selAdminRate : selR;
-        const id = Date.now();
-        db.ref('orders/' + id).set({
-            id: id, user: userRefName, coin: selC, amt: q, payable: Number(finalP), sender: s, number: n, method: m,
-            status: 'pending', targetId: currentTID, appliedRate: activeRate, appliedRateType: activeRate === selAdminRate && selAdminRate > 0 ? 'admin' : 'user',
-            adminRateMinCoins: selAdminRateMinCoins, minSubmitLimit: selMinSubmitLimit, timestamp: firebase.database.ServerValue.TIMESTAMP
-        }).then(() => {
-            tg.HapticFeedback.notificationOccurred('success');
-            hideConfirm(); closeM();
-            tab('history-scr', document.querySelectorAll('.nav-tab')[1]);
-        });
-    }
+function showConfirm(){
+  const q = Number(document.getElementById('c-qty').value||0);
+  const n = document.getElementById('m-num').value.trim();
+  const s = document.getElementById('c-sender').value.trim();
+  const m = document.getElementById('m-select').value;
+  if(!q){ showToast('Enter coin amount','var(--crimson)'); return; }
+  if(!s){ showToast('Enter sender details','var(--crimson)'); return; }
+  if(!n){ showToast('Enter payment number','var(--crimson)'); return; }
+  if(!m){ showToast('Select payment method','var(--crimson)'); return; }
+  if(q < selMinSubmitLimit){ showToast(`Minimum is ${selMinSubmitLimit.toLocaleString()} coins`,'var(--crimson)'); return; }
+  calc();
+  const activeRate = (selAdminRate>0 && selAdminRateMinCoins>0 && q>=selAdminRateMinCoins) ? selAdminRate : selR;
+  document.getElementById('sum-amt').textContent    = `${q} ${selC}`;
+  document.getElementById('sum-method').textContent = `${m} @ ${activeRate}৳`;
+  document.getElementById('sum-number').textContent = n;
+  document.getElementById('sum-total').textContent  = finalP.toFixed(2)+' ৳';
+  document.getElementById('confirm-modal').classList.add('active');
+}
+function hideConfirm(){ document.getElementById('confirm-modal').classList.remove('active'); }
 
-    // --- INSTANT TABS SWITCHING (No more loading time) ---
-    function tab(id, btn) {
-        document.querySelectorAll('.nav-tab').forEach(x => x.classList.remove('active'));
-        document.getElementById('home-scr').style.display = 'none';
-        document.getElementById('history-scr').style.display = 'none';
-        document.getElementById('rank-scr').style.display = 'none';
-        
-        document.getElementById(id).style.display = 'block';
-        btn.classList.add('active');
-        tg.HapticFeedback.impactOccurred('light');
-    }
+function submit(){
+  if(submitting) return;
+  const q = Number(document.getElementById('c-qty').value||0);
+  const s = document.getElementById('c-sender').value.trim();
+  const n = document.getElementById('m-num').value.trim();
+  const m = document.getElementById('m-select').value;
+  if(!q||!s||!n||!m||q<selMinSubmitLimit) return;
+  const activeRate = (selAdminRate>0 && selAdminRateMinCoins>0 && q>=selAdminRateMinCoins) ? selAdminRate : selR;
+  const orderId = Date.now();
+
+  submitting = true;
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = '⏳ Submitting...'; btn.disabled = true;
+
+  db.ref('orders/'+orderId).set({
+    id: orderId,
+    user: userRefName,
+    coin: selC,
+    amt: q,
+    payable: parseFloat(finalP.toFixed(2)),
+    sender: s,
+    number: n,
+    method: m,
+    status: 'pending',
+    targetId: currentTID,
+    appliedRate: activeRate,
+    appliedRateType: (activeRate===selAdminRate && selAdminRate>0)?'admin':'user',
+    adminRateMinCoins: selAdminRateMinCoins,
+    minSubmitLimit: selMinSubmitLimit,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
+  }).then(()=>{
+    try{tg.HapticFeedback.notificationOccurred('success');}catch(e){}
+    hideConfirm(); closeM();
+    showToast('✓ Order Submitted!','var(--emerald)');
+    switchTab('history-scr','tab-hist');
+  }).catch(err=>{
+    showToast('Submit failed, try again','var(--crimson)');
+    console.error(err);
+  }).finally(()=>{
+    submitting = false;
+    btn.textContent = '✓ Submit'; btn.disabled = false;
+  });
+}
 </script>
 </body>
 </html>
