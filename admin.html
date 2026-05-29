@@ -496,19 +496,21 @@ function startSystem(){
     if(currentTab !== 'settings') renderOrders();
   });
 
-  // Leaderboard listener
+  // Leaderboard listener - ERROR PROOFED
   db.ref('leaderboard').on('value', snap=>{
     const users = snap.val()||{};
-    const arr = Object.values(users).sort((a,b)=>b.totalAmount-a.totalAmount);
+    const arr = Object.values(users).filter(u => u).sort((a,b)=> (b.totalAmount || 0) - (a.totalAmount || 0));
     let h = arr.map(u=>{
-      const name = u.user.startsWith('@')?u.user.slice(1):u.user;
-      const safeUser = encodeURIComponent(u.user);
+      // Safe string conversion
+      const userName = u.user ? String(u.user) : 'Unknown';
+      const name = userName.startsWith('@') ? userName.slice(1) : userName;
+      
       return `<div class="user-row">
         <div>
           <div class="user-name">${name}</div>
           <div class="user-amount">${Number(u.totalAmount||0).toFixed(2)}৳</div>
         </div>
-        <button class="del-btn" onclick="delLeaderboardUser('${u.user.replace(/'/g,"\\'")}')">DEL</button>
+        <button class="del-btn" onclick="delLeaderboardUser('${(u.user||'').replace(/'/g,"\\'")}')">DEL</button>
       </div>`;
     }).join('');
     document.getElementById('leaderboard-list').innerHTML = h||'<div class="empty-state"><div class="empty-icon">🏆</div>No users yet</div>';
