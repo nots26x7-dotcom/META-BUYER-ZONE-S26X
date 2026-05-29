@@ -469,7 +469,7 @@
   <div id="rank-scr" style="display:none; padding-top:8px;">
     <div class="sec-header">
       <div class="sec-bar" style="background:var(--gold);"></div>
-      TOP SELLERS
+      TOP 10 SELLERS
     </div>
     <div id="rank-list"></div>
   </div>
@@ -758,21 +758,43 @@ db.ref('orders').orderByChild('user').equalTo(userRefName).on('value', snap=>{
   document.getElementById('suc-count').textContent = count;
 });
 
-// Leaderboard
-db.ref('leaderboard').on('value', snap=>{
-  let arr=[]; snap.forEach(u=>arr.push(u.val()));
-  arr.sort((a,b)=>b.totalAmount-a.totalAmount);
-  const h = arr.slice(0,20).map((u,i)=>{
-    const name = u.user.startsWith('@')?u.user.slice(1):u.user;
-    const rClass = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
-    return `<div class="lb-card" style="animation-delay:${i*0.03}s;">
+// Leaderboard - ERROR PROOFED AND FIXED TO TOP 10
+db.ref('leaderboard').on('value', snap => {
+  let arr = [];
+  
+  // Safe parsing
+  snap.forEach(childSnap => {
+    const data = childSnap.val();
+    if (data && data.user) {
+      arr.push(data);
+    }
+  });
+
+  // Sort by highest amount 
+  arr.sort((a, b) => (b.totalAmount || 0) - (a.totalAmount || 0));
+
+  // Get Top 10 Only
+  const top10 = arr.slice(0, 10);
+
+  const h = top10.map((u, i) => {
+    // Safe string conversion to prevent crashes if name is empty or numbers
+    const userName = String(u.user || 'Unknown');
+    const name = userName.startsWith('@') ? userName.slice(1) : userName;
+    
+    const rClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
+    
+    return `<div class="lb-card" style="animation-delay:${i * 0.03}s;">
       <div style="display:flex;align-items:center;gap:12px;">
-        <div class="lb-rank ${rClass}">${i+1}</div>
-        <div><div style="font-weight:800;font-size:15px;">${name}</div><div style="font-size:11px;color:var(--subtext);">Total Approved</div></div>
+        <div class="lb-rank ${rClass}">${i + 1}</div>
+        <div>
+          <div style="font-weight:800;font-size:15px;">${name}</div>
+          <div style="font-size:11px;color:var(--subtext);">Total Approved</div>
+        </div>
       </div>
-      <b style="color:var(--cyan);font-size:16px;">${Number(u.totalAmount||0).toFixed(2)}৳</b>
+      <b style="color:var(--cyan);font-size:16px;">${Number(u.totalAmount || 0).toFixed(2)}৳</b>
     </div>`;
   }).join('');
+  
   document.getElementById('rank-list').innerHTML = h || '<div class="empty-state"><div class="empty-icon">🏆</div>Leaderboard empty</div>';
 });
 
