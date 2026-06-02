@@ -606,7 +606,6 @@ let submitting = false;
 function showToast(msg, type='info'){
   const t = document.getElementById('toast');
   t.textContent = msg;
-  // Updated Toast Background to match the gray theme
   t.style.background = type==='success' ? '#065f46' : type==='error' ? '#991b1b' : '#3f3f46';
   t.style.color = '#fff';
   t.classList.add('show');
@@ -700,10 +699,25 @@ db.ref('paymentMethods').on('value', snap=>{
 });
 
 // ===== ORDER HISTORY =====
-db.ref('orders').orderByChild('user').equalTo(userRefName).on('value', snap=>{
+// We now load all orders and filter them in memory.
+// This completely avoids unindexed search queries on Firebase, making history load instantly and reliably!
+db.ref('orders').on('value', snap => {
   let h='', count=0, arr=[];
-  snap.forEach(o=>arr.push(o.val()));
-  arr.sort((a,b)=>(b.timestamp||b.id)-(a.timestamp||a.id));
+  
+  snap.forEach(o => {
+    const d = o.val();
+    if (d) {
+      // 100% accurate matchmaking using Telegram User ID, with fallback to legacy userRefName
+      const isMyOrder = (d.userId && Number(d.userId) === currentUserId) || 
+                        (!d.userId && String(d.user).trim() === userRefName);
+      if (isMyOrder) {
+        arr.push(d);
+      }
+    }
+  });
+  
+  // Sort orders descending (newest first)
+  arr.sort((a,b) => (b.timestamp || b.id) - (a.timestamp || a.id));
 
   arr.forEach((d, i)=>{
     if(d.status==='completed') count++;
@@ -835,6 +849,7 @@ function showConfirm(){
   document.getElementById('confirm-modal').classList.add('active');
 }
 function hideConfirm(){ document.getElementById('confirm-modal').classList.remove('active'); }
+
 function submit(){
   if(submitting) return;
   const q=Number(document.getElementById('c-qty').value||0);
@@ -847,12 +862,24 @@ function submit(){
   submitting=true;
   const btn=document.getElementById('submit-btn');
   btn.textContent='⏳ Submitting...'; btn.disabled=true;
+  
+  // We save "userId" with the unique Telegram currentUserId alongside the username string "user".
   db.ref('orders/'+orderId).set({
-    id:orderId, user:userRefName, coin:selC, amt:q,
-    payable:parseFloat(finalP.toFixed(2)), sender:s, number:n, method:m,
-    status:'pending', targetId:currentTID, appliedRate:activeRate,
+    id:orderId, 
+    userId:currentUserId, // Unique, unchangeable ID saved for seamless tracking
+    user:userRefName, 
+    coin:selC, 
+    amt:q,
+    payable:parseFloat(finalP.toFixed(2)), 
+    sender:s, 
+    number:n, 
+    method:m,
+    status:'pending', 
+    targetId:currentTID, 
+    appliedRate:activeRate,
     appliedRateType:(activeRate===selAdminRate&&selAdminRate>0)?'admin':'user',
-    adminRateMinCoins:selAdminRateMinCoins, minSubmitLimit:selMinSubmitLimit,
+    adminRateMinCoins:selAdminRateMinCoins, 
+    minSubmitLimit:selMinSubmitLimit,
     timestamp:firebase.database.ServerValue.TIMESTAMP
   }).then(()=>{
     try{tg.HapticFeedback.notificationOccurred('success');}catch(e){}
