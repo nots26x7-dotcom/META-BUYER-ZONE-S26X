@@ -891,7 +891,7 @@
             
             // Check for referral parameter in URL
             const urlParams = new URLSearchParams(window.location.search);
-            const tgStartParam = initDataUnsafe?.start_param || urlParams.get('start');
+            const tgStartParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param || urlParams.get('start');
             let referrerUid = null;
             if (tgStartParam && tgStartParam !== uidStr) {
                 referrerUid = tgStartParam;
