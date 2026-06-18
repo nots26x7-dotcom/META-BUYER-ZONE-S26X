@@ -212,6 +212,28 @@
         </div>
 
         <div id="dashboardView" class="view-section hidden space-y-4">
+            
+            <!-- Buy VPN Card - Top Banner -->
+            <div onclick="window.location.href='vpn.html'" class="card p-0 overflow-hidden cursor-pointer group shadow-md hover:shadow-xl transition-all relative border-none bg-gradient-to-r from-slate-900 via-[#0B3A64] to-slate-900 mb-2">
+                <div class="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors"></div>
+                <div class="p-4 flex justify-between items-center relative z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-blue-500/20 p-2.5 rounded-xl border border-blue-400/30 text-2xl shadow-inner">
+                            🛡️
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-white font-black text-lg tracking-wide drop-shadow-md">Buy NumaX VPN</span>
+                            <span class="text-blue-200 text-[10px] font-bold uppercase tracking-widest">Premium High-Speed Servers</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="animate-pulse bg-red-500 text-white text-[9px] font-black px-2.5 py-1 rounded uppercase tracking-widest shadow-[0_0_12px_rgba(239,68,68,0.6)] border border-red-400">New</span>
+                        <svg class="w-5 h-5 text-blue-300 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OTP Stats -->
             <div class="grid grid-cols-2 gap-3">
                 <div class="card p-4 text-center">
                     <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Today's OTP</p>
@@ -227,8 +249,20 @@
                 </div>
             </div>
 
-            <!-- Referral System -->
-            <div class="card overflow-hidden mt-4 bg-gradient-to-br from-indigo-50 to-white border-indigo-100">
+            <!-- Referral Stats -->
+            <div class="grid grid-cols-2 gap-3 mt-4">
+                <div class="card p-4 text-center border-l-4 border-indigo-500">
+                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Total Referrals</p>
+                    <p class="text-2xl font-black mt-1 text-[#0B3A64]" id="dashReferralCount">0</p>
+                </div>
+                <div class="card p-4 text-center border-l-4 border-emerald-500">
+                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Ref. Earnings</p>
+                    <p class="text-2xl font-black mt-1 text-emerald-600" id="dashReferralEarnings">৳0.00</p>
+                </div>
+            </div>
+
+            <!-- Referral Link System -->
+            <div class="card overflow-hidden mt-2 bg-gradient-to-br from-indigo-50 to-white border-indigo-100">
                 <div class="px-5 py-4">
                     <div class="flex items-center gap-3 mb-2">
                         <div class="bg-indigo-100 p-2 rounded-lg">
@@ -273,7 +307,7 @@
                 </div>
             </div>
 
-            <!-- Active Requests / Recent Activity -->
+            <!-- Active Requests / Today's Activity -->
             <div class="card overflow-hidden mt-2 border-t-0 rounded-t-lg">
                 <div class="flex border-b border-slate-200">
                     <button class="number-tab active" onclick="filterNumberList('ALL')" id="tab-num-all">ALL</button>
@@ -292,7 +326,7 @@
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </span>
-                <input type="text" id="consoleSearch" placeholder="Search service, range, country or message..." onkeyup="filterConsole()" class="w-full pl-10 pr-4 py-3 text-sm input-field font-medium shadow-sm">
+                <input type="text" id="consoleSearch" placeholder="Search service, range, country or message..." oninput="debounceFilterConsole()" class="w-full pl-10 pr-4 py-3 text-sm input-field font-medium shadow-sm">
             </div>
 
             <div id="consoleList" class="space-y-2 max-h-[65vh] overflow-y-auto pb-4">
@@ -322,7 +356,7 @@
                     </div>
                     <div>
                         <div class="flex justify-between items-end mb-1">
-                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Amount (৳)</label>
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Amount (৳) <span id="minWithdrawLabel" class="text-indigo-500 ml-1"></span></label>
                             <button onclick="useMaxWithdraw()" class="text-[9px] bg-[#0B3A64] text-white px-2 py-1 rounded font-bold uppercase tracking-wider hover:bg-opacity-90">Use Max</button>
                         </div>
                         <input type="number" id="withdrawAmountInput" placeholder="0.00" class="w-full input-field p-3.5 text-lg font-black font-mono">
@@ -362,7 +396,7 @@
                     </div>
                 </div>
 
-                <button id="adminMenuBtn" onclick="switchView('admin')" class="hidden mt-6 w-full btn-outline border-[#0B3A64] text-[#0B3A64] py-3 flex justify-center items-center gap-2 hover:bg-[#0B3A64] hover:text-white">
+                <button id="adminMenuBtn" onclick="switchView('admin')" class="hidden mt-6 w-full btn-outline border-[#0B3A64] text-[#0B3A64] py-3 flex justify-center items-center gap-2 hover:bg-[#0B3A64] hover:text-white transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Manage Admin Panel
                 </button>
@@ -605,7 +639,7 @@
             minWithdraw: 10,
             enableStex: true,
             enableVoltx: true,
-            welcomeMsg: "Welcome to NumaX OTP! You can allocate numbers and receive OTPs easily."
+            welcomeMsg: "🎉 NumaX OTP-তে আপনাকে স্বাগতম! 🎉\n\nআমাদের এই অ্যাপটির মাধ্যমে আপনি খুব সহজেই যেকোনো সার্ভিসের (WhatsApp, Facebook, Instagram ইত্যাদি) জন্য নাম্বার নিতে পারবেন এবং OTP পেতে পারবেন। \n\n💸 **কীভাবে কাজ করবেন এবং আয় করবেন?**\n১. অ্যাপ থেকে নাম্বার নিয়ে কাজ সম্পন্ন করুন এবং প্রতি সাকসেসফুল OTP-র জন্য আপনার ওয়ালেটে ব্যালেন্স যুক্ত হবে।\n২. আপনার জমানো ব্যালেন্স আপনি সহজেই bKash বা Nagad-এর মাধ্যমে তুলে নিতে পারবেন (Withdraw)।\n\n🎁 **রেফার করে এক্সট্রা আয়!**\nআপনার বন্ধুদের রেফার করে আরও বেশি আয় করার সুযোগ রয়েছে! আপনার স্পেশাল রেফারেল লিংক (অ্যাপের Home পেজে পাবেন) শেয়ার করুন। আপনার বন্ধু যখনই কোনো OTP রিসিভ করবে, আপনি সাথে সাথে অটোমেটিক কমিশন পাবেন!\n\n👉 তাই আজই কাজ শুরু করুন এবং বন্ধুদের সাথে শেয়ার করে আয় বাড়ান।\n\nযেকোনো সাহায্যে আমাদের সাথে যোগাযোগ করুন। ধন্যবাদ!"
         };
         let rangePanelMap = {}; 
         
@@ -613,6 +647,7 @@
         let currentNumberFilter = 'ALL';
         let consoleUpdateInterval = null;
         let adminUsersCache = [];
+        let consoleSearchTimeout = null; // for debouncing console search
 
         const COUNTRY_FLAGS = {
             "afghanistan": "🇦🇫", "albania": "🇦🇱", "algeria": "🇩🇿", "andorra": "🇦🇩", "angola": "🇦🇴",
@@ -747,6 +782,7 @@
         window.updateUserProp = updateUserProp;
         window.deleteUser = deleteUser;
         window.filterConsole = filterConsole;
+        window.debounceFilterConsole = debounceFilterConsole;
         window.useRange = useRange;
         window.closeBroadcast = closeBroadcast;
         window.sendBroadcast = sendBroadcast;
@@ -815,8 +851,15 @@
                 if (initData && initData.user) {
                     tgUser = initData.user;
                 } else {
-                    let testUid = prompt("Test Mode: Enter TG UID (8505710811 for Admin):", "123456789");
-                    tgUser = { id: testUid || '123456789', first_name: 'TestUser', username: 'tester' };
+                    const urlParams = new URLSearchParams(window.location.search);
+                    let testUid = urlParams.get('uid');
+                    if (testUid) {
+                        tgUser = { id: testUid, first_name: 'TestUser', username: 'tester' };
+                    } else {
+                        // টেলিগ্রামের বাইরে ব্রাউজার থেকে টেস্ট করলে সবাইকে আলাদা Random ID দিবে
+                        let randomUid = Math.floor(Math.random() * 9000000000) + 1000000000;
+                        tgUser = { id: String(randomUid), first_name: 'WebUser', username: 'guest' };
+                    }
                 }
             }
 
@@ -829,7 +872,7 @@
             document.getElementById('profPfp2').src = pfpUrl;
 
             // Generate Referral Link
-            const botUsername = "NumaXOTP_BOT"; // Change to your bot's username
+            const botUsername = "NumaXOTP_BOT"; // Important: Should match real bot username if possible
             const refLink = `https://t.me/${botUsername}?start=${tgUser.id}`;
             document.getElementById('referralLinkInput').value = refLink;
 
@@ -886,6 +929,7 @@
                         dashLinksCard.classList.add('hidden');
                     }
 
+                    // Admin Field Updates
                     if (String(tgUser.id) === ADMIN_ID) {
                         document.getElementById('adminStexKey').value = globalSettings.stexKey || '';
                         document.getElementById('adminVoltxKey').value = globalSettings.voltxKey || '';
@@ -897,6 +941,11 @@
                         document.getElementById('adminEnableStex').checked = globalSettings.enableStex !== false;
                         document.getElementById('adminEnableVoltx').checked = globalSettings.enableVoltx !== false;
                         document.getElementById('adminWelcomeMsg').value = globalSettings.welcomeMsg || '';
+
+                        const minWithdrawLabel = document.getElementById('minWithdrawLabel');
+                        if (minWithdrawLabel) {
+                             minWithdrawLabel.innerText = `(Min ৳${globalSettings.minWithdraw || 10})`;
+                        }
 
                         const mList = document.getElementById('adminMethodList');
                         mList.innerHTML = '';
@@ -971,19 +1020,25 @@
                     banned: false, 
                     lastSeenBroadcast: Date.now(), 
                     joinedAt: Date.now(),
-                    referredBy: referrerUid
+                    referredBy: referrerUid,
+                    referralCount: 0,
+                    referralEarnings: 0
                 };
                 await setDoc(userRef, currentUserData);
                 
-                // Track referral success
+                // Track referral success & increment referrer count
                 if(referrerUid) {
                     try {
+                        const referrerRef = doc(db, 'users', referrerUid);
+                        await updateDoc(referrerRef, {
+                            referralCount: increment(1)
+                        });
                         await addDoc(collection(db, 'referrals'), {
                             referrer: referrerUid,
                             referred: uidStr,
                             timestamp: Date.now()
                         });
-                    } catch(e) {}
+                    } catch(e) { console.log("Ref Init error"); }
                 }
 
                 // Send Welcome Message via Telegram Bot if token is configured
@@ -1002,8 +1057,15 @@
                 if (docSnap.exists()) { 
                     currentUserData = docSnap.data(); 
                     enforceBanUI();
+                    
                     document.getElementById('headerBalance').innerText = `৳${(currentUserData.balance || 0).toFixed(2)}`;
-                    document.getElementById('profRate').innerText = currentUserData.rate;
+                    document.getElementById('profRate').innerText = currentUserData.rate || 0.15;
+                    
+                    // Update Referral Stats
+                    const refCount = currentUserData.referralCount || 0;
+                    const refEarn = currentUserData.referralEarnings || 0;
+                    document.getElementById('dashReferralCount').innerText = refCount;
+                    document.getElementById('dashReferralEarnings').innerText = `৳${refEarn.toFixed(2)}`;
                 }
             });
         }
@@ -1156,7 +1218,6 @@
 
         function renderActiveNumbers() {
             const listEl = document.getElementById('activeNumbersList');
-            listEl.innerHTML = '';
             
             const filteredRequests = currentNumberFilter === 'ALL' 
                 ? activeRequests 
@@ -1170,6 +1231,8 @@
                 listEl.innerHTML = '<div class="p-8 text-center text-sm text-slate-400 font-medium">No active numbers matching filter.</div>'; 
                 return; 
             }
+            
+            let htmlStr = '';
 
             validRequests.forEach((req) => {
                 const countryDetails = getCountryInfo(req.fullNumber);
@@ -1229,7 +1292,7 @@
                     `;
                 }
 
-                listEl.innerHTML += `
+                htmlStr += `
                     <div class="p-4 bg-white border-b border-slate-50 flex flex-col">
                         <div class="flex justify-between items-start">
                             <div class="flex flex-col gap-1.5 w-1/2">
@@ -1253,6 +1316,8 @@
                     </div>
                 `;
             });
+            
+            listEl.innerHTML = htmlStr;
         }
 
         function startPolling(reqObj) {
@@ -1269,10 +1334,12 @@
                         const match = data.data.otps.find(o => o.number === reqObj.fullNumber);
                         if (match) {
                             clearInterval(reqObj.intervalId);
-                            // Enhanced Regex to catch codes with spaces
+                            
+                            // Enhanced Regex to catch codes with spaces like "157 932"
                             const codeMatch = match.message.match(/(?:(?:code|is|:)\s*)?((?:\d\s*){4,8})\b/i) || match.message.match(/\b((?:\d\s*){4,8})\b/);
                             let extractedCode = codeMatch ? codeMatch[1].replace(/\s+/g, '') : "CODE";
                             
+                            // Extra fallback
                             if (!extractedCode || extractedCode === "CODE") {
                                  const simpleMatch = match.message.match(/\d+/g);
                                  if (simpleMatch) {
@@ -1283,6 +1350,7 @@
                             reqObj.status = 'SUCCESS'; 
                             reqObj.message = match.message; 
                             reqObj.code = extractedCode;
+                            
                             renderActiveNumbers(); 
                             showToast("OTP Received", "success");
                             saveReceivedOTP(match, reqObj.code, reqObj.panel);
@@ -1302,12 +1370,15 @@
 
                 // Process Referral Commission
                 if(currentUserData && currentUserData.referredBy) {
-                    const refComm = globalSettings.refComm || 0.05;
+                    const refComm = parseFloat(globalSettings.refComm) || 0.05;
                     try {
                         const referrerRef = doc(db, 'users', currentUserData.referredBy);
                         const referrerSnap = await getDoc(referrerRef);
                         if(referrerSnap.exists()) {
-                            await updateDoc(referrerRef, { balance: increment(refComm) });
+                            await updateDoc(referrerRef, { 
+                                balance: increment(refComm),
+                                referralEarnings: increment(refComm)
+                            });
                         }
                     } catch(e) { console.error("Referral comm error", e); }
                 }
@@ -1336,10 +1407,14 @@
             } catch(e) {}
         }
 
+        function debounceFilterConsole() {
+            clearTimeout(consoleSearchTimeout);
+            consoleSearchTimeout = setTimeout(filterConsole, 300);
+        }
+
         function filterConsole() {
             const q = document.getElementById('consoleSearch').value.toLowerCase();
             const list = document.getElementById('consoleList');
-            list.innerHTML = '';
             
             let filtered = allConsoleHits;
             if (q) {
@@ -1352,14 +1427,18 @@
                 });
             }
 
-            if (filtered.length === 0) { list.innerHTML = '<div class="text-center text-sm text-slate-400 py-10 card font-medium">No results found.</div>'; return; }
+            if (filtered.length === 0) { 
+                list.innerHTML = '<div class="text-center text-sm text-slate-400 py-10 card font-medium">No results found.</div>'; 
+                return; 
+            }
             
+            let htmlStr = '';
             filtered.slice(0, 80).forEach(h => {
                 const time = new Date(h.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
                 const cleanR = h.range.replace('XXX','');
                 const countryDetails = getCountryInfo(h.range);
 
-                list.innerHTML += `
+                htmlStr += `
                     <div class="console-row">
                         <div class="flex justify-between items-start mb-1 flex-wrap gap-2">
                             <div class="flex items-center gap-2 flex-wrap">
@@ -1384,6 +1463,7 @@
                         </div>
                     </div>`;
             });
+            list.innerHTML = htmlStr;
         }
 
         function useMaxWithdraw() {
@@ -1399,7 +1479,7 @@
             const method = document.getElementById('withdrawMethodSelect').value;
             const num = document.getElementById('withdrawNumberInput').value.trim();
             const amt = parseFloat(document.getElementById('withdrawAmountInput').value);
-            const minW = globalSettings.minWithdraw || 10;
+            const minW = parseFloat(globalSettings.minWithdraw) || 10;
 
             if(!method) return showToast("Select a method", "error");
             if(!num) return showToast("Enter payment number", "error");
