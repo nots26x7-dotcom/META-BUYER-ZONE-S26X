@@ -273,7 +273,7 @@
                 </div>
             </div>
 
-            <!-- Active Requests -->
+            <!-- Active Requests / Recent Activity -->
             <div class="card overflow-hidden mt-2 border-t-0 rounded-t-lg">
                 <div class="flex border-b border-slate-200">
                     <button class="number-tab active" onclick="filterNumberList('ALL')" id="tab-num-all">ALL</button>
@@ -402,7 +402,29 @@
             <!-- Admin Tab: API & Referral -->
             <div id="adminTabApi" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 space-y-4 border-t-4 border-t-[#0B3A64]">
-                    <h3 class="font-black text-sm text-[#0B3A64] uppercase tracking-widest border-b border-slate-100 pb-2">API Settings</h3>
+                    <h3 class="font-black text-sm text-[#0B3A64] uppercase tracking-widest border-b border-slate-100 pb-2 flex justify-between items-center">
+                        API Settings
+                        <span class="text-[10px] font-normal text-slate-400 normal-case">Enable/Disable Panels</span>
+                    </h3>
+                    
+                    <!-- Panel Toggles -->
+                    <div class="flex flex-col gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-700">STEX Panel Active</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="adminEnableStex" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#0B3A64]"></div>
+                            </label>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-700">VOLTX Panel Active</span>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="adminEnableVoltx" class="sr-only peer">
+                                <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#11B6B9]"></div>
+                            </label>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">STEX API Key</label>
                         <input type="password" id="adminStexKey" class="w-full input-field p-3 font-mono text-sm mt-1">
@@ -418,6 +440,10 @@
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Minimum Withdraw Amount (৳)</label>
                         <input type="number" id="adminMinWithdraw" placeholder="10" class="w-full input-field p-3 font-mono text-sm mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Welcome Message (For new users in Bot)</label>
+                        <textarea id="adminWelcomeMsg" placeholder="Welcome to NumaX OTP!..." class="w-full input-field p-3 text-sm mt-1 h-20"></textarea>
                     </div>
                     
                     <h3 class="font-black text-sm text-[#0B3A64] uppercase tracking-widest border-b border-slate-100 pb-2 mt-4">Referral System</h3>
@@ -465,6 +491,11 @@
 
             <!-- Admin Tab: Users -->
             <div id="adminTabUsers" class="admin-content-section hidden space-y-4">
+                <div class="card p-4 text-center border-t-4 border-t-[#0B3A64]">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Users</p>
+                    <p class="text-3xl font-black text-[#0B3A64] mt-1" id="adminTotalUsersCount">0</p>
+                </div>
+
                 <div class="card p-0 overflow-hidden">
                     <div class="bg-slate-50 border-b border-slate-200 p-4 flex justify-between items-center">
                         <input type="text" id="adminUserSearch" placeholder="Search by name or UID..." onkeyup="filterAdminUsers()" class="w-[65%] input-field p-2 text-xs">
@@ -563,7 +594,19 @@
         const ADMIN_ID = "8505710811";
         let tgUser = { id: 'unknown', first_name: 'Guest', username: '' };
         let currentUserData = null;
-        let globalSettings = { stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", customLinks: [], refComm: 0.05, minWithdraw: 10 };
+        let globalSettings = { 
+            stexKey: "M5OHT1ZBKCD", 
+            voltxKey: "MUBHNSX3UB3", 
+            withdrawEnabled: true, 
+            methods: ["bKash", "Nagad"], 
+            botToken: "", 
+            customLinks: [], 
+            refComm: 0.05, 
+            minWithdraw: 10,
+            enableStex: true,
+            enableVoltx: true,
+            welcomeMsg: "Welcome to NumaX OTP! You can allocate numbers and receive OTPs easily."
+        };
         let rangePanelMap = {}; 
         
         let activeRequests = []; 
@@ -743,6 +786,22 @@
             return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
         }
 
+        async function sendTelegramMessage(chatId, message, botToken) {
+            if (!botToken || !chatId) return false;
+            try {
+                const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                await fetch(tgUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
+                });
+                return true;
+            } catch (e) {
+                console.error("TG Send Error:", e);
+                return false;
+            }
+        }
+
         async function initApp() {
             if (window.Telegram && window.Telegram.WebApp) {
                 try {
@@ -835,6 +894,10 @@
                         document.getElementById('adminMinWithdraw').value = globalSettings.minWithdraw || 10;
                         document.getElementById('adminWithdrawToggle').checked = globalSettings.withdrawEnabled !== false;
                         
+                        document.getElementById('adminEnableStex').checked = globalSettings.enableStex !== false;
+                        document.getElementById('adminEnableVoltx').checked = globalSettings.enableVoltx !== false;
+                        document.getElementById('adminWelcomeMsg').value = globalSettings.welcomeMsg || '';
+
                         const mList = document.getElementById('adminMethodList');
                         mList.innerHTML = '';
                         (globalSettings.methods || []).forEach(m => {
@@ -889,9 +952,7 @@
             const userRef = doc(db, 'users', uidStr);
             const snap = await getDoc(userRef);
             
-            // Check for referral parameter in URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const tgStartParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param || urlParams.get('start');
+            const tgStartParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param;
             let referrerUid = null;
             if (tgStartParam && tgStartParam !== uidStr) {
                 referrerUid = tgStartParam;
@@ -900,6 +961,7 @@
             if (snap.exists()) {
                 currentUserData = snap.data();
             } else {
+                // New User Registration
                 currentUserData = { 
                     uid: uidStr, 
                     name: tgUser.first_name, 
@@ -913,7 +975,7 @@
                 };
                 await setDoc(userRef, currentUserData);
                 
-                // Track referral success (optional)
+                // Track referral success
                 if(referrerUid) {
                     try {
                         await addDoc(collection(db, 'referrals'), {
@@ -922,6 +984,11 @@
                             timestamp: Date.now()
                         });
                     } catch(e) {}
+                }
+
+                // Send Welcome Message via Telegram Bot if token is configured
+                if (globalSettings.botToken && globalSettings.welcomeMsg) {
+                    await sendTelegramMessage(uidStr, globalSettings.welcomeMsg, globalSettings.botToken);
                 }
             }
             enforceBanUI();
@@ -974,7 +1041,6 @@
                 const yestStr = getDateStr(Date.now() - 86400000);
                 let tCount = 0, yCount = 0, tEarn = 0;
 
-                // We are no longer rendering to dashboard, so just calculate stats
                 otps.forEach(otp => {
                     const earn = otp.cost || 0; 
                     if (getDateStr(otp.time) === todayStr) { tCount++; tEarn += earn; }
@@ -985,18 +1051,13 @@
                 document.getElementById('dashYestOtp').innerText = yCount;
                 document.getElementById('dashCost').innerText = `৳${tEarn.toFixed(2)}`;
 
-                // We still need to merge completed OTPs with active requests if they happened today
                 mergeOTPsWithActiveRequests(otps, todayStr);
             });
         }
 
-        // We merge the completed OTPs from the database into the active requests list
-        // so that the "Number" tab shows a combined history for today.
         function mergeOTPsWithActiveRequests(dbOtps, todayStr) {
-            // Get today's OTPs from DB
             const todaysOtps = dbOtps.filter(otp => getDateStr(otp.time) === todayStr);
             
-            // Map DB OTPs to the activeRequests format
             const mappedOtps = todaysOtps.map(otp => ({
                 fullNumber: otp.number,
                 panel: otp.panel || 'unknown',
@@ -1004,16 +1065,13 @@
                 status: 'SUCCESS',
                 message: otp.message,
                 code: otp.code,
-                isFromDb: true // Flag to identify it's from DB
+                isFromDb: true 
             }));
 
-            // Filter out existing active requests that are already in the mapped list (by number)
-            // to avoid duplicates when a pending request turns to success and is also fetched from DB.
             const existingActive = activeRequests.filter(req => 
                 !mappedOtps.some(m => m.fullNumber === req.fullNumber && req.status === 'SUCCESS')
             );
 
-            // Combine and sort by time
             activeRequests = [...existingActive, ...mappedOtps].sort((a,b) => b.startTime - a.startTime);
             renderActiveNumbers();
         }
@@ -1029,20 +1087,43 @@
             btn.disabled = true; loader.classList.remove('hidden');
 
             try {
-                let panel = rangePanelMap[rid] || 'stex';
+                // Determine starting panel based on admin toggles and cache
+                let panel = rangePanelMap[rid];
+                if (!panel) {
+                     if (globalSettings.enableStex !== false) panel = 'stex';
+                     else if (globalSettings.enableVoltx !== false) panel = 'voltx';
+                     else {
+                         showToast("All panels are disabled by Admin", "error");
+                         return;
+                     }
+                }
+
+                // Check if selected panel is active
+                if (panel === 'stex' && globalSettings.enableStex === false) panel = 'voltx';
+                if (panel === 'voltx' && globalSettings.enableVoltx === false) panel = 'stex';
+
+                if ((panel === 'stex' && globalSettings.enableStex === false) || (panel === 'voltx' && globalSettings.enableVoltx === false)) {
+                     showToast("All panels are disabled by Admin", "error");
+                     return;
+                }
+
                 let resData = await tryGetNum(panel, rid);
                 
+                // Fallback logic
                 if (resData && resData.meta && resData.meta.code === 2946) {
                     let other = panel === 'stex' ? 'voltx' : 'stex';
-                    resData = await tryGetNum(other, rid);
-                    if (resData && resData.meta && resData.meta.code === 200) panel = other;
+                    // Only try fallback if it's enabled
+                    if ((other === 'stex' && globalSettings.enableStex !== false) || (other === 'voltx' && globalSettings.enableVoltx !== false)) {
+                        resData = await tryGetNum(other, rid);
+                        if (resData && resData.meta && resData.meta.code === 200) panel = other;
+                    }
                 }
 
                 if (resData && resData.meta && resData.meta.code === 200) {
                     const allocatedNum = resData.data.no_plus_number;
                     const newReq = { fullNumber: allocatedNum, panel: panel, startTime: Date.now(), status: 'PENDING', message: '', code: '' };
                     activeRequests.unshift(newReq);
-                    currentNumberFilter = 'ALL'; // Reset filter to show the new number
+                    currentNumberFilter = 'ALL'; 
                     updateNumberTabsUI();
                     renderActiveNumbers();
                     copySpecificText("+" + allocatedNum);
@@ -1077,12 +1158,10 @@
             const listEl = document.getElementById('activeNumbersList');
             listEl.innerHTML = '';
             
-            // Filter logic
             const filteredRequests = currentNumberFilter === 'ALL' 
                 ? activeRequests 
                 : activeRequests.filter(req => req.status === currentNumberFilter);
 
-            // Clean up: Only show today's requests (or active pending from just before midnight)
             const todayStart = new Date();
             todayStart.setHours(0,0,0,0);
             const validRequests = filteredRequests.filter(req => req.startTime > todayStart.getTime() || req.status === 'PENDING');
@@ -1096,7 +1175,6 @@
                 const countryDetails = getCountryInfo(req.fullNumber);
                 const timeStr = new Date(req.startTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
                 
-                // Calculate relative time roughly
                 const diffMs = Date.now() - req.startTime;
                 const diffMins = Math.floor(diffMs / 60000);
                 const diffHrs = Math.floor(diffMins / 60);
@@ -1136,7 +1214,6 @@
 
                 let otpCodeBox = '';
                 if (req.status === 'SUCCESS') {
-                    // Transparent Green OTP Box Design
                     otpCodeBox = `
                         <div class="mt-3 flex">
                             <div class="flex items-center bg-emerald-50 rounded-lg overflow-hidden border border-emerald-200 shadow-sm cursor-pointer hover:bg-emerald-100 transition group" onclick="copySpecificText('${req.code}')">
@@ -1192,15 +1269,14 @@
                         const match = data.data.otps.find(o => o.number === reqObj.fullNumber);
                         if (match) {
                             clearInterval(reqObj.intervalId);
-                            // Enhanced Regex to catch codes with spaces (e.g. 157 932)
+                            // Enhanced Regex to catch codes with spaces
                             const codeMatch = match.message.match(/(?:(?:code|is|:)\s*)?((?:\d\s*){4,8})\b/i) || match.message.match(/\b((?:\d\s*){4,8})\b/);
                             let extractedCode = codeMatch ? codeMatch[1].replace(/\s+/g, '') : "CODE";
                             
-                            // Fallback if extraction fails
                             if (!extractedCode || extractedCode === "CODE") {
                                  const simpleMatch = match.message.match(/\d+/g);
                                  if (simpleMatch) {
-                                     extractedCode = simpleMatch.join('').substring(0, 8); // Take first digits
+                                     extractedCode = simpleMatch.join('').substring(0, 8);
                                  }
                             }
 
@@ -1241,8 +1317,16 @@
         let allConsoleHits = [];
         async function loadConsoleData() {
             try {
-                const p1 = fetch('https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api/console', { headers: { 'mauthapi': globalSettings.stexKey } }).then(r=>r.json()).catch(()=>null);
-                const p2 = fetch('https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api/console', { headers: { 'mauthapi': globalSettings.voltxKey } }).then(r=>r.json()).catch(()=>null);
+                let p1 = Promise.resolve(null);
+                let p2 = Promise.resolve(null);
+                
+                if(globalSettings.enableStex !== false) {
+                     p1 = fetch('https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api/console', { headers: { 'mauthapi': globalSettings.stexKey } }).then(r=>r.json()).catch(()=>null);
+                }
+                if(globalSettings.enableVoltx !== false) {
+                     p2 = fetch('https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api/console', { headers: { 'mauthapi': globalSettings.voltxKey } }).then(r=>r.json()).catch(()=>null);
+                }
+
                 const [d1, d2] = await Promise.all([p1, p2]);
                 allConsoleHits = [];
                 if (d1 && d1.meta && d1.meta.code === 200) d1.data.hits.forEach(h => { allConsoleHits.push(h); rangePanelMap[h.range.replace('XXX','')]='stex'; });
@@ -1257,7 +1341,6 @@
             const list = document.getElementById('consoleList');
             list.innerHTML = '';
             
-            // Filter by service ID, range, message contents, OR detected country name
             let filtered = allConsoleHits;
             if (q) {
                 filtered = allConsoleHits.filter(h => {
@@ -1327,13 +1410,18 @@
             btn.disabled = true; btn.innerText = "Processing...";
 
             try {
-                // Deduct first
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-amt) });
-                // Save Request
                 await addDoc(collection(db, 'withdrawals'), {
                     uid: String(tgUser.id), username: tgUser.username, name: tgUser.first_name,
                     method: method, number: num, amount: amt, status: 'PENDING', timestamp: Date.now()
                 });
+                
+                // Optional: Notify Admin via Telegram
+                if (globalSettings.botToken && ADMIN_ID) {
+                    const adminMsg = `🤑 <b>New Withdrawal Request</b>\n\n👤 User: <a href="tg://user?id=${tgUser.id}">${tgUser.first_name}</a>\n🆔 UID: <code>${tgUser.id}</code>\n💰 Amount: <b>৳${amt}</b>\n💳 Method: <b>${method}</b>\n📱 Number: <code>${num}</code>`;
+                    sendTelegramMessage(ADMIN_ID, adminMsg, globalSettings.botToken);
+                }
+
                 showToast("Request submitted!", "success");
                 document.getElementById('withdrawAmountInput').value = '';
                 document.getElementById('withdrawNumberInput').value = '';
@@ -1378,7 +1466,6 @@
             if(tabId === 'broadcast') document.getElementById('adminTabBroadcast').classList.remove('hidden');
             if(tabId === 'links') document.getElementById('adminTabLinks').classList.remove('hidden');
             
-            // Auto scroll the tab bar
             const tabBtn = document.getElementById('tab-' + tabId);
             if(tabBtn) tabBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
@@ -1389,8 +1476,23 @@
             const bToken = document.getElementById('adminBotToken').value.trim();
             const rComm = parseFloat(document.getElementById('adminRefComm').value) || 0.05;
             const minW = parseFloat(document.getElementById('adminMinWithdraw').value) || 10;
-            try { await updateDoc(doc(db, 'global', 'settings'), { stexKey: sKey, voltxKey: vKey, botToken: bToken, refComm: rComm, minWithdraw: minW }); showToast("API Keys Saved", "success"); } 
-            catch(e) { showToast("Error", "error"); }
+            const eStex = document.getElementById('adminEnableStex').checked;
+            const eVoltx = document.getElementById('adminEnableVoltx').checked;
+            const wMsg = document.getElementById('adminWelcomeMsg').value.trim();
+
+            try { 
+                await updateDoc(doc(db, 'global', 'settings'), { 
+                    stexKey: sKey, 
+                    voltxKey: vKey, 
+                    botToken: bToken, 
+                    refComm: rComm, 
+                    minWithdraw: minW,
+                    enableStex: eStex,
+                    enableVoltx: eVoltx,
+                    welcomeMsg: wMsg
+                }); 
+                showToast("API Settings Saved", "success"); 
+            } catch(e) { showToast("Error", "error"); }
         }
 
         async function toggleGlobalWithdraw() {
@@ -1467,6 +1569,18 @@
                 if(status === 'REJECTED' && refundAmt > 0) {
                     await updateDoc(doc(db, 'users', uid), { balance: increment(refundAmt) });
                 }
+                
+                // Optional: Notify User via Telegram
+                if (globalSettings.botToken && uid) {
+                    let msg = '';
+                    if (status === 'APPROVED') {
+                        msg = `✅ <b>Withdrawal Approved!</b>\n\nYour request for <b>৳${refundAmt || '...'}</b> has been successfully processed. Check your account!`;
+                    } else if (status === 'REJECTED') {
+                        msg = `❌ <b>Withdrawal Rejected</b>\n\nYour request for <b>৳${refundAmt}</b> was rejected. The amount has been refunded to your NumaX wallet.`;
+                    }
+                    if(msg) sendTelegramMessage(uid, msg, globalSettings.botToken);
+                }
+
                 showToast(`Marked as ${status}`, "success");
             } catch(e) { showToast("Error", "error"); }
         }
@@ -1477,6 +1591,11 @@
             try {
                 const snap = await getDocs(collection(db, 'users'));
                 adminUsersCache = []; snap.forEach(d => adminUsersCache.push(d.data()));
+                
+                // Update total users count
+                const totalUsersEl = document.getElementById('adminTotalUsersCount');
+                if (totalUsersEl) totalUsersEl.innerText = adminUsersCache.length;
+
                 filterAdminUsers();
             } catch(e) { list.innerHTML = "Error"; }
         }
@@ -1534,10 +1653,8 @@
             btn.innerHTML = `<span class="animate-pulse">Sending...</span>`;
 
             try {
-                // 1. Set global broadcast for Web App Modal
                 await setDoc(doc(db, 'global', 'broadcast'), { message: msg, timestamp: Date.now() });
                 
-                // 2. Send Telegram DMs if checked
                 if(sendDm && globalSettings.botToken) {
                     const snap = await getDocs(collection(db, 'users'));
                     const uids = [];
@@ -1555,7 +1672,7 @@
                             });
                             successCount++;
                         } catch(e) {}
-                        await new Promise(r => setTimeout(r, 35)); // Anti-rate limit delay for TG API
+                        await new Promise(r => setTimeout(r, 35)); 
                     }
                     showToast(`Broadcast Sent! App updated & ${successCount} DMs sent.`, "success");
                 } else {
