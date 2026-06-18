@@ -115,14 +115,23 @@
             padding: 8px 16px;
             font-size: 12px;
             font-weight: 800;
-            color: #64748b;
+            color: var(--text-muted);
             border-bottom: 2px solid transparent;
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            transition: all 0.2s;
         }
-        .admin-tab.active { color: #0B3A64; border-bottom-color: #0B3A64; }
+        .admin-tab.active { color: var(--brand-navy); border-bottom-color: var(--brand-navy); }
+
+        .filter-tab {
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 800;
+            border-radius: 8px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
 
         /* Animations */
         .toast-enter { animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
@@ -241,26 +250,16 @@
                 </div>
             </div>
 
-            <!-- Active Requests -->
-            <div class="card overflow-hidden mt-2">
-                <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex justify-between items-center">
-                    <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Active Allocations</span>
-                </div>
-                <div id="activeNumbersList" class="divide-y divide-slate-100">
-                    <div class="p-8 text-center text-sm text-slate-400 font-medium">No active numbers.</div>
-                </div>
-            </div>
-
-            <!-- Today's Received OTPs (Moved from Dashboard) -->
+            <!-- Unified Numbers List -->
             <div class="card overflow-hidden mt-4">
-                <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex justify-between items-center">
-                    <h3 class="font-bold text-[#0B3A64] text-sm flex items-center gap-2">
-                        <svg class="w-4 h-4 text-[#11B6B9]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Today's OTP Activity
-                    </h3>
+                <div class="bg-slate-50 border-b border-slate-200 p-2 flex gap-1 overflow-x-auto scrollbar-hide">
+                    <button onclick="setNumFilter('ALL')" id="filter-ALL" class="filter-tab bg-[#0B3A64] text-white">All</button>
+                    <button onclick="setNumFilter('SUCCESS')" id="filter-SUCCESS" class="filter-tab text-slate-500 hover:bg-slate-100">Success</button>
+                    <button onclick="setNumFilter('PENDING')" id="filter-PENDING" class="filter-tab text-slate-500 hover:bg-slate-100">Pending</button>
+                    <button onclick="setNumFilter('FAILED')" id="filter-FAILED" class="filter-tab text-slate-500 hover:bg-slate-100">Failed</button>
                 </div>
-                <div id="userOtpList" class="divide-y divide-slate-100 max-h-[350px] overflow-y-auto">
-                    <p class="text-center text-sm text-slate-400 py-6 font-medium">No OTPs received today.</p>
+                <div id="unifiedNumbersList" class="divide-y divide-slate-100 min-h-[300px] max-h-[55vh] overflow-y-auto">
+                    <div class="p-8 text-center text-sm text-slate-400 font-medium">No numbers allocated yet.</div>
                 </div>
             </div>
         </div>
@@ -657,6 +656,7 @@
         window.updateWithdrawStatus = updateWithdrawStatus;
         window.addCustomLink = addCustomLink;
         window.removeCustomLink = removeCustomLink;
+        window.setNumFilter = setNumFilter;
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
@@ -867,59 +867,54 @@
             onSnapshot(q, (snapshot) => {
                 let otps = [];
                 snapshot.forEach(doc => otps.push({id: doc.id, ...doc.data()}));
-                otps.sort((a,b) => b.time - a.time);
 
                 const todayStr = getDateStr(Date.now());
                 const yestStr = getDateStr(Date.now() - 86400000);
                 let tCount = 0, yCount = 0, tEarn = 0;
-                let hasToday = false;
 
-                const listEl = document.getElementById('userOtpList');
-                listEl.innerHTML = '';
+                todaySuccessOTPs = [];
 
-                if (otps.length > 0) {
-                    otps.forEach(otp => {
-                        const earn = otp.cost || 0; 
-                        const dStr = getDateStr(otp.time);
-                        
-                        if (dStr === todayStr) { 
-                            tCount++; tEarn += earn; hasToday = true;
-                            const countryDetails = getCountryInfo(otp.number);
-                            const timeStr = new Date(otp.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-                            
-                            listEl.innerHTML += `
-                                <div class="p-4 flex flex-col bg-white border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                                    <div class="flex justify-between items-start w-full">
-                                        <div class="flex items-center gap-2 flex-wrap">
-                                            <p onclick="copySpecificText('+${otp.number}')" class="font-bold text-[#0B3A64] text-base font-mono cursor-pointer hover:opacity-80 transition-opacity" title="Click to copy number">+${otp.number}</p>
-                                            <span class="text-[10px] bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-bold border border-slate-200 flex items-center gap-1 shadow-sm">
-                                                <span>${countryDetails.flag}</span>
-                                            </span>
-                                        </div>
-                                        <div class="text-right flex flex-col items-end">
-                                            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">${timeStr}</p>
-                                            <p class="text-xs font-black mt-1.5 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">+৳${earn}</p>
-                                        </div>
-                                    </div>
-                                    <div onclick="copySpecificText('${otp.code}')" class="mt-3 pt-3 border-t border-slate-100 cursor-pointer hover:bg-slate-100/50 p-1.5 -mx-1.5 rounded-lg transition-colors group" title="Click to copy OTP">
-                                        <span class="text-xs font-black text-[#11B6B9] block mb-1 group-hover:text-[#0B3A64] transition-colors">Code: ${otp.code}</span>
-                                        <p class="text-[11px] text-slate-500 font-medium leading-relaxed">${otp.message}</p>
-                                    </div>
-                                </div>
-                            `;
-                        }
-                        if (dStr === yestStr) { yCount++; }
-                    });
-                }
-                
-                if(!hasToday) {
-                    listEl.innerHTML = '<p class="text-center text-sm text-slate-400 py-6 font-medium">No OTPs received today.</p>';
-                }
+                otps.forEach(otp => {
+                    const earn = otp.cost || 0; 
+                    if (getDateStr(otp.time) === todayStr) { 
+                        tCount++; 
+                        tEarn += earn; 
+                        todaySuccessOTPs.push({
+                            fullNumber: otp.number,
+                            status: 'SUCCESS',
+                            code: otp.code,
+                            time: otp.time,
+                            panel: otp.panel,
+                            isFirebase: true
+                        });
+                    }
+                    if (getDateStr(otp.time) === yestStr) { yCount++; }
+                });
 
                 document.getElementById('dashTodayOtp').innerText = tCount;
                 document.getElementById('dashYestOtp').innerText = yCount;
                 document.getElementById('dashCost').innerText = `৳${tEarn.toFixed(2)}`;
+
+                renderCombinedNumbers();
             });
+        }
+
+        let currentNumFilter = 'ALL';
+        let todaySuccessOTPs = [];
+
+        function setNumFilter(filter) {
+            currentNumFilter = filter;
+            ['ALL', 'SUCCESS', 'PENDING', 'FAILED'].forEach(f => {
+                const btn = document.getElementById('filter-' + f);
+                if(f === filter) {
+                    btn.classList.add('bg-[#0B3A64]', 'text-white');
+                    btn.classList.remove('text-slate-500', 'hover:bg-slate-100');
+                } else {
+                    btn.classList.remove('bg-[#0B3A64]', 'text-white');
+                    btn.classList.add('text-slate-500', 'hover:bg-slate-100');
+                }
+            });
+            renderCombinedNumbers();
         }
 
         async function requestNumber() {
@@ -944,9 +939,9 @@
 
                 if (resData && resData.meta && resData.meta.code === 200) {
                     const allocatedNum = resData.data.no_plus_number;
-                    const newReq = { fullNumber: allocatedNum, panel: panel, startTime: Date.now(), status: 'PENDING', message: '', code: '' };
+                    const newReq = { fullNumber: allocatedNum, panel: panel, time: Date.now(), startTime: Date.now(), status: 'PENDING', message: '', code: '' };
                     activeRequests.unshift(newReq);
-                    renderActiveNumbers();
+                    renderCombinedNumbers();
                     copySpecificText("+" + allocatedNum);
                     startPolling(newReq);
                 } else {
@@ -963,44 +958,97 @@
             return await res.json();
         }
 
-        function renderActiveNumbers() {
-            const listEl = document.getElementById('activeNumbersList');
+        function timeAgo(ms) {
+            const seconds = Math.floor((Date.now() - ms) / 1000);
+            if (seconds < 60) return "just now";
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes} min ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} hrs ago`;
+            return "older";
+        }
+
+        function renderCombinedNumbers() {
+            const listEl = document.getElementById('unifiedNumbersList');
+            if (!listEl) return;
             listEl.innerHTML = '';
-            if (activeRequests.length === 0) { listEl.innerHTML = '<div class="p-8 text-center text-sm text-slate-400 font-medium">No active numbers.</div>'; return; }
 
-            activeRequests.forEach((req) => {
+            let combined = [];
+            let seenNumbers = new Set();
+
+            activeRequests.forEach(req => {
+                combined.push(req);
+                if (req.status === 'SUCCESS') seenNumbers.add(req.fullNumber);
+            });
+
+            todaySuccessOTPs.forEach(otp => {
+                if (!seenNumbers.has(otp.fullNumber)) {
+                    combined.push(otp);
+                    seenNumbers.add(otp.fullNumber);
+                }
+            });
+
+            combined.sort((a, b) => b.time - a.time);
+
+            if (currentNumFilter !== 'ALL') {
+                combined = combined.filter(item => item.status === currentNumFilter);
+            }
+
+            if (combined.length === 0) { 
+                listEl.innerHTML = '<div class="p-8 text-center text-sm text-slate-400 font-medium">No numbers found.</div>'; 
+                return; 
+            }
+
+            combined.forEach((item) => {
+                const countryDetails = getCountryInfo(item.fullNumber);
+                const exactTime = new Date(item.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+                const relTime = timeAgo(item.time);
+
                 let statusBadge = '';
-                let messageRow = '';
-                
-                const countryDetails = getCountryInfo(req.fullNumber);
+                let otpBox = '';
 
-                if (req.status === 'PENDING') {
-                    statusBadge = `<div class="flex items-center gap-1.5"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span></span><span class="text-[10px] font-bold text-amber-500 uppercase tracking-widest animate-pulse">Waiting SMS</span></div>`;
-                } else if (req.status === 'SUCCESS') {
-                    statusBadge = `<span class="bg-emerald-100 text-emerald-600 text-[10px] px-2.5 py-1 rounded-md font-bold uppercase tracking-wider border border-emerald-200 shadow-sm">Success</span>`;
-                    messageRow = `
-                        <div class="mt-3 pt-3 border-t border-slate-100 w-full cursor-pointer hover:bg-slate-50 transition-colors p-1.5 -mx-1.5 rounded-lg group" onclick="copySpecificText('${req.code}')" title="Click to copy OTP">
-                            <span class="text-xs font-black text-[#11B6B9] block mb-1 group-hover:text-[#0B3A64] transition-colors">Code: ${req.code}</span>
-                            <p class="text-[11px] text-slate-500 font-medium leading-relaxed">${req.message}</p>
+                if (item.status === 'PENDING') {
+                    statusBadge = `<span class="text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded">PENDING</span>`;
+                } else if (item.status === 'SUCCESS') {
+                    statusBadge = `<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded">SUCCESS</span>`;
+                    otpBox = `
+                    <div class="mt-3 flex">
+                        <div class="flex items-center bg-[#2b3139] rounded-lg overflow-hidden border border-[#3e4451] shadow-sm">
+                            <div class="px-3 py-2 flex items-center gap-2 border-r border-[#3e4451] cursor-pointer hover:bg-[#363d47] transition" onclick="copySpecificText('${item.code}')">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                                <span class="font-mono font-black text-white text-base tracking-widest">${item.code}</span>
+                            </div>
+                            <button onclick="copySpecificText('${item.code}')" class="px-3 py-2 text-slate-400 hover:text-white hover:bg-[#3e4451] transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
                         </div>
-                    `;
-                } else if (req.status === 'FAILED') {
-                    statusBadge = `<span class="bg-red-100 text-red-600 text-[10px] px-2.5 py-1 rounded-md font-bold uppercase tracking-wider border border-red-200 shadow-sm">Failed</span>`;
+                    </div>`;
+                } else if (item.status === 'FAILED') {
+                    statusBadge = `<span class="text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded">FAILED</span>`;
                 }
 
                 listEl.innerHTML += `
-                    <div class="p-4 flex flex-col bg-white border-b border-slate-50">
-                        <div class="flex justify-between items-start w-full">
-                            <div class="flex flex-col gap-1">
-                                <span onclick="copySpecificText('+${req.fullNumber}')" class="font-mono font-black text-lg text-[#0B3A64] cursor-pointer hover:opacity-80 transition-opacity" title="Click to copy number">+${req.fullNumber}</span>
-                                <div class="flex items-center gap-1.5 text-xs text-slate-500 font-bold">
-                                    <span>${countryDetails.flag}</span>
-                                    <span>${countryDetails.name}</span>
-                                </div>
+                    <div class="p-4 bg-white border-b border-slate-100 flex flex-col hover:bg-slate-50 transition">
+                        <div class="flex justify-between items-start">
+                            <div class="flex flex-col gap-3 w-[35%]">
+                                <span onclick="copySpecificText('+${item.fullNumber}')" class="font-black text-[15px] text-slate-800 cursor-pointer hover:opacity-80">+${item.fullNumber}</span>
+                                <div>${statusBadge}</div>
                             </div>
-                            <div class="flex justify-end">${statusBadge}</div>
+                            
+                            <div class="flex flex-col items-start gap-1 w-[40%] pl-2">
+                                <span class="text-[13px] font-bold text-slate-700">${countryDetails.name}</span>
+                                <span class="text-xs text-slate-400 font-medium flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
+                                    Mobile
+                                </span>
+                            </div>
+
+                            <div class="flex flex-col items-end gap-2 w-[25%]">
+                                <span class="text-[10px] font-mono font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded">${relTime}</span>
+                                <span class="text-[10px] font-mono font-bold text-slate-400">${exactTime}</span>
+                            </div>
                         </div>
-                        ${messageRow}
+                        ${otpBox}
                     </div>
                 `;
             });
@@ -1009,7 +1057,12 @@
         function startPolling(reqObj) {
             const timeout = 20 * 60 * 1000; // 20 mins
             reqObj.intervalId = setInterval(async () => {
-                if (Date.now() - reqObj.startTime > timeout) { clearInterval(reqObj.intervalId); reqObj.status = 'FAILED'; renderActiveNumbers(); return; }
+                if (Date.now() - reqObj.startTime > timeout) { 
+                    clearInterval(reqObj.intervalId); 
+                    reqObj.status = 'FAILED'; 
+                    renderCombinedNumbers(); 
+                    return; 
+                }
                 const base = reqObj.panel === 'stex' ? 'https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api' : 'https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api';
                 const key = reqObj.panel === 'stex' ? globalSettings.stexKey : globalSettings.voltxKey;
 
@@ -1021,9 +1074,12 @@
                         if (match) {
                             clearInterval(reqObj.intervalId);
                             const codeMatch = match.message.match(/\b\d{4,8}\b/);
-                            reqObj.status = 'SUCCESS'; reqObj.message = match.message; reqObj.code = codeMatch ? codeMatch[0] : "CODE";
-                            renderActiveNumbers(); showToast("OTP Received", "success");
+                            reqObj.status = 'SUCCESS'; 
+                            reqObj.code = codeMatch ? codeMatch[0] : "CODE";
+                            showToast("OTP Received", "success");
                             saveReceivedOTP(match, reqObj.code, reqObj.panel);
+                            activeRequests = activeRequests.filter(r => r !== reqObj);
+                            renderCombinedNumbers();
                         }
                     }
                 } catch(e) {} 
@@ -1358,7 +1414,7 @@
             if(vid === 'console') { loadConsoleData(); if(!consoleUpdateInterval) consoleUpdateInterval = setInterval(loadConsoleData, 5000); } 
             else { clearInterval(consoleUpdateInterval); consoleUpdateInterval = null; }
             if(vid === 'admin') loadAdminStats();
-            if(vid === 'getnumber') renderActiveNumbers();
+            if(vid === 'getnumber') renderCombinedNumbers();
         }
 
         function useRange(r) {
