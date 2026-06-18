@@ -11,8 +11,18 @@
     
     <style>
         :root {
+            --brand-navy: #0B3A64;
+            --brand-cyan: #11B6B9;
+            --brand-cyan-light: rgba(17, 182, 185, 0.1);
+            --brand-navy-light: rgba(11, 58, 100, 0.05);
             --bg-main: #f8fafc;
+            --bg-card: #ffffff;
             --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
         }
 
         body {
@@ -23,47 +33,43 @@
         }
 
         /* Custom Scrollbar Styles */
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        /* Hide scrollbar for slider but keep functionality */
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* Component Classes */
         .glass-header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--border-light);
         }
         
         .nav-bar {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid var(--border-light);
             padding-bottom: env(safe-area-inset-bottom);
         }
 
         .card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
             border-radius: 16px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
         }
 
         .input-field {
             background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-light);
             color: var(--text-dark);
             border-radius: 12px;
             transition: all 0.2s ease;
         }
         .input-field:focus {
             outline: none;
-            border-color: #11B6B9;
-            box-shadow: 0 0 0 3px rgba(17, 182, 185, 0.1);
+            border-color: var(--brand-cyan);
+            box-shadow: 0 0 0 3px var(--brand-cyan-light);
             background-color: #fff;
         }
         .input-field:disabled {
@@ -73,7 +79,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #0B3A64, #11B6B9);
+            background: linear-gradient(135deg, var(--brand-navy), var(--brand-cyan));
             color: white;
             font-weight: 700;
             border-radius: 12px;
@@ -85,7 +91,7 @@
 
         .btn-outline {
             background: transparent;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border-light);
             color: var(--text-dark);
             font-weight: 600;
             border-radius: 12px;
@@ -94,16 +100,16 @@
         .btn-outline:active { background: #f1f5f9; }
 
         .nav-item {
-            color: #64748b;
+            color: var(--text-muted);
             transition: all 0.2s ease;
         }
-        .nav-item.active { color: #11B6B9; }
-        .nav-item.active svg { stroke: #11B6B9; fill: rgba(17, 182, 185, 0.1); }
+        .nav-item.active { color: var(--brand-cyan); }
+        .nav-item.active svg { stroke: var(--brand-cyan); fill: var(--brand-cyan-light); }
 
         .console-row {
             background: #fff;
-            border: 1px solid #e2e8f0;
-            border-left: 3px solid #11B6B9;
+            border: 1px solid var(--border-light);
+            border-left: 3px solid var(--brand-cyan);
             border-radius: 10px;
             margin-bottom: 8px;
             padding: 10px 12px;
@@ -120,17 +126,34 @@
             white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
         }
+        .admin-tab:hover { color: var(--brand-cyan); }
         .admin-tab.active { color: var(--brand-navy); border-bottom-color: var(--brand-navy); }
-
-        .filter-tab {
-            padding: 6px 16px;
+        
+        .number-tab {
+            padding: 8px 14px;
             font-size: 11px;
             font-weight: 800;
-            border-radius: 8px;
-            transition: all 0.2s;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            transition: all 0.2s ease;
+            flex: 1;
+            text-align: center;
+        }
+        .number-tab:hover { color: var(--brand-cyan); }
+        .number-tab.active { color: var(--brand-navy); border-bottom-color: var(--brand-navy); background: #f8fafc; border-radius: 8px 8px 0 0; }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         /* Animations */
@@ -174,7 +197,7 @@
         <div class="flex items-center gap-3">
             <div class="flex flex-col items-end">
                 <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Balance</span>
-                <span id="headerBalance" class="text-sm font-black text-emerald-500">৳0.00</span>
+                <span id="headerBalance" class="text-sm font-black text-[#10b981]">৳0.00</span>
             </div>
             <img id="headerPfp" src="" class="w-9 h-9 rounded-full border-2 border-white shadow-sm object-cover bg-slate-100">
         </div>
@@ -188,7 +211,6 @@
             <p class="text-xs font-bold text-slate-500 tracking-widest uppercase">Connecting System...</p>
         </div>
 
-        <!-- Dashboard View (Home) -->
         <div id="dashboardView" class="view-section hidden space-y-4">
             <div class="grid grid-cols-2 gap-3">
                 <div class="card p-4 text-center">
@@ -205,18 +227,20 @@
                 </div>
             </div>
 
-            <!-- Refer Friends Card -->
-            <div class="card p-5 mt-4 border border-[#11B6B9]/20 bg-gradient-to-br from-slate-50 to-cyan-50/40">
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-black text-[#0B3A64] text-lg flex items-center gap-2">
-                        <svg class="w-6 h-6 text-[#11B6B9]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        Refer Friends
-                    </h3>
-                </div>
-                <p class="text-xs font-bold text-slate-600 mb-4">You receive commission of each your friend rcv otp.</p>
-                <div class="flex gap-2">
-                    <input type="text" id="referralLink" readonly class="w-full input-field p-3 text-xs font-mono font-bold bg-white text-slate-600" value="Loading...">
-                    <button onclick="copySpecificText(document.getElementById('referralLink').value)" class="bg-[#0B3A64] hover:bg-[#082a4a] text-white px-5 rounded-xl text-sm font-bold shadow-md transition-colors">Copy</button>
+            <!-- Referral System -->
+            <div class="card overflow-hidden mt-4 bg-gradient-to-br from-indigo-50 to-white border-indigo-100">
+                <div class="px-5 py-4">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="bg-indigo-100 p-2 rounded-lg">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </div>
+                        <h3 class="font-black text-[#0B3A64] text-lg">Refer Friends</h3>
+                    </div>
+                    <p class="text-xs font-bold text-slate-500 mb-4">You receive commission for each OTP your friend successfully receives!</p>
+                    <div class="flex gap-2">
+                        <input type="text" id="referralLinkInput" readonly class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-mono text-slate-600 focus:outline-none">
+                        <button onclick="copyReferralLink()" class="bg-indigo-600 text-white px-4 rounded-lg text-xs font-bold shadow hover:bg-indigo-700 transition">Copy</button>
+                    </div>
                 </div>
             </div>
 
@@ -234,7 +258,6 @@
             </div>
         </div>
 
-        <!-- Get Number View -->
         <div id="getnumberView" class="view-section hidden space-y-4">
             <div class="card p-5">
                 <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Target Range</label>
@@ -250,21 +273,20 @@
                 </div>
             </div>
 
-            <!-- Unified Numbers List -->
-            <div class="card overflow-hidden mt-4">
-                <div class="bg-slate-50 border-b border-slate-200 p-2 flex gap-1 overflow-x-auto scrollbar-hide">
-                    <button onclick="setNumFilter('ALL')" id="filter-ALL" class="filter-tab bg-[#0B3A64] text-white">All</button>
-                    <button onclick="setNumFilter('SUCCESS')" id="filter-SUCCESS" class="filter-tab text-slate-500 hover:bg-slate-100">Success</button>
-                    <button onclick="setNumFilter('PENDING')" id="filter-PENDING" class="filter-tab text-slate-500 hover:bg-slate-100">Pending</button>
-                    <button onclick="setNumFilter('FAILED')" id="filter-FAILED" class="filter-tab text-slate-500 hover:bg-slate-100">Failed</button>
+            <!-- Active Requests -->
+            <div class="card overflow-hidden mt-2 border-t-0 rounded-t-lg">
+                <div class="flex border-b border-slate-200">
+                    <button class="number-tab active" onclick="filterNumberList('ALL')" id="tab-num-all">ALL</button>
+                    <button class="number-tab" onclick="filterNumberList('SUCCESS')" id="tab-num-success">SUCCESS</button>
+                    <button class="number-tab" onclick="filterNumberList('PENDING')" id="tab-num-pending">PENDING</button>
+                    <button class="number-tab" onclick="filterNumberList('FAILED')" id="tab-num-failed">FAILED</button>
                 </div>
-                <div id="unifiedNumbersList" class="divide-y divide-slate-100 min-h-[300px] max-h-[55vh] overflow-y-auto">
-                    <div class="p-8 text-center text-sm text-slate-400 font-medium">No numbers allocated yet.</div>
+                <div id="activeNumbersList" class="divide-y divide-slate-100 max-h-[50vh] overflow-y-auto">
+                    <div class="p-8 text-center text-sm text-slate-400 font-medium">No activity today.</div>
                 </div>
             </div>
         </div>
 
-        <!-- Console View -->
         <div id="consoleView" class="view-section hidden space-y-3">
             <div class="relative w-full mb-2">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
@@ -278,7 +300,6 @@
             </div>
         </div>
 
-        <!-- Withdraw View -->
         <div id="withdrawView" class="view-section hidden space-y-4">
             <h2 class="text-xl font-black text-[#0B3A64] mb-2 px-1">Withdraw Wallet</h2>
             
@@ -320,7 +341,6 @@
             </div>
         </div>
 
-        <!-- Profile View -->
         <div id="profileView" class="view-section hidden space-y-4">
             <div class="card p-6 text-center flex flex-col items-center">
                 <div class="relative">
@@ -329,7 +349,7 @@
                 </div>
                 <h2 id="profName2" class="text-xl font-black text-[#0B3A64]">Name</h2>
                 <p class="text-slate-500 text-sm font-medium mt-1">@<span id="profUsername2">username</span></p>
-                <div class="mt-2 bg-slate-100 text-slate-600 px-3 py-1 rounded-md text-xs font-mono font-semibold border border-slate-200">UID: <span id="profUid2">...</span></div>
+                <div class="mt-2 bg-slate-100 text-slate-600 px-3 py-1 rounded-md text-xs font-mono font-semibold border border-slate-200 flex items-center justify-center w-full max-w-[200px] overflow-hidden"><span class="truncate">UID: <span id="profUid2">...</span></span></div>
                 
                 <div class="w-full grid grid-cols-2 gap-3 mt-6">
                     <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-left">
@@ -342,7 +362,6 @@
                     </div>
                 </div>
 
-                <!-- Admin Button inside Profile -->
                 <button id="adminMenuBtn" onclick="switchView('admin')" class="hidden mt-6 w-full btn-outline border-[#0B3A64] text-[#0B3A64] py-3 flex justify-center items-center gap-2 hover:bg-[#0B3A64] hover:text-white">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Manage Admin Panel
@@ -353,32 +372,37 @@
         <div id="adminView" class="view-section hidden space-y-4">
             <h2 class="font-black text-xl text-[#0B3A64] px-1">Admin Panel</h2>
             
-            <div class="flex gap-2 overflow-x-auto pb-2 border-b border-slate-200 scrollbar-hide mb-2">
-                <button class="admin-tab active" id="tab-stats" onclick="switchAdminTab('stats')">Dashboard</button>
-                <button class="admin-tab" id="tab-api" onclick="switchAdminTab('api')">API</button>
-                <button class="admin-tab" id="tab-withdrawals" onclick="switchAdminTab('withdrawals')">Withdraw</button>
-                <button class="admin-tab" id="tab-users" onclick="switchAdminTab('users')">Users</button>
-                <button class="admin-tab" id="tab-broadcast" onclick="switchAdminTab('broadcast')">Broadcast</button>
-                <button class="admin-tab" id="tab-links" onclick="switchAdminTab('links')">Links</button>
+            <div class="flex overflow-x-auto pb-2 border-b border-slate-200 scrollbar-hide mb-2 snap-x snap-mandatory">
+                <button class="admin-tab active snap-start" id="tab-stats" onclick="switchAdminTab('stats')">Dashboard</button>
+                <button class="admin-tab snap-start" id="tab-api" onclick="switchAdminTab('api')">API & Ref</button>
+                <button class="admin-tab snap-start" id="tab-withdrawals" onclick="switchAdminTab('withdrawals')">Withdraw</button>
+                <button class="admin-tab snap-start" id="tab-users" onclick="switchAdminTab('users')">Users</button>
+                <button class="admin-tab snap-start" id="tab-broadcast" onclick="switchAdminTab('broadcast')">Broadcast</button>
+                <button class="admin-tab snap-start" id="tab-links" onclick="switchAdminTab('links')">Links</button>
             </div>
 
             <!-- Admin Tab: Stats -->
             <div id="adminTabStats" class="admin-content-section space-y-4">
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="card p-4 text-center border-t-4 border-t-[#11B6B9]">
-                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Sys OTP (Today)</p>
-                        <p class="text-3xl font-black text-[#0B3A64] mt-1" id="adminSysToday">0</p>
+                    <div class="card p-4 text-center border-t-4 border-t-indigo-500">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">STEX (Today)</p>
+                        <p class="text-3xl font-black text-[#0B3A64] mt-1" id="adminStexToday">0</p>
                     </div>
-                    <div class="card p-4 text-center border-t-4 border-t-[#0B3A64]">
+                    <div class="card p-4 text-center border-t-4 border-t-[#11B6B9]">
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">VOLTX (Today)</p>
+                        <p class="text-3xl font-black text-[#0B3A64] mt-1" id="adminVoltxToday">0</p>
+                    </div>
+                    <div class="card p-4 text-center border-t-4 border-t-[#0B3A64] col-span-2">
                         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Sys OTP (Total)</p>
                         <p class="text-3xl font-black text-[#0B3A64] mt-1" id="adminSysTotal">0</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Admin Tab: API -->
+            <!-- Admin Tab: API & Referral -->
             <div id="adminTabApi" class="admin-content-section hidden space-y-4">
-                <div class="card p-5 space-y-4">
+                <div class="card p-5 space-y-4 border-t-4 border-t-[#0B3A64]">
+                    <h3 class="font-black text-sm text-[#0B3A64] uppercase tracking-widest border-b border-slate-100 pb-2">API Settings</h3>
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">STEX API Key</label>
                         <input type="password" id="adminStexKey" class="w-full input-field p-3 font-mono text-sm mt-1">
@@ -389,13 +413,20 @@
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Telegram Bot Token (For Direct Messages)</label>
-                        <input type="password" id="adminBotToken" placeholder="e.g. 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" class="w-full input-field p-3 font-mono text-sm mt-1">
+                        <input type="password" id="adminBotToken" placeholder="e.g. 123456:ABC-DEF..." class="w-full input-field p-3 font-mono text-sm mt-1">
                     </div>
                     <div>
-                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Referral Commission Rate (৳)</label>
-                        <input type="number" step="0.01" id="adminReferralCommission" placeholder="0.05" class="w-full input-field p-3 font-mono text-sm mt-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Minimum Withdraw Amount (৳)</label>
+                        <input type="number" id="adminMinWithdraw" placeholder="10" class="w-full input-field p-3 font-mono text-sm mt-1">
                     </div>
-                    <button onclick="saveAdminApi()" class="w-full btn-primary py-3.5 shadow-md">Save Settings</button>
+                    
+                    <h3 class="font-black text-sm text-[#0B3A64] uppercase tracking-widest border-b border-slate-100 pb-2 mt-4">Referral System</h3>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Referral Commission (Per OTP) ৳</label>
+                        <input type="number" step="0.01" id="adminRefComm" placeholder="0.05" class="w-full input-field p-3 font-mono text-sm mt-1 text-[#11B6B9]">
+                    </div>
+
+                    <button onclick="saveAdminApi()" class="w-full btn-primary py-3.5 shadow-md mt-4">Save All Settings</button>
                 </div>
             </div>
 
@@ -483,7 +514,7 @@
 
     </main>
 
-    <nav id="bottomNav" class="nav-bar fixed bottom-0 w-full z-40 flex justify-around items-center pt-2 shadow-[0_-4px_20px_rgba(0,0,0,0.03)] pb-2">
+    <nav id="bottomNav" class="nav-bar fixed bottom-0 w-full z-40 flex justify-around items-center pt-2 pb-safe-bottom shadow-[0_-4px_20px_rgba(0,0,0,0.03)]">
         <button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-item active flex flex-col items-center p-2 w-full">
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
             <span class="text-[10px] font-bold tracking-wide">Home</span>
@@ -512,7 +543,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc, onSnapshot, increment, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc, onSnapshot, increment, addDoc, deleteDoc, orderBy, runTransaction } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC1C8SS6FzCuli0KH6e1VYhXsyXscDIoFM",
@@ -532,108 +563,136 @@
         const ADMIN_ID = "8505710811";
         let tgUser = { id: 'unknown', first_name: 'Guest', username: '' };
         let currentUserData = null;
-        let globalSettings = { stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", customLinks: [], referralCommission: 0.05 };
+        let globalSettings = { stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", customLinks: [], refComm: 0.05, minWithdraw: 10 };
         let rangePanelMap = {}; 
         
         let activeRequests = []; 
+        let currentNumberFilter = 'ALL';
         let consoleUpdateInterval = null;
         let adminUsersCache = [];
 
-        // Huge Country Mapping Dictionary
         const COUNTRY_FLAGS = {
             "afghanistan": "🇦🇫", "albania": "🇦🇱", "algeria": "🇩🇿", "andorra": "🇦🇩", "angola": "🇦🇴",
             "antigua and barbuda": "🇦🇬", "argentina": "🇦🇷", "armenia": "🇦🇲", "australia": "🇦🇺",
-            "austria": "🇦🇹", "azerbaijan": "🇦🇿", "bahamas": "🇧🇸", "bahrain": "🇧🇭", "bangladesh": "🇧🇩",
-            "barbados": "🇧🇧", "belarus": "🇧🇾", "belgium": "🇧🇪", "belize": "🇧🇿", "benin": "🇧🇯",
-            "bhutan": "🇧🇹", "bolivia": "🇧🇴", "bosnia and herzegovina": "🇧🇦", "botswana": "🇧🇼",
-            "brazil": "🇧🇷", "brunei": "🇧🇳", "bulgaria": "🇧🇬", "burkina faso": "🇧🇫", "burundi": "🇧🇮",
-            "cambodia": "🇰🇭", "cameroon": "🇨🇲", "canada": "🇨🇦", "cape verde": "🇨🇻", "central african republic": "🇨🇫",
-            "chad": "🇹🇩", "chile": "🇨🇱", "china": "🇨🇳", "colombia": "🇨🇴", "comoros": "🇰🇲", "congo": "🇨🇬",
-            "costa rica": "🇨🇷", "cote d'ivoire": "🇨🇮", "ivory coast": "🇨🇮", "croatia": "🇭🇷", "cuba": "🇨🇺",
-            "cyprus": "🇨🇾", "czech republic": "🇨🇿", "denmark": "🇩🇰", "djibouti": "🇩🇯", "dominica": "🇩🇲",
-            "dominican republic": "🇩🇴", "drc": "🇨🇩", "ecuador": "🇪🇨", "egypt": "🇪🇬", "el salvador": "🇸🇻",
-            "equatorial guinea": "🇬🇶", "eritrea": "🇪🇷", "estonia": "🇪🇪", "eswatini": "🇸🇿", "ethiopia": "🇪🇹",
-            "fiji": "🇫🇯", "finland": "🇫🇮", "france": "🇫🇷", "gabon": "🇬🇦", "gambia": "🇬🇲", "georgia": "🇬🇪",
-            "germany": "🇩🇪", "ghana": "🇬🇭", "greece": "🇬🇷", "grenada": "🇬🇩", "guatemala": "🇬🇹", "guinea": "🇬🇳",
-            "guinea bissau": "🇬🇼", "guyana": "🇬🇾", "haiti": "🇭🇹", "honduras": "🇭🇳", "hong kong": "🇭🇰",
-            "hungary": "🇭🇺", "iceland": "🇮🇸", "india": "🇮🇳", "indonesia": "🇮🇩", "iran": "🇮🇷", "iraq": "🇮🇶",
-            "ireland": "🇮🇪", "israel": "🇮🇱", "italy": "🇮🇹", "jamaica": "🇯🇲", "japan": "🇯🇵", "jordan": "🇯🇴",
-            "kazakhstan": "🇰🇿", "kenya": "🇰🇪", "kiribati": "🇰🇮", "kosovo": "🇽🇰", "kuwait": "🇰🇼", "kyrgyzstan": "🇰🇬",
-            "laos": "🇱🇦", "latvia": "🇱🇻", "lebanon": "🇱🇧", "lesotho": "🇱🇸", "liberia": "🇱🇷", "libya": "🇱🇾",
-            "liechtenstein": "🇱🇮", "lithuania": "🇱🇹", "luxembourg": "🇱🇺", "macau": "🇲🇴", "madagascar": "🇲🇬",
-            "malawi": "🇲🇼", "malaysia": "🇲🇾", "maldives": "🇲🇻", "mali": "🇲🇱", "malta": "🇲🇹", "marshall islands": "🇲🇭",
-            "mauritania": "🇲🇷", "mauritius": "🇲🇺", "mexico": "🇲🇽", "micronesia": "🇫🇲", "moldova": "🇲🇩",
-            "monaco": "🇲🇨", "mongolia": "🇲🇳", "montenegro": "🇲🇪", "morocco": "🇲🇦", "mozambique": "🇲🇿",
-            "myanmar": "🇲🇲", "namibia": "🇳🇦", "nauru": "🇳🇷", "nepal": "🇳🇵", "netherlands": "🇳🇱", "new zealand": "🇳🇿",
-            "nicaragua": "🇳🇮", "niger": "🇳🇪", "nigeria": "🇳🇬", "north korea": "🇰🇵", "north macedonia": "🇲🇰",
-            "norway": "🇳🇴", "oman": "🇴🇲", "pakistan": "🇵🇰", "palau": "🇵🇼", "palestine": "🇵🇸", "panama": "🇵🇦",
-            "papua new guinea": "🇵🇬", "paraguay": "🇵🇾", "peru": "🇵🇪", "philippines": "🇵🇭", "poland": "🇵🇱",
-            "portugal": "🇵🇹", "qatar": "🇶🇦", "romania": "🇷🇴", "russia": "🇷🇺", "rwanda": "🇷🇼", "saint kitts and nevis": "🇰🇳",
-            "saint lucia": "🇱🇨", "saint vincent and the grenadines": "🇻🇨", "samoa": "🇼🇸", "san marino": "🇸🇲",
-            "sao tome and principe": "🇸🇹", "saudi arabia": "🇸🇦", "senegal": "🇸🇳", "serbia": "🇷🇸", "seychelles": "🇸🇨",
-            "sierra leone": "🇸🇱", "singapore": "🇸🇬", "slovakia": "🇸🇰", "slovenia": "🇸🇮", "solomon islands": "🇸🇧",
-            "somalia": "🇸🇴", "south africa": "🇿🇦", "south korea": "🇰🇷", "south sudan": "🇸🇸", "spain": "🇪🇸",
-            "sri lanka": "🇱🇰", "sudan": "🇸🇩", "suriname": "🇸🇷", "sweden": "🇸🇪", "switzerland": "🇨🇭", "syria": "🇸🇾",
-            "taiwan": "🇹🇼", "tajikistan": "🇹🇯", "tanzania": "🇹🇿", "thailand": "🇹🇭", "timor leste": "🇹🇱", "togo": "🇹🇬",
-            "tonga": "🇹🇴", "trinidad and tobago": "🇹🇹", "tunisia": "🇹🇳", "turkey": "🇹🇷", "turkmenistan": "🇹🇲",
-            "tuvalu": "🇹🇻", "uganda": "🇺🇬", "ukraine": "🇺🇦", "uae": "🇦🇪", "united arab emirates": "🇦🇪",
-            "united kingdom": "🇬🇧", "uk": "🇬🇧", "usa": "🇺🇸", "united states": "🇺🇸", "uruguay": "🇺🇾", "uzbekistan": "🇺🇿",
-            "vanuatu": "🇻🇺", "vatican city": "🇻🇦", "venezuela": "🇻🇪", "vietnam": "🇻🇳", "yemen": "🇾🇪", "zambia": "🇿🇲", "zimbabwe": "🇿🇼"
+            "austria": "🇦🇹", "azerbaijan": "🇦🇿", "bahamas": "🇧🇸", "bahrain": "🇧🇭",
+            "bangladesh": "🇧🇩", "barbados": "🇧🇧", "belarus": "🇧🇾", "belgium": "🇧🇪", "belize": "🇧🇿",
+            "benin": "🇧🇯", "bhutan": "🇧🇹", "bolivia": "🇧🇴", "bosnia and herzegovina": "🇧🇦",
+            "botswana": "🇧🇼", "brazil": "🇧🇷", "brunei": "🇧🇳", "bulgaria": "🇧🇬",
+            "burkina faso": "🇧🇫", "burundi": "🇧🇮", "cambodia": "🇰🇭", "cameroon": "🇨🇲",
+            "canada": "🇨🇦", "cape verde": "🇨🇻", "central african republic": "🇨🇫", "chad": "🇹🇩",
+            "chile": "🇨🇱", "china": "🇨🇳", "colombia": "🇨🇴", "comoros": "🇰🇲", "congo": "🇨🇬",
+            "costa rica": "🇨🇷", "cote d'ivoire": "🇨🇮", "ivory coast": "🇨🇮",
+            "croatia": "🇭🇷", "cuba": "🇨🇺", "cyprus": "🇨🇾", "czech republic": "🇨🇿",
+            "denmark": "🇩🇰", "djibouti": "🇩🇯", "dominica": "🇩🇲", "dominican republic": "🇩🇴",
+            "drc": "🇨🇩", "ecuador": "🇪🇨", "egypt": "🇪🇬", "el salvador": "🇸🇻",
+            "equatorial guinea": "🇬🇶", "eritrea": "🇪🇷", "estonia": "🇪🇪", "eswatini": "🇸🇿",
+            "ethiopia": "🇪🇹", "fiji": "🇫🇯", "finland": "🇫🇮", "france": "🇫🇷",
+            "gabon": "🇬🇦", "gambia": "🇬🇲", "georgia": "🇬🇪", "germany": "🇩🇪", "ghana": "🇬🇭",
+            "greece": "🇬🇷", "grenada": "🇬🇩", "guatemala": "🇬🇹", "guinea": "🇬🇳",
+            "guinea bissau": "🇬🇼", "guyana": "🇬🇾", "haiti": "🇭🇹", "honduras": "🇭🇳",
+            "hong kong": "🇭🇰", "hungary": "🇭🇺", "iceland": "🇮🇸", "india": "🇮🇳",
+            "indonesia": "🇮🇩", "iran": "🇮🇷", "iraq": "🇮🇶", "ireland": "🇮🇪", "israel": "🇮🇱",
+            "italy": "🇮🇹", "jamaica": "🇯🇲", "japan": "🇯🇵", "jordan": "🇯🇴", "kazakhstan": "🇰🇿",
+            "kenya": "🇰🇪", "kiribati": "🇰🇮", "kosovo": "🇽🇰", "kuwait": "🇰🇼", "kyrgyzstan": "🇰🇬",
+            "laos": "🇱🇦", "latvia": "🇱🇻", "lebanon": "🇱🇧", "lesotho": "🇱🇸", "liberia": "🇱🇷",
+            "libya": "🇱🇾", "liechtenstein": "🇱🇮", "lithuania": "🇱🇹", "luxembourg": "🇱🇺",
+            "macau": "🇲🇴", "madagascar": "🇲🇬", "malawi": "🇲🇼", "malaysia": "🇲🇾", "maldives": "🇲🇻",
+            "mali": "🇲🇱", "malta": "🇲🇹", "marshall islands": "🇲🇭", "mauritania": "🇲🇷",
+            "mauritius": "🇲🇺", "mexico": "🇲🇽", "micronesia": "🇫🇲", "moldova": "🇲🇩",
+            "monaco": "🇲🇨", "mongolia": "🇲🇳", "montenegro": "🇲🇪", "morocco": "🇲🇦",
+            "mozambique": "🇲🇿", "myanmar": "🇲🇲", "namibia": "🇳🇦", "nauru": "🇳🇷", "nepal": "🇳🇵",
+            "netherlands": "🇳🇱", "new zealand": "🇳🇿", "nicaragua": "🇳🇮", "niger": "🇳🇪",
+            "nigeria": "🇳🇬", "north korea": "🇰🇵", "north macedonia": "🇲🇰", "norway": "🇳🇴",
+            "oman": "🇴🇲", "pakistan": "🇵🇰", "palau": "🇵🇼", "palestine": "🇵🇸", "panama": "🇵🇦",
+            "papua new guinea": "🇵🇬", "paraguay": "🇵🇾", "peru": "🇵🇪", "philippines": "🇵🇭",
+            "poland": "🇵🇱", "portugal": "🇵🇹", "qatar": "🇶🇦", "romania": "🇷🇴", "russia": "🇷🇺",
+            "rwanda": "🇷🇼", "saint kitts and nevis": "🇰🇳", "saint lucia": "🇱🇨",
+            "saint vincent and the grenadines": "🇻🇨", "samoa": "🇼🇸", "san marino": "🇸🇲",
+            "sao tome and principe": "🇸🇹", "saudi arabia": "🇸🇦", "senegal": "🇸🇳", "serbia": "🇷🇸",
+            "seychelles": "🇸🇨", "sierra leone": "🇸🇱", "singapore": "🇸🇬", "slovakia": "🇸🇰",
+            "slovenia": "🇸🇮", "solomon islands": "🇸🇧", "somalia": "🇸🇴", "south africa": "🇿🇦",
+            "south korea": "🇰🇷", "south sudan": "🇸🇸", "spain": "🇪🇸", "sri lanka": "🇱🇰",
+            "sudan": "🇸🇩", "suriname": "🇸🇷", "sweden": "🇸🇪", "switzerland": "🇨🇭", "syria": "🇸🇾",
+            "taiwan": "🇹🇼", "tajikistan": "🇹🇯", "tanzania": "🇹🇿", "thailand": "🇹🇭",
+            "timor leste": "🇹🇱", "togo": "🇹🇬", "tonga": "🇹🇴", "trinidad and tobago": "🇹🇹",
+            "tunisia": "🇹🇳", "turkey": "🇹🇷", "turkmenistan": "🇹🇲", "tuvalu": "🇹🇻",
+            "uganda": "🇺🇬", "ukraine": "🇺🇦", "uae": "🇦🇪", "united arab emirates": "🇦🇪",
+            "united kingdom": "🇬🇧", "uk": "🇬🇧", "usa": "🇺🇸", "united states": "🇺🇸",
+            "uruguay": "🇺🇾", "uzbekistan": "🇺🇿", "vanuatu": "🇻🇺", "vatican city": "🇻🇦",
+            "venezuela": "🇻🇪", "vietnam": "🇻🇳", "yemen": "🇾🇪", "zambia": "🇿🇲", "zimbabwe": "🇿🇼"
         };
 
         const PHONE_TO_COUNTRY = {
-            "1": "United States", "7": "Russia", "20": "Egypt", "27": "South Africa", "30": "Greece", "31": "Netherlands", 
-            "32": "Belgium", "33": "France", "34": "Spain", "36": "Hungary", "39": "Italy", "40": "Romania",
-            "41": "Switzerland", "43": "Austria", "44": "United Kingdom", "45": "Denmark", "46": "Sweden", "47": "Norway", 
-            "48": "Poland", "49": "Germany", "51": "Peru", "52": "Mexico", "53": "Cuba", "54": "Argentina",
-            "55": "Brazil", "56": "Chile", "57": "Colombia", "58": "Venezuela", "60": "Malaysia", "61": "Australia", 
-            "62": "Indonesia", "63": "Philippines", "64": "New Zealand", "65": "Singapore", "66": "Thailand", "81": "Japan",
-            "82": "South Korea", "84": "Vietnam", "86": "China", "90": "Turkey", "91": "India", "92": "Pakistan", 
-            "93": "Afghanistan", "94": "Sri Lanka", "95": "Myanmar", "98": "Iran", "211": "South Sudan", "212": "Morocco",
-            "213": "Algeria", "216": "Tunisia", "218": "Libya", "220": "Gambia", "221": "Senegal", "222": "Mauritania", 
-            "223": "Mali", "224": "Guinea", "225": "Cote d'Ivoire", "226": "Burkina Faso", "227": "Niger", "228": "Togo",
-            "229": "Benin", "230": "Mauritius", "231": "Liberia", "232": "Sierra Leone", "233": "Ghana", "234": "Nigeria", 
-            "235": "Chad", "236": "Central African Republic", "237": "Cameroon", "238": "Cape Verde", "239": "Sao Tome and Principe", 
-            "240": "Equatorial Guinea", "241": "Gabon", "242": "Congo", "243": "DRC", "244": "Angola", "245": "Guinea Bissau",
-            "249": "Sudan", "250": "Rwanda", "251": "Ethiopia", "252": "Somalia", "253": "Djibouti", "254": "Kenya", 
-            "255": "Tanzania", "256": "Uganda", "257": "Burundi", "258": "Mozambique", "260": "Zambia", "261": "Madagascar", 
-            "262": "Reunion", "263": "Zimbabwe", "264": "Namibia", "265": "Malawi", "266": "Lesotho", "267": "Botswana", 
-            "268": "Eswatini", "269": "Comoros", "291": "Eritrea", "350": "Gibraltar", "351": "Portugal", "352": "Luxembourg", 
-            "353": "Ireland", "354": "Iceland", "355": "Albania", "356": "Malta", "357": "Cyprus", "358": "Finland", 
-            "359": "Bulgaria", "370": "Lithuania", "371": "Latvia", "372": "Estonia", "373": "Moldova", "374": "Armenia", 
-            "375": "Belarus", "376": "Andorra", "377": "Monaco", "378": "San Marino", "379": "Vatican City", "380": "Ukraine", 
-            "381": "Serbia", "382": "Montenegro", "383": "Kosovo", "385": "Croatia", "386": "Slovenia", "387": "Bosnia and Herzegovina",
-            "389": "North Macedonia", "420": "Czech Republic", "421": "Slovakia", "423": "Liechtenstein", "501": "Belize", 
-            "502": "Guatemala", "503": "El Salvador", "504": "Honduras", "505": "Nicaragua", "506": "Costa Rica", "507": "Panama",
-            "509": "Haiti", "591": "Bolivia", "592": "Guyana", "593": "Ecuador", "595": "Paraguay", "597": "Suriname", 
-            "598": "Uruguay", "670": "Timor Leste", "673": "Brunei", "674": "Nauru", "675": "Papua New Guinea",
-            "676": "Tonga", "677": "Solomon Islands", "678": "Vanuatu", "679": "Fiji", "680": "Palau", "685": "Samoa", 
-            "686": "Kiribati", "687": "New Caledonia", "688": "Tuvalu", "689": "French Polynesia", "691": "Micronesia",
-            "692": "Marshall Islands", "850": "North Korea", "852": "Hong Kong", "853": "Macau", "855": "Cambodia", 
-            "856": "Laos", "880": "Bangladesh", "886": "Taiwan", "960": "Maldives", "961": "Lebanon", "962": "Jordan",
-            "963": "Syria", "964": "Iraq", "965": "Kuwait", "966": "Saudi Arabia", "967": "Yemen", "968": "Oman", 
-            "970": "Palestine", "971": "UAE", "972": "Israel", "973": "Bahrain", "974": "Qatar", "975": "Bhutan",
-            "976": "Mongolia", "977": "Nepal", "992": "Tajikistan", "993": "Turkmenistan", "994": "Azerbaijan", 
-            "995": "Georgia", "996": "Kyrgyzstan", "998": "Uzbekistan"
+            "1": "United States", "7": "Russia", "20": "Egypt", "27": "South Africa",
+            "30": "Greece", "31": "Netherlands", "32": "Belgium", "33": "France",
+            "34": "Spain", "36": "Hungary", "39": "Italy", "40": "Romania",
+            "41": "Switzerland", "43": "Austria", "44": "United Kingdom", "45": "Denmark",
+            "46": "Sweden", "47": "Norway", "48": "Poland", "49": "Germany",
+            "51": "Peru", "52": "Mexico", "53": "Cuba", "54": "Argentina",
+            "55": "Brazil", "56": "Chile", "57": "Colombia", "58": "Venezuela",
+            "60": "Malaysia", "61": "Australia", "62": "Indonesia", "63": "Philippines",
+            "64": "New Zealand", "65": "Singapore", "66": "Thailand", "81": "Japan",
+            "82": "South Korea", "84": "Vietnam", "86": "China", "90": "Turkey",
+            "91": "India", "92": "Pakistan", "93": "Afghanistan", "94": "Sri Lanka",
+            "95": "Myanmar", "98": "Iran", "211": "South Sudan", "212": "Morocco",
+            "213": "Algeria", "216": "Tunisia", "218": "Libya", "220": "Gambia",
+            "221": "Senegal", "222": "Mauritania", "223": "Mali", "224": "Guinea",
+            "225": "Cote d'Ivoire", "226": "Burkina Faso", "227": "Niger", "228": "Togo",
+            "229": "Benin", "230": "Mauritius", "231": "Liberia", "232": "Sierra Leone",
+            "233": "Ghana", "234": "Nigeria", "235": "Chad", "236": "Central African Republic",
+            "237": "Cameroon", "238": "Cape Verde", "239": "Sao Tome and Principe", "240": "Equatorial Guinea",
+            "241": "Gabon", "242": "Congo", "243": "DRC", "244": "Angola", "245": "Guinea Bissau",
+            "249": "Sudan", "250": "Rwanda", "251": "Ethiopia", "252": "Somalia", "253": "Djibouti",
+            "254": "Kenya", "255": "Tanzania", "256": "Uganda", "257": "Burundi",
+            "258": "Mozambique", "260": "Zambia", "261": "Madagascar", "262": "Reunion",
+            "263": "Zimbabwe", "264": "Namibia", "265": "Malawi", "266": "Lesotho",
+            "267": "Botswana", "268": "Eswatini", "269": "Comoros", "291": "Eritrea",
+            "350": "Gibraltar", "351": "Portugal", "352": "Luxembourg", "353": "Ireland",
+            "354": "Iceland", "355": "Albania", "356": "Malta", "357": "Cyprus",
+            "358": "Finland", "359": "Bulgaria", "370": "Lithuania", "371": "Latvia",
+            "372": "Estonia", "373": "Moldova", "374": "Armenia", "375": "Belarus",
+            "376": "Andorra", "377": "Monaco", "378": "San Marino", "379": "Vatican City",
+            "380": "Ukraine", "381": "Serbia", "382": "Montenegro", "383": "Kosovo",
+            "385": "Croatia", "386": "Slovenia", "387": "Bosnia and Herzegovina",
+            "389": "North Macedonia", "420": "Czech Republic", "421": "Slovakia",
+            "423": "Liechtenstein", "501": "Belize", "502": "Guatemala", "503": "El Salvador",
+            "504": "Honduras", "505": "Nicaragua", "506": "Costa Rica", "507": "Panama",
+            "509": "Haiti", "591": "Bolivia", "592": "Guyana", "593": "Ecuador",
+            "595": "Paraguay", "597": "Suriname", "598": "Uruguay", "670": "Timor Leste",
+            "673": "Brunei", "674": "Nauru", "675": "Papua New Guinea",
+            "676": "Tonga", "677": "Solomon Islands", "678": "Vanuatu", "679": "Fiji",
+            "680": "Palau", "685": "Samoa", "686": "Kiribati", "687": "New Caledonia",
+            "688": "Tuvalu", "689": "French Polynesia", "691": "Micronesia",
+            "692": "Marshall Islands", "850": "North Korea", "852": "Hong Kong",
+            "853": "Macau", "855": "Cambodia", "856": "Laos", "880": "Bangladesh",
+            "886": "Taiwan", "960": "Maldives", "961": "Lebanon", "962": "Jordan",
+            "963": "Syria", "964": "Iraq", "965": "Kuwait", "966": "Saudi Arabia",
+            "967": "Yemen", "968": "Oman", "970": "Palestine", "971": "UAE",
+            "972": "Israel", "973": "Bahrain", "974": "Qatar", "975": "Bhutan",
+            "976": "Mongolia", "977": "Nepal", "992": "Tajikistan", "993": "Turkmenistan",
+            "994": "Azerbaijan", "995": "Georgia", "996": "Kyrgyzstan", "998": "Uzbekistan"
         };
 
         function getCountryInfo(numberStr) {
-            if (!numberStr) return { name: "Unknown", flag: "🏳️" };
+            if (!numberStr) return { name: "Unknown", flag: "🏳️", iso: "" };
             const digits = numberStr.replace(/\D/g, '');
             let matchedCountry = null;
             for (let len = 3; len >= 1; len--) {
                 if (digits.length >= len) {
                     const prefix = digits.substring(0, len);
-                    if (PHONE_TO_COUNTRY[prefix]) { matchedCountry = PHONE_TO_COUNTRY[prefix]; break; }
+                    if (PHONE_TO_COUNTRY[prefix]) {
+                        matchedCountry = PHONE_TO_COUNTRY[prefix];
+                        break;
+                    }
                 }
             }
-            if (!matchedCountry) return { name: "Unknown", flag: "🏳️" };
+            if (!matchedCountry) return { name: "Unknown", flag: "🏳️", iso: "" };
             const key = matchedCountry.toLowerCase().trim();
             const flag = COUNTRY_FLAGS[key] || "🏳️";
             return { name: matchedCountry, flag };
         }
 
-        // Exposing functions to window
+        // Exposing functions to window to avoid reference errors
         window.switchView = switchView;
         window.switchAdminTab = switchAdminTab;
         window.copySpecificText = copySpecificText;
@@ -656,7 +715,8 @@
         window.updateWithdrawStatus = updateWithdrawStatus;
         window.addCustomLink = addCustomLink;
         window.removeCustomLink = removeCustomLink;
-        window.setNumFilter = setNumFilter;
+        window.filterNumberList = filterNumberList;
+        window.copyReferralLink = copyReferralLink;
 
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
@@ -696,11 +756,10 @@
                 if (initData && initData.user) {
                     tgUser = initData.user;
                 } else {
-                    tgUser = { id: '123456789', first_name: 'TestUser', username: 'tester' };
+                    let testUid = prompt("Test Mode: Enter TG UID (8505710811 for Admin):", "123456789");
+                    tgUser = { id: testUid || '123456789', first_name: 'TestUser', username: 'tester' };
                 }
             }
-
-            document.getElementById('referralLink').value = `https://t.me/NumaXOTP_BOT?start=${tgUser.id}`;
 
             document.getElementById('profName2').innerText = tgUser.first_name + (tgUser.last_name ? ' '+tgUser.last_name : '');
             document.getElementById('profUsername2').innerText = tgUser.username || 'unknown';
@@ -709,6 +768,11 @@
             const pfpUrl = tgUser.photo_url || `https://ui-avatars.com/api/?name=${tgUser.first_name}&background=0B3A64&color=fff`;
             document.getElementById('headerPfp').src = pfpUrl;
             document.getElementById('profPfp2').src = pfpUrl;
+
+            // Generate Referral Link
+            const botUsername = "NumaXOTP_BOT"; // Change to your bot's username
+            const refLink = `https://t.me/${botUsername}?start=${tgUser.id}`;
+            document.getElementById('referralLinkInput').value = refLink;
 
             if (String(tgUser.id) === ADMIN_ID) document.getElementById('adminMenuBtn').classList.remove('hidden');
 
@@ -724,7 +788,7 @@
                 console.error("Connection Error:", err);
                 document.getElementById('loadingView').classList.add('hidden');
                 switchView('dashboard');
-                showToast("Database Connected in Offline Mode", "warning");
+                showToast("Database Connection Error", "error");
             }
         }
 
@@ -733,6 +797,7 @@
                 if (docSnap.exists()) {
                     globalSettings = docSnap.data();
                     
+                    // Update Withdraw UI
                     const select = document.getElementById('withdrawMethodSelect');
                     select.innerHTML = '<option value="">Select a method...</option>';
                     (globalSettings.methods || []).forEach(m => select.innerHTML += `<option value="${m}">${m}</option>`);
@@ -745,6 +810,7 @@
                         document.getElementById('withdrawDisabledAlert').classList.add('hidden');
                     }
 
+                    // Render Custom Links
                     const links = globalSettings.customLinks || [];
                     const dashLinksCard = document.getElementById('dashLinksCard');
                     const dashLinksContainer = document.getElementById('dashLinksContainer');
@@ -757,13 +823,16 @@
                                 <span class="text-xs font-black text-[#0B3A64]">${lnk.name}</span>
                             </a>
                         `).join('');
-                    } else { dashLinksCard.classList.add('hidden'); }
+                    } else {
+                        dashLinksCard.classList.add('hidden');
+                    }
 
                     if (String(tgUser.id) === ADMIN_ID) {
                         document.getElementById('adminStexKey').value = globalSettings.stexKey || '';
                         document.getElementById('adminVoltxKey').value = globalSettings.voltxKey || '';
                         document.getElementById('adminBotToken').value = globalSettings.botToken || '';
-                        document.getElementById('adminReferralCommission').value = globalSettings.referralCommission || 0.05;
+                        document.getElementById('adminRefComm').value = globalSettings.refComm || 0.05;
+                        document.getElementById('adminMinWithdraw').value = globalSettings.minWithdraw || 10;
                         document.getElementById('adminWithdrawToggle').checked = globalSettings.withdrawEnabled !== false;
                         
                         const mList = document.getElementById('adminMethodList');
@@ -772,6 +841,7 @@
                             mList.innerHTML += `<span class="bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">${m} <button onclick="removeWithdrawMethod('${m}')" class="text-red-500 hover:text-red-700 ml-1">x</button></span>`;
                         });
 
+                        // Render Admin Links List
                         const adminLinksList = document.getElementById('adminLinksList');
                         adminLinksList.innerHTML = links.map((lnk, i) => `
                             <div class="flex justify-between items-center p-3 bg-white mb-2 rounded-xl border border-slate-100 shadow-sm">
@@ -818,11 +888,41 @@
             const uidStr = String(tgUser.id);
             const userRef = doc(db, 'users', uidStr);
             const snap = await getDoc(userRef);
+            
+            // Check for referral parameter in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const tgStartParam = initDataUnsafe?.start_param || urlParams.get('start');
+            let referrerUid = null;
+            if (tgStartParam && tgStartParam !== uidStr) {
+                referrerUid = tgStartParam;
+            }
+
             if (snap.exists()) {
                 currentUserData = snap.data();
             } else {
-                currentUserData = { uid: uidStr, name: tgUser.first_name, username: tgUser.username || '', rate: 0.15, balance: 0, banned: false, lastSeenBroadcast: Date.now(), joinedAt: Date.now() };
+                currentUserData = { 
+                    uid: uidStr, 
+                    name: tgUser.first_name, 
+                    username: tgUser.username || '', 
+                    rate: 0.15, 
+                    balance: 0, 
+                    banned: false, 
+                    lastSeenBroadcast: Date.now(), 
+                    joinedAt: Date.now(),
+                    referredBy: referrerUid
+                };
                 await setDoc(userRef, currentUserData);
+                
+                // Track referral success (optional)
+                if(referrerUid) {
+                    try {
+                        await addDoc(collection(db, 'referrals'), {
+                            referrer: referrerUid,
+                            referred: uidStr,
+                            timestamp: Date.now()
+                        });
+                    } catch(e) {}
+                }
             }
             enforceBanUI();
             listenToUserUpdates();
@@ -858,6 +958,7 @@
                     navEl.classList.remove('hidden');
                     banEl.classList.add('hidden');
                     banEl.classList.remove('flex');
+                    switchView('dashboard');
                 }
             }
         }
@@ -867,54 +968,54 @@
             onSnapshot(q, (snapshot) => {
                 let otps = [];
                 snapshot.forEach(doc => otps.push({id: doc.id, ...doc.data()}));
+                otps.sort((a,b) => b.time - a.time);
 
                 const todayStr = getDateStr(Date.now());
                 const yestStr = getDateStr(Date.now() - 86400000);
                 let tCount = 0, yCount = 0, tEarn = 0;
 
-                todaySuccessOTPs = [];
-
+                // We are no longer rendering to dashboard, so just calculate stats
                 otps.forEach(otp => {
                     const earn = otp.cost || 0; 
-                    if (getDateStr(otp.time) === todayStr) { 
-                        tCount++; 
-                        tEarn += earn; 
-                        todaySuccessOTPs.push({
-                            fullNumber: otp.number,
-                            status: 'SUCCESS',
-                            code: otp.code,
-                            time: otp.time,
-                            panel: otp.panel,
-                            isFirebase: true
-                        });
-                    }
+                    if (getDateStr(otp.time) === todayStr) { tCount++; tEarn += earn; }
                     if (getDateStr(otp.time) === yestStr) { yCount++; }
                 });
-
+                
                 document.getElementById('dashTodayOtp').innerText = tCount;
                 document.getElementById('dashYestOtp').innerText = yCount;
                 document.getElementById('dashCost').innerText = `৳${tEarn.toFixed(2)}`;
 
-                renderCombinedNumbers();
+                // We still need to merge completed OTPs with active requests if they happened today
+                mergeOTPsWithActiveRequests(otps, todayStr);
             });
         }
 
-        let currentNumFilter = 'ALL';
-        let todaySuccessOTPs = [];
+        // We merge the completed OTPs from the database into the active requests list
+        // so that the "Number" tab shows a combined history for today.
+        function mergeOTPsWithActiveRequests(dbOtps, todayStr) {
+            // Get today's OTPs from DB
+            const todaysOtps = dbOtps.filter(otp => getDateStr(otp.time) === todayStr);
+            
+            // Map DB OTPs to the activeRequests format
+            const mappedOtps = todaysOtps.map(otp => ({
+                fullNumber: otp.number,
+                panel: otp.panel || 'unknown',
+                startTime: otp.time,
+                status: 'SUCCESS',
+                message: otp.message,
+                code: otp.code,
+                isFromDb: true // Flag to identify it's from DB
+            }));
 
-        function setNumFilter(filter) {
-            currentNumFilter = filter;
-            ['ALL', 'SUCCESS', 'PENDING', 'FAILED'].forEach(f => {
-                const btn = document.getElementById('filter-' + f);
-                if(f === filter) {
-                    btn.classList.add('bg-[#0B3A64]', 'text-white');
-                    btn.classList.remove('text-slate-500', 'hover:bg-slate-100');
-                } else {
-                    btn.classList.remove('bg-[#0B3A64]', 'text-white');
-                    btn.classList.add('text-slate-500', 'hover:bg-slate-100');
-                }
-            });
-            renderCombinedNumbers();
+            // Filter out existing active requests that are already in the mapped list (by number)
+            // to avoid duplicates when a pending request turns to success and is also fetched from DB.
+            const existingActive = activeRequests.filter(req => 
+                !mappedOtps.some(m => m.fullNumber === req.fullNumber && req.status === 'SUCCESS')
+            );
+
+            // Combine and sort by time
+            activeRequests = [...existingActive, ...mappedOtps].sort((a,b) => b.startTime - a.startTime);
+            renderActiveNumbers();
         }
 
         async function requestNumber() {
@@ -939,9 +1040,11 @@
 
                 if (resData && resData.meta && resData.meta.code === 200) {
                     const allocatedNum = resData.data.no_plus_number;
-                    const newReq = { fullNumber: allocatedNum, panel: panel, time: Date.now(), startTime: Date.now(), status: 'PENDING', message: '', code: '' };
+                    const newReq = { fullNumber: allocatedNum, panel: panel, startTime: Date.now(), status: 'PENDING', message: '', code: '' };
                     activeRequests.unshift(newReq);
-                    renderCombinedNumbers();
+                    currentNumberFilter = 'ALL'; // Reset filter to show the new number
+                    updateNumberTabsUI();
+                    renderActiveNumbers();
                     copySpecificText("+" + allocatedNum);
                     startPolling(newReq);
                 } else {
@@ -958,97 +1061,118 @@
             return await res.json();
         }
 
-        function timeAgo(ms) {
-            const seconds = Math.floor((Date.now() - ms) / 1000);
-            if (seconds < 60) return "just now";
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes} min ago`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours} hrs ago`;
-            return "older";
+        function filterNumberList(filter) {
+            currentNumberFilter = filter;
+            updateNumberTabsUI();
+            renderActiveNumbers();
         }
 
-        function renderCombinedNumbers() {
-            const listEl = document.getElementById('unifiedNumbersList');
-            if (!listEl) return;
+        function updateNumberTabsUI() {
+            document.querySelectorAll('.number-tab').forEach(t => t.classList.remove('active'));
+            const activeTab = document.getElementById('tab-num-' + currentNumberFilter.toLowerCase());
+            if (activeTab) activeTab.classList.add('active');
+        }
+
+        function renderActiveNumbers() {
+            const listEl = document.getElementById('activeNumbersList');
             listEl.innerHTML = '';
+            
+            // Filter logic
+            const filteredRequests = currentNumberFilter === 'ALL' 
+                ? activeRequests 
+                : activeRequests.filter(req => req.status === currentNumberFilter);
 
-            let combined = [];
-            let seenNumbers = new Set();
+            // Clean up: Only show today's requests (or active pending from just before midnight)
+            const todayStart = new Date();
+            todayStart.setHours(0,0,0,0);
+            const validRequests = filteredRequests.filter(req => req.startTime > todayStart.getTime() || req.status === 'PENDING');
 
-            activeRequests.forEach(req => {
-                combined.push(req);
-                if (req.status === 'SUCCESS') seenNumbers.add(req.fullNumber);
-            });
-
-            todaySuccessOTPs.forEach(otp => {
-                if (!seenNumbers.has(otp.fullNumber)) {
-                    combined.push(otp);
-                    seenNumbers.add(otp.fullNumber);
-                }
-            });
-
-            combined.sort((a, b) => b.time - a.time);
-
-            if (currentNumFilter !== 'ALL') {
-                combined = combined.filter(item => item.status === currentNumFilter);
-            }
-
-            if (combined.length === 0) { 
-                listEl.innerHTML = '<div class="p-8 text-center text-sm text-slate-400 font-medium">No numbers found.</div>'; 
+            if (validRequests.length === 0) { 
+                listEl.innerHTML = '<div class="p-8 text-center text-sm text-slate-400 font-medium">No active numbers matching filter.</div>'; 
                 return; 
             }
 
-            combined.forEach((item) => {
-                const countryDetails = getCountryInfo(item.fullNumber);
-                const exactTime = new Date(item.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-                const relTime = timeAgo(item.time);
+            validRequests.forEach((req) => {
+                const countryDetails = getCountryInfo(req.fullNumber);
+                const timeStr = new Date(req.startTime).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+                
+                // Calculate relative time roughly
+                const diffMs = Date.now() - req.startTime;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHrs = Math.floor(diffMins / 60);
+                let relTime = 'just now';
+                if (diffMins > 0 && diffMins < 60) relTime = `${diffMins} min ago`;
+                else if (diffHrs >= 1) relTime = `${diffHrs} hrs ago`;
 
                 let statusBadge = '';
-                let otpBox = '';
+                let mainContent = '';
 
-                if (item.status === 'PENDING') {
-                    statusBadge = `<span class="text-[10px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded">PENDING</span>`;
-                } else if (item.status === 'SUCCESS') {
-                    statusBadge = `<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded">SUCCESS</span>`;
-                    otpBox = `
-                    <div class="mt-3 flex">
-                        <div class="flex items-center bg-[#2b3139] rounded-lg overflow-hidden border border-[#3e4451] shadow-sm">
-                            <div class="px-3 py-2 flex items-center gap-2 border-r border-[#3e4451] cursor-pointer hover:bg-[#363d47] transition" onclick="copySpecificText('${item.code}')">
-                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
-                                <span class="font-mono font-black text-white text-base tracking-widest">${item.code}</span>
-                            </div>
-                            <button onclick="copySpecificText('${item.code}')" class="px-3 py-2 text-slate-400 hover:text-white hover:bg-[#3e4451] transition">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            </button>
+                if (req.status === 'PENDING') {
+                    statusBadge = `<span class="border border-amber-200 text-amber-500 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Pending</span>`;
+                    mainContent = `
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-mono">${relTime}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">${timeStr}</span>
                         </div>
-                    </div>`;
-                } else if (item.status === 'FAILED') {
-                    statusBadge = `<span class="text-[10px] font-bold text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded">FAILED</span>`;
+                    `;
+                } else if (req.status === 'SUCCESS') {
+                    statusBadge = `<span class="border border-emerald-200 text-emerald-600 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Success</span>`;
+                    
+                    mainContent = `
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-mono">${relTime}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">${timeStr}</span>
+                        </div>
+                    `;
+                } else if (req.status === 'FAILED') {
+                    statusBadge = `<span class="border border-red-200 text-red-500 text-[9px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Failed</span>`;
+                    mainContent = `
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded font-mono">${relTime}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">${timeStr}</span>
+                        </div>
+                    `;
+                }
+
+                let otpCodeBox = '';
+                if (req.status === 'SUCCESS') {
+                    // Transparent Green OTP Box Design
+                    otpCodeBox = `
+                        <div class="mt-3 flex">
+                            <div class="flex items-center bg-emerald-50 rounded-lg overflow-hidden border border-emerald-200 shadow-sm cursor-pointer hover:bg-emerald-100 transition group" onclick="copySpecificText('${req.code}')">
+                                <div class="px-3 py-2 flex items-center gap-2 border-r border-emerald-200/50">
+                                    <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+                                    <span class="font-mono font-black text-emerald-700 text-base tracking-widest">${req.code}</span>
+                                </div>
+                                <div class="px-3 py-2 text-emerald-600 group-hover:text-emerald-800">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    `;
                 }
 
                 listEl.innerHTML += `
-                    <div class="p-4 bg-white border-b border-slate-100 flex flex-col hover:bg-slate-50 transition">
+                    <div class="p-4 bg-white border-b border-slate-50 flex flex-col">
                         <div class="flex justify-between items-start">
-                            <div class="flex flex-col gap-3 w-[35%]">
-                                <span onclick="copySpecificText('+${item.fullNumber}')" class="font-black text-[15px] text-slate-800 cursor-pointer hover:opacity-80">+${item.fullNumber}</span>
+                            <div class="flex flex-col gap-1.5 w-1/2">
+                                <span onclick="copySpecificText('+${req.fullNumber}')" class="font-mono font-black text-base text-[#0B3A64] cursor-pointer hover:opacity-80 transition-opacity" title="Click to copy number">+${req.fullNumber}</span>
                                 <div>${statusBadge}</div>
                             </div>
                             
-                            <div class="flex flex-col items-start gap-1 w-[40%] pl-2">
-                                <span class="text-[13px] font-bold text-slate-700">${countryDetails.name}</span>
-                                <span class="text-xs text-slate-400 font-medium flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
+                            <div class="flex flex-col items-center justify-center w-1/3 text-center">
+                                <span class="text-xs font-bold text-slate-600">${countryDetails.name}</span>
+                                <span class="text-[10px] text-slate-400 font-medium flex items-center gap-1 mt-0.5">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.906 14.142 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
                                     Mobile
                                 </span>
                             </div>
 
-                            <div class="flex flex-col items-end gap-2 w-[25%]">
-                                <span class="text-[10px] font-mono font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded">${relTime}</span>
-                                <span class="text-[10px] font-mono font-bold text-slate-400">${exactTime}</span>
+                            <div class="flex justify-end w-1/4">
+                                ${mainContent}
                             </div>
                         </div>
-                        ${otpBox}
+                        ${otpCodeBox}
                     </div>
                 `;
             });
@@ -1057,12 +1181,7 @@
         function startPolling(reqObj) {
             const timeout = 20 * 60 * 1000; // 20 mins
             reqObj.intervalId = setInterval(async () => {
-                if (Date.now() - reqObj.startTime > timeout) { 
-                    clearInterval(reqObj.intervalId); 
-                    reqObj.status = 'FAILED'; 
-                    renderCombinedNumbers(); 
-                    return; 
-                }
+                if (Date.now() - reqObj.startTime > timeout) { clearInterval(reqObj.intervalId); reqObj.status = 'FAILED'; renderActiveNumbers(); return; }
                 const base = reqObj.panel === 'stex' ? 'https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api' : 'https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api';
                 const key = reqObj.panel === 'stex' ? globalSettings.stexKey : globalSettings.voltxKey;
 
@@ -1073,13 +1192,24 @@
                         const match = data.data.otps.find(o => o.number === reqObj.fullNumber);
                         if (match) {
                             clearInterval(reqObj.intervalId);
-                            const codeMatch = match.message.match(/\b\d{4,8}\b/);
+                            // Enhanced Regex to catch codes with spaces (e.g. 157 932)
+                            const codeMatch = match.message.match(/(?:(?:code|is|:)\s*)?((?:\d\s*){4,8})\b/i) || match.message.match(/\b((?:\d\s*){4,8})\b/);
+                            let extractedCode = codeMatch ? codeMatch[1].replace(/\s+/g, '') : "CODE";
+                            
+                            // Fallback if extraction fails
+                            if (!extractedCode || extractedCode === "CODE") {
+                                 const simpleMatch = match.message.match(/\d+/g);
+                                 if (simpleMatch) {
+                                     extractedCode = simpleMatch.join('').substring(0, 8); // Take first digits
+                                 }
+                            }
+
                             reqObj.status = 'SUCCESS'; 
-                            reqObj.code = codeMatch ? codeMatch[0] : "CODE";
+                            reqObj.message = match.message; 
+                            reqObj.code = extractedCode;
+                            renderActiveNumbers(); 
                             showToast("OTP Received", "success");
                             saveReceivedOTP(match, reqObj.code, reqObj.panel);
-                            activeRequests = activeRequests.filter(r => r !== reqObj);
-                            renderCombinedNumbers();
                         }
                     }
                 } catch(e) {} 
@@ -1093,6 +1223,18 @@
                 const earn = currentUserData ? currentUserData.rate : 0.15;
                 await setDoc(docRef, { uid: String(tgUser.id), number: otpData.number, message: otpData.message, code, time: otpData.time, cost: earn, panel: panelName });
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(earn) });
+
+                // Process Referral Commission
+                if(currentUserData && currentUserData.referredBy) {
+                    const refComm = globalSettings.refComm || 0.05;
+                    try {
+                        const referrerRef = doc(db, 'users', currentUserData.referredBy);
+                        const referrerSnap = await getDoc(referrerRef);
+                        if(referrerSnap.exists()) {
+                            await updateDoc(referrerRef, { balance: increment(refComm) });
+                        }
+                    } catch(e) { console.error("Referral comm error", e); }
+                }
             }
         }
 
@@ -1115,6 +1257,7 @@
             const list = document.getElementById('consoleList');
             list.innerHTML = '';
             
+            // Filter by service ID, range, message contents, OR detected country name
             let filtered = allConsoleHits;
             if (q) {
                 filtered = allConsoleHits.filter(h => {
@@ -1162,7 +1305,7 @@
 
         function useMaxWithdraw() {
             if(currentUserData && currentUserData.balance > 0) {
-                document.getElementById('withdrawAmountInput').value = currentUserData.balance;
+                document.getElementById('withdrawAmountInput').value = currentUserData.balance.toFixed(2);
             }
         }
 
@@ -1173,17 +1316,20 @@
             const method = document.getElementById('withdrawMethodSelect').value;
             const num = document.getElementById('withdrawNumberInput').value.trim();
             const amt = parseFloat(document.getElementById('withdrawAmountInput').value);
+            const minW = globalSettings.minWithdraw || 10;
 
             if(!method) return showToast("Select a method", "error");
             if(!num) return showToast("Enter payment number", "error");
-            if(isNaN(amt) || amt <= 0) return showToast("Invalid amount", "error");
+            if(isNaN(amt) || amt < minW) return showToast(`Minimum withdraw is ৳${minW}`, "error");
             if(amt > currentUserData.balance) return showToast("Insufficient balance", "error");
 
             const btn = document.getElementById('btnWithdrawSubmit');
             btn.disabled = true; btn.innerText = "Processing...";
 
             try {
+                // Deduct first
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-amt) });
+                // Save Request
                 await addDoc(collection(db, 'withdrawals'), {
                     uid: String(tgUser.id), username: tgUser.username, name: tgUser.first_name,
                     method: method, number: num, amount: amt, status: 'PENDING', timestamp: Date.now()
@@ -1231,14 +1377,19 @@
             if(tabId === 'users') { document.getElementById('adminTabUsers').classList.remove('hidden'); loadAdminUsers(); }
             if(tabId === 'broadcast') document.getElementById('adminTabBroadcast').classList.remove('hidden');
             if(tabId === 'links') document.getElementById('adminTabLinks').classList.remove('hidden');
+            
+            // Auto scroll the tab bar
+            const tabBtn = document.getElementById('tab-' + tabId);
+            if(tabBtn) tabBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
 
         async function saveAdminApi() {
             const sKey = document.getElementById('adminStexKey').value.trim();
             const vKey = document.getElementById('adminVoltxKey').value.trim();
             const bToken = document.getElementById('adminBotToken').value.trim();
-            const rComm = parseFloat(document.getElementById('adminReferralCommission').value) || 0.05;
-            try { await updateDoc(doc(db, 'global', 'settings'), { stexKey: sKey, voltxKey: vKey, botToken: bToken, referralCommission: rComm }); showToast("API Settings Saved", "success"); } 
+            const rComm = parseFloat(document.getElementById('adminRefComm').value) || 0.05;
+            const minW = parseFloat(document.getElementById('adminMinWithdraw').value) || 10;
+            try { await updateDoc(doc(db, 'global', 'settings'), { stexKey: sKey, voltxKey: vKey, botToken: bToken, refComm: rComm, minWithdraw: minW }); showToast("API Keys Saved", "success"); } 
             catch(e) { showToast("Error", "error"); }
         }
 
@@ -1264,18 +1415,26 @@
         async function addCustomLink() {
             const name = document.getElementById('adminLinkName').value.trim();
             const url = document.getElementById('adminLinkUrl').value.trim();
+            
             if(!name) return showToast("Enter Link Title", "error");
             if(!url) return showToast("Enter Link URL", "error");
+            
             const newLinks = [...(globalSettings.customLinks || []), {name, url}];
-            try { await updateDoc(doc(db, 'global', 'settings'), { customLinks: newLinks }); document.getElementById('adminLinkName').value = ''; document.getElementById('adminLinkUrl').value = ''; showToast("Link added successfully", "success"); } 
-            catch(e) { showToast("Error adding link", "error"); }
+            try {
+                await updateDoc(doc(db, 'global', 'settings'), { customLinks: newLinks });
+                document.getElementById('adminLinkName').value = '';
+                document.getElementById('adminLinkUrl').value = '';
+                showToast("Link added successfully", "success");
+            } catch(e) { showToast("Error adding link", "error"); }
         }
 
         async function removeCustomLink(index) {
             const newLinks = [...(globalSettings.customLinks || [])];
             newLinks.splice(index, 1);
-            try { await updateDoc(doc(db, 'global', 'settings'), { customLinks: newLinks }); showToast("Link removed", "success"); } 
-            catch(e) { showToast("Error removing link", "error"); }
+            try {
+                await updateDoc(doc(db, 'global', 'settings'), { customLinks: newLinks });
+                showToast("Link removed", "success");
+            } catch(e) { showToast("Error removing link", "error"); }
         }
 
         function loadAdminWithdrawals() {
@@ -1305,7 +1464,9 @@
         async function updateWithdrawStatus(id, status, refundAmt=0, uid='') {
             try {
                 await updateDoc(doc(db, 'withdrawals', id), { status: status });
-                if(status === 'REJECTED' && refundAmt > 0) { await updateDoc(doc(db, 'users', uid), { balance: increment(refundAmt) }); }
+                if(status === 'REJECTED' && refundAmt > 0) {
+                    await updateDoc(doc(db, 'users', uid), { balance: increment(refundAmt) });
+                }
                 showToast(`Marked as ${status}`, "success");
             } catch(e) { showToast("Error", "error"); }
         }
@@ -1350,8 +1511,12 @@
         }
 
         async function updateUserProp(uid, p, val) {
-            try { let v = (p==='rate' || p==='balance') ? parseFloat(val) : val; await updateDoc(doc(db, 'users', uid), { [p]: v }); showToast("Updated", "success"); if(p==='banned') loadAdminUsers(); } 
-            catch(e) { showToast("Failed", "error"); }
+            try {
+                let v = (p==='rate' || p==='balance') ? parseFloat(val) : val;
+                await updateDoc(doc(db, 'users', uid), { [p]: v });
+                showToast("Updated", "success");
+                if(p==='banned') loadAdminUsers();
+            } catch(e) { showToast("Failed", "error"); }
         }
 
         async function deleteUser(uid) {
@@ -1365,41 +1530,64 @@
             if(!msg) return showToast("Message empty", "error");
             
             const btn = document.getElementById('broadcastBtnElement');
-            btn.disabled = true; btn.innerHTML = `<span class="animate-pulse">Sending...</span>`;
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-pulse">Sending...</span>`;
 
             try {
+                // 1. Set global broadcast for Web App Modal
                 await setDoc(doc(db, 'global', 'broadcast'), { message: msg, timestamp: Date.now() });
                 
+                // 2. Send Telegram DMs if checked
                 if(sendDm && globalSettings.botToken) {
                     const snap = await getDocs(collection(db, 'users'));
-                    const uids = []; snap.forEach(d => { if(!d.data().banned) uids.push(d.id); });
+                    const uids = [];
+                    snap.forEach(d => { if(!d.data().banned) uids.push(d.id); });
                     
                     let successCount = 0;
                     for (let i = 0; i < uids.length; i++) {
                         const uid = uids[i];
                         try {
                             const tgUrl = `https://api.telegram.org/bot${globalSettings.botToken}/sendMessage`;
-                            await fetch(tgUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: uid, text: `📢 <b>Announcement</b>\n\n${msg}`, parse_mode: 'HTML' }) });
+                            await fetch(tgUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ chat_id: uid, text: `📢 <b>Announcement</b>\n\n${msg}`, parse_mode: 'HTML' })
+                            });
                             successCount++;
                         } catch(e) {}
-                        await new Promise(r => setTimeout(r, 35)); 
+                        await new Promise(r => setTimeout(r, 35)); // Anti-rate limit delay for TG API
                     }
                     showToast(`Broadcast Sent! App updated & ${successCount} DMs sent.`, "success");
                 } else {
                     if (sendDm && !globalSettings.botToken) showToast("Bot Token missing! Only sent to app.", "warning");
                     else showToast("Broadcast Sent to Web App!", "success");
                 }
-                document.getElementById('adminBroadcastMessage').value = ''; document.getElementById('adminSendTgDm').checked = false;
-            } catch(e) { showToast("Error sending broadcast", "error"); } 
-            finally { btn.disabled = false; btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg> Send Broadcast`; }
+
+                document.getElementById('adminBroadcastMessage').value = '';
+                document.getElementById('adminSendTgDm').checked = false;
+            } catch(e) { 
+                showToast("Error sending broadcast", "error"); 
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg> Send Broadcast`;
+            }
         }
 
         async function loadAdminStats() {
             try {
                 const snap = await getDocs(collection(db, 'otps'));
-                let t = 0; const ts = getDateStr(Date.now());
-                snap.forEach(d => { if(getDateStr(d.data().time)===ts) t++; });
-                document.getElementById('adminSysToday').innerText = t;
+                let sToday = 0, vToday = 0; 
+                const ts = getDateStr(Date.now());
+                
+                snap.forEach(d => { 
+                    const data = d.data();
+                    if(getDateStr(data.time) === ts) {
+                        if(data.panel === 'stex') sToday++;
+                        if(data.panel === 'voltx') vToday++;
+                    }
+                });
+                document.getElementById('adminStexToday').innerText = sToday;
+                document.getElementById('adminVoltxToday').innerText = vToday;
                 document.getElementById('adminSysTotal').innerText = snap.size;
             } catch(e){}
         }
@@ -1414,7 +1602,10 @@
             if(vid === 'console') { loadConsoleData(); if(!consoleUpdateInterval) consoleUpdateInterval = setInterval(loadConsoleData, 5000); } 
             else { clearInterval(consoleUpdateInterval); consoleUpdateInterval = null; }
             if(vid === 'admin') loadAdminStats();
-            if(vid === 'getnumber') renderCombinedNumbers();
+            if(vid === 'getnumber') {
+                 renderActiveNumbers();
+                 document.getElementById('tab-num-all').scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
         }
 
         function useRange(r) {
@@ -1426,8 +1617,16 @@
         }
 
         function copySpecificText(t) {
+            if(!t) return;
             const el = document.createElement("textarea"); el.value = t; document.body.appendChild(el); el.select();
             try { document.execCommand('copy'); showToast("Copied", "success"); } catch(e) {} el.remove();
+        }
+
+        function copyReferralLink() {
+            const linkInput = document.getElementById('referralLinkInput');
+            if (linkInput && linkInput.value) {
+                copySpecificText(linkInput.value);
+            }
         }
 
         initApp();
