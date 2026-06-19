@@ -13,115 +13,63 @@
     <style>
         /* Eye-Protected Default (Soft Light) */
         :root[data-theme="soft-light"] {
-            --brand-navy: #0F172A; /* Deeper slate for better contrast */
-            --brand-cyan: #0D9488; /* Teal-cyan, very readable */
-            --bg-main: #F8FAFC; 
-            --bg-card: #FFFFFF;
-            --text-dark: #0F172A; 
-            --text-muted: #64748B;
-            --border-light: #E2E8F0; 
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --cyan-light: rgba(13, 148, 136, 0.1);
-            --bg-success: #ECFDF5; --text-success: #059669; --border-success: #A7F3D0;
-            --bg-danger: #FEF2F2; --text-danger: #DC2626; --border-danger: #FECACA;
-            --bg-warning: #FFFBEB; --text-warning: #D97706; --border-warning: #FDE68A;
+            --brand-navy: #0F172A; --brand-cyan: #0D9488; --bg-main: #F8FAFC; --bg-card: #FFFFFF;
+            --text-dark: #0F172A; --text-muted: #64748B; --border-light: #E2E8F0; --glass-bg: rgba(255, 255, 255, 0.95);
+            --cyan-light: rgba(13, 148, 136, 0.1); --bg-success: #ECFDF5; --text-success: #059669; --border-success: #A7F3D0;
+            --bg-danger: #FEF2F2; --text-danger: #DC2626; --border-danger: #FECACA; --bg-warning: #FFFBEB; --text-warning: #D97706; --border-warning: #FDE68A;
             --btn-grad-1: #0B3A64; --btn-grad-2: #11B6B9;
         }
 
         /* Dark Theme */
         :root[data-theme="dark"] {
-            --brand-navy: #60A5FA; /* Sky blue for contrast on dark */
-            --brand-cyan: #2DD4BF; /* Vibrant teal */
-            --bg-main: #020617; 
-            --bg-card: #0F172A;
-            --text-dark: #F8FAFC; 
-            --text-muted: #94A3B8;
-            --border-light: #1E293B; 
-            --glass-bg: rgba(15, 23, 42, 0.95);
-            --cyan-light: rgba(45, 212, 191, 0.15);
-            --bg-success: rgba(16, 185, 129, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
-            --bg-danger: rgba(239, 68, 68, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3);
-            --bg-warning: rgba(245, 158, 11, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
+            --brand-navy: #60A5FA; --brand-cyan: #2DD4BF; --bg-main: #020617; --bg-card: #0F172A;
+            --text-dark: #F8FAFC; --text-muted: #94A3B8; --border-light: #1E293B; --glass-bg: rgba(15, 23, 42, 0.95);
+            --cyan-light: rgba(45, 212, 191, 0.15); --bg-success: rgba(16, 185, 129, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
+            --bg-danger: rgba(239, 68, 68, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3); --bg-warning: rgba(245, 158, 11, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
             --btn-grad-1: #1E3A8A; --btn-grad-2: #0D9488;
         }
 
         /* Neon Purple Theme */
         :root[data-theme="neon-purple"] {
-            --brand-navy: #D8B4FE; 
-            --brand-cyan: #F472B6; 
-            --bg-main: #090014; 
-            --bg-card: #1A0B2E;
-            --text-dark: #FDF4FF; 
-            --text-muted: #D8B4FE;
-            --border-light: #3B0764; 
-            --glass-bg: rgba(26, 11, 46, 0.95);
-            --cyan-light: rgba(244, 114, 182, 0.15);
-            --bg-success: rgba(45, 212, 191, 0.15); --text-success: #2DD4BF; --border-success: rgba(45, 212, 191, 0.3);
-            --bg-danger: rgba(251, 113, 133, 0.15); --text-danger: #FB7185; --border-danger: rgba(251, 113, 133, 0.3);
-            --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
+            --brand-navy: #D8B4FE; --brand-cyan: #F472B6; --bg-main: #090014; --bg-card: #1A0B2E;
+            --text-dark: #FDF4FF; --text-muted: #D8B4FE; --border-light: #3B0764; --glass-bg: rgba(26, 11, 46, 0.95);
+            --cyan-light: rgba(244, 114, 182, 0.15); --bg-success: rgba(45, 212, 191, 0.15); --text-success: #2DD4BF; --border-success: rgba(45, 212, 191, 0.3);
+            --bg-danger: rgba(251, 113, 133, 0.15); --text-danger: #FB7185; --border-danger: rgba(251, 113, 133, 0.3); --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
             --btn-grad-1: #4C1D95; --btn-grad-2: #D946EF;
         }
 
         /* Gray Theme */
         :root[data-theme="gray"] {
-            --brand-navy: #F4F4F5; 
-            --brand-cyan: #38BDF8; 
-            --bg-main: #18181B; 
-            --bg-card: #27272A;
-            --text-dark: #FAFAFA; 
-            --text-muted: #A1A1AA;
-            --border-light: #3F3F46; 
-            --glass-bg: rgba(39, 39, 42, 0.95);
-            --cyan-light: rgba(56, 189, 248, 0.15);
-            --bg-success: rgba(52, 211, 153, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
-            --bg-danger: rgba(248, 113, 113, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3);
-            --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
+            --brand-navy: #F4F4F5; --brand-cyan: #38BDF8; --bg-main: #18181B; --bg-card: #27272A;
+            --text-dark: #FAFAFA; --text-muted: #A1A1AA; --border-light: #3F3F46; --glass-bg: rgba(39, 39, 42, 0.95);
+            --cyan-light: rgba(56, 189, 248, 0.15); --bg-success: rgba(52, 211, 153, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
+            --bg-danger: rgba(248, 113, 113, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3); --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
             --btn-grad-1: #3F3F46; --btn-grad-2: #71717A;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; opacity: 0.5; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-main); color: var(--text-dark); -webkit-tap-highlight-color: transparent; transition: background-color 0.3s ease, color 0.3s ease; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; opacity: 0.5; }
 
         .glass-header { background: var(--glass-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-light); transition: all 0.3s ease; }
         .nav-bar { background: var(--glass-bg); backdrop-filter: blur(10px); border-top: 1px solid var(--border-light); padding-bottom: env(safe-area-inset-bottom); transition: all 0.3s ease; }
-
         .card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: all 0.3s ease; word-wrap: break-word; overflow-wrap: break-word; }
 
         .input-field, .adm-mini-input { background-color: var(--bg-main); border: 1px solid var(--border-light); color: var(--text-dark); border-radius: 12px; transition: all 0.2s ease; width: 100%; }
         .adm-mini-input { padding: 12px; font-size: 12px; font-weight: 600; }
         .input-field:focus, .adm-mini-input:focus { outline: none; border-color: var(--brand-cyan); box-shadow: 0 0 0 3px var(--cyan-light); background-color: var(--bg-card); }
 
-        .text-main { color: var(--text-dark); }
-        .text-muted { color: var(--text-muted); }
-        .bg-main { background-color: var(--bg-main); }
-        .bg-card { background-color: var(--bg-card); }
-        .border-main { border-color: var(--border-light); }
+        .text-main { color: var(--text-dark); } .text-muted { color: var(--text-muted); } .bg-main { background-color: var(--bg-main); } .bg-card { background-color: var(--bg-card); } .border-main { border-color: var(--border-light); }
 
-        /* Semantic Badges for guaranteed readability across all themes */
         .badge-success { background: var(--bg-success); color: var(--text-success); border: 1px solid var(--border-success); }
         .badge-danger { background: var(--bg-danger); color: var(--text-danger); border: 1px solid var(--border-danger); }
         .badge-warning { background: var(--bg-warning); color: var(--text-warning); border: 1px solid var(--border-warning); }
-        .text-success { color: var(--text-success); }
-        .text-danger { color: var(--text-danger); }
+        .text-success { color: var(--text-success); } .text-danger { color: var(--text-danger); }
 
         .btn-primary, .vpn-grad-card { background: linear-gradient(135deg, var(--btn-grad-1), var(--btn-grad-2)); color: white !important; font-weight: 700; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.15s ease; border: none; }
         .btn-primary:active { transform: scale(0.98); box-shadow: none; }
         
-        .nav-item { color: var(--text-muted); transition: all 0.2s ease; }
-        .nav-item.active { color: var(--brand-cyan); }
-        .nav-item.active svg { stroke: var(--brand-cyan); fill: var(--cyan-light); }
-
+        .nav-item { color: var(--text-muted); transition: all 0.2s ease; } .nav-item.active { color: var(--brand-cyan); } .nav-item.active svg { stroke: var(--brand-cyan); fill: var(--cyan-light); }
         .console-row { background: var(--bg-card); border: 1px solid var(--border-light); border-left: 3px solid var(--brand-cyan); border-radius: 10px; margin-bottom: 8px; padding: 10px 12px; word-wrap: break-word; }
-
         .admin-tab { padding: 8px 16px; font-size: 11px; font-weight: 800; color: var(--text-muted); border-bottom: 2px solid transparent; white-space: nowrap; flex-shrink: 0; transition: all 0.2s; }
         .admin-tab.active { color: var(--brand-cyan); border-bottom-color: var(--brand-cyan); }
 
@@ -133,18 +81,30 @@
         .pay-card:active, .pay-card.active { border-color: var(--brand-cyan); background: var(--cyan-light); }
         .pay-logo-wrap img { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; }
         
-        .switch { position: relative; display: inline-block; width: 34px; height: 20px; flex-shrink: 0; }
-        .switch input { opacity: 0; width: 0; height: 0; }
+        .switch { position: relative; display: inline-block; width: 34px; height: 20px; flex-shrink: 0; } .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; inset: 0; background-color: var(--border-light); transition: .4s; border-radius: 34px; }
         .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--text-success); }
-        input:checked + .slider:before { transform: translateX(14px); }
-
+        input:checked + .slider { background-color: var(--text-success); } input:checked + .slider:before { transform: translateX(14px); }
         .file-upload-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; }
         .file-upload-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased">
+
+    <!-- Loading Screen -->
+    <div id="appLoadingScreen" class="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[var(--bg-main)] transition-opacity duration-500">
+        <div class="relative flex flex-col items-center">
+            <div class="absolute inset-0 bg-[var(--brand-cyan)] blur-[60px] opacity-20 rounded-full w-32 h-32 -z-10"></div>
+            <img id="loaderLogo" src="" alt="App Logo" class="w-24 h-24 rounded-2xl shadow-2xl mb-6 object-cover border-2 border-[var(--border-light)] bg-[var(--bg-card)] hidden">
+            <div id="loaderLogoFallback" class="w-24 h-24 rounded-2xl shadow-2xl mb-6 flex items-center justify-center text-4xl font-black text-white bg-gradient-to-br from-[var(--btn-grad-1)] to-[var(--btn-grad-2)]">N</div>
+            <h1 id="loaderAppName" class="text-3xl font-black text-[var(--brand-navy)] tracking-tight mb-2">NumaX</h1>
+            <div class="flex gap-1.5 mt-4">
+                <div class="w-2 h-2 rounded-full bg-[var(--brand-cyan)] animate-bounce" style="animation-delay: -0.3s"></div>
+                <div class="w-2 h-2 rounded-full bg-[var(--brand-cyan)] animate-bounce" style="animation-delay: -0.15s"></div>
+                <div class="w-2 h-2 rounded-full bg-[var(--brand-cyan)] animate-bounce"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Ban Screen -->
     <div id="banScreen" class="fixed inset-0 bg-[var(--bg-main)] z-[9999] hidden flex-col items-center justify-center p-6 text-center">
@@ -172,8 +132,9 @@
     <!-- Header -->
     <header class="glass-header fixed top-0 w-full z-40 px-4 py-3 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg vpn-grad-card flex items-center justify-center font-black text-lg shadow-md border-none">N</div>
-            <h1 class="text-lg font-black tracking-tight" style="color: var(--brand-navy);">Numa<span style="color: var(--brand-cyan);">X</span></h1>
+            <img id="headerLogo" src="" alt="App Logo" class="w-8 h-8 rounded-lg object-cover shadow-sm hidden">
+            <div id="headerLogoFallback" class="w-8 h-8 rounded-lg vpn-grad-card flex items-center justify-center font-black text-lg shadow-md border-none">N</div>
+            <h1 id="headerAppName" class="text-lg font-black tracking-tight" style="color: var(--brand-navy);">NumaX</h1>
         </div>
         <div class="flex items-center gap-3">
             <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-main border-main border text-muted flex items-center justify-center hover:opacity-80 transition shadow-sm">
@@ -189,12 +150,6 @@
 
     <main id="mainContainer" class="pt-20 pb-24 px-4 max-w-2xl mx-auto w-full flex-grow relative">
         
-        <!-- Loading Screen -->
-        <div id="loadingView" class="flex flex-col items-center justify-center py-32">
-            <div class="w-12 h-12 border-4 border-main border-t-[var(--brand-cyan)] rounded-full animate-spin mb-4"></div>
-            <p class="text-xs font-bold text-muted tracking-widest uppercase text-center">Connecting...</p>
-        </div>
-
         <div id="dashboardView" class="view-section hidden space-y-4">
             <!-- Buy VPN Card -->
             <div onclick="switchView('vpnStore')" class="vpn-grad-card card p-0 overflow-hidden cursor-pointer group hover:shadow-lg transition-all relative border-none mb-2">
@@ -203,14 +158,30 @@
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="bg-white/20 p-2.5 rounded-xl text-white text-2xl shadow-inner flex-shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
                         <div class="flex flex-col min-w-0 text-white">
-                            <span class="font-black text-lg tracking-wide drop-shadow-md truncate text-white">Buy NumaX VPN</span>
-                            <span class="text-white/80 text-[10px] font-bold uppercase tracking-widest truncate">Premium High-Speed Servers</span>
+                            <span class="font-black text-lg tracking-wide drop-shadow-md truncate text-white">Buy Premium VPN</span>
+                            <span class="text-white/80 text-[10px] font-bold uppercase tracking-widest truncate">High-Speed Secure Servers</span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
                         <span class="animate-pulse bg-red-500 text-white text-[9px] font-black px-2.5 py-1 rounded uppercase tracking-widest shadow-[0_0_12px_rgba(239,68,68,0.6)]">New</span>
                         <svg class="w-5 h-5 text-white/80 group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </div>
+                </div>
+            </div>
+
+            <!-- Earning Stats Cards -->
+            <div class="grid grid-cols-3 gap-2 mb-2">
+                <div class="card p-3 text-center border-t-2" style="border-top-color: var(--brand-cyan);">
+                    <p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Today OTP</p>
+                    <p class="text-xl font-black mt-1 text-main truncate" style="color: var(--brand-navy)" id="dashTodayOtp">0</p>
+                </div>
+                <div class="card p-3 text-center border-t-2" style="border-top-color: var(--text-success);">
+                    <p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Today Earn</p>
+                    <p class="text-xl font-black mt-1 text-success truncate" id="dashTodayEarn">৳0.00</p>
+                </div>
+                <div class="card p-3 text-center border-t-2" style="border-top-color: var(--text-muted);">
+                    <p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Yest. Earn</p>
+                    <p class="text-xl font-black mt-1 text-main truncate" id="dashYestEarn">৳0.00</p>
                 </div>
             </div>
 
@@ -253,7 +224,6 @@
             </div>
         </div>
 
-        <!-- Get Number View -->
         <div id="getnumberView" class="view-section hidden space-y-4">
             <div class="card p-5">
                 <label class="block text-xs font-black text-muted uppercase tracking-widest mb-2 break-words">Target Range</label>
@@ -267,6 +237,14 @@
                         <svg id="btnGetNumLoader" class="hidden animate-spin ml-2 h-5 w-5 text-white flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     </button>
                 </div>
+            </div>
+
+            <div class="flex justify-between items-center px-1 mt-2">
+                <h3 class="font-bold text-main text-sm truncate" style="color: var(--brand-navy)">Number Activity</h3>
+                <button onclick="animateRefresh(this); renderActiveNumbers()" class="text-xs font-bold bg-card border border-main text-main px-3 py-1.5 rounded-lg shadow-sm hover:opacity-80 flex items-center gap-1.5 transition-colors">
+                    <svg class="w-3.5 h-3.5 refresh-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Refresh
+                </button>
             </div>
 
             <!-- Active Requests / Today's Activity -->
@@ -284,11 +262,16 @@
         </div>
 
         <div id="consoleView" class="view-section hidden space-y-3">
-            <div class="relative w-full mb-2">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                </span>
-                <input type="text" id="consoleSearch" placeholder="Search service, range or message..." oninput="debounceFilterConsole()" class="w-full pl-10 pr-4 py-3 text-sm input-field font-medium shadow-sm">
+            <div class="flex gap-2 w-full mb-2">
+                <div class="relative flex-grow min-w-0">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </span>
+                    <input type="text" id="consoleSearch" placeholder="Search message or range..." oninput="debounceFilterConsole()" class="w-full pl-10 pr-4 py-3 text-sm input-field font-medium shadow-sm">
+                </div>
+                <button onclick="animateRefresh(this); loadConsoleData()" class="bg-card border border-main text-main px-4 py-3 rounded-xl shadow-sm hover:opacity-80 flex-shrink-0 flex items-center justify-center transition-colors">
+                    <svg class="w-5 h-5 refresh-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
             </div>
 
             <div id="consoleList" class="space-y-2 max-h-[70vh] overflow-y-auto pb-32 pr-1">
@@ -366,7 +349,6 @@
             </div>
         </div>
 
-        <!-- VPN Store View -->
         <div id="vpnStoreView" class="view-section hidden space-y-4">
             <div class="flex items-center gap-3 mb-2 px-1">
                 <button onclick="switchView('dashboard')" class="bg-main border border-main text-main p-2 rounded-xl hover:opacity-80 transition-colors shadow-sm flex-shrink-0">
@@ -383,7 +365,6 @@
             <div id="user-orders" class="space-y-3"></div>
         </div>
 
-        <!-- Admin View -->
         <div id="adminView" class="view-section hidden space-y-4">
             <h2 class="font-black text-xl text-main px-1 truncate" style="color: var(--brand-navy)">Admin Panel</h2>
             
@@ -419,9 +400,28 @@
 
             <!-- Admin Tab: API -->
             <div id="adminTabApi" class="admin-content-section hidden space-y-4">
+                <div class="card p-5 space-y-4 border-t-4 mt-2" style="border-top-color: var(--text-warning);">
+                    <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 truncate" style="color: var(--brand-navy)">App Branding</h3>
+                    <div>
+                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">App Name</label>
+                        <input type="text" id="adminAppName" placeholder="e.g. NumaX" class="w-full input-field p-3 text-sm mt-1 font-bold">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">App Logo (Icon)</label>
+                        <div class="flex items-center gap-2 mt-1">
+                            <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
+                                <span class="text-xs text-muted font-bold block text-center truncate"><i class="fa-solid fa-image mr-1"></i> Upload Image</span>
+                                <input type="file" id="adminAppLogoFile" accept="image/*">
+                            </div>
+                            <span class="text-xs font-bold text-muted">OR</span>
+                            <input type="text" id="adminAppLogoUrl" placeholder="Image URL" class="adm-mini-input flex-1">
+                        </div>
+                        <button onclick="removeAppLogo()" class="text-[10px] text-danger font-bold mt-2 hover:underline">Remove Custom Logo</button>
+                    </div>
+                </div>
+
                 <div class="card p-5 space-y-4 border-t-4" style="border-top-color: var(--brand-navy);">
                     <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 truncate" style="color: var(--brand-navy)">API Settings</h3>
-                    
                     <div class="flex gap-4 flex-wrap">
                         <label class="flex items-center gap-2 text-sm font-bold text-main min-w-0">
                             <input type="checkbox" id="adminEnableStex" class="w-4 h-4 text-[var(--brand-navy)] flex-shrink-0"> <span class="truncate">Enable STEX</span>
@@ -430,7 +430,6 @@
                             <input type="checkbox" id="adminEnableVoltx" class="w-4 h-4 text-[var(--brand-cyan)] flex-shrink-0"> <span class="truncate">Enable VOLTX</span>
                         </label>
                     </div>
-
                     <div>
                         <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">STEX API Key</label>
                         <input type="password" id="adminStexKey" class="w-full input-field p-3 font-mono text-sm mt-1">
@@ -457,7 +456,7 @@
                             <input type="number" id="adminMinWithdraw" placeholder="10" class="w-full input-field p-3 font-mono text-sm mt-1">
                         </div>
                     </div>
-                    <button onclick="saveAdminApi()" class="w-full btn-primary py-3.5 shadow-md truncate">Save Settings</button>
+                    <button onclick="saveAdminApi()" class="w-full btn-primary py-3.5 shadow-md truncate">Save Settings & Branding</button>
                 </div>
             </div>
 
@@ -483,7 +482,6 @@
                         <div id="adminMethodList" class="flex flex-wrap gap-2 mt-1"></div>
                     </div>
                 </div>
-
                 <div class="card overflow-hidden">
                     <div class="bg-main border-b border-main px-4 py-3">
                         <h3 class="font-bold text-sm text-main uppercase tracking-widest truncate" style="color: var(--brand-navy)">Pending Requests</h3>
@@ -500,17 +498,19 @@
                     <p class="text-[10px] font-bold text-muted uppercase tracking-wider truncate">Total Users</p>
                     <p class="text-3xl font-black text-main mt-1 truncate" style="color: var(--brand-navy)" id="adminTotalUsersCount">0</p>
                 </div>
-
                 <div class="card p-0 overflow-hidden">
                     <div class="bg-main border-b border-main p-4 flex justify-between items-center gap-2">
                         <input type="text" id="adminUserSearch" placeholder="Search by name or UID..." onkeyup="filterAdminUsers()" class="w-full input-field p-2 text-xs min-w-0">
-                        <button onclick="loadAdminUsers()" class="text-xs font-bold bg-card border border-main text-main px-3 py-2 rounded-lg shadow-sm hover:opacity-80 flex-shrink-0">Refresh</button>
+                        <button onclick="animateRefresh(this); loadAdminUsers()" class="text-xs font-bold bg-card border border-main text-main px-3 py-2 rounded-lg shadow-sm hover:opacity-80 flex-shrink-0 flex items-center gap-1.5 transition-colors">
+                            <svg class="w-3.5 h-3.5 refresh-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            Refresh
+                        </button>
                     </div>
                     <div id="adminUserList" class="divide-y divide-main max-h-[450px] overflow-y-auto p-2 pb-24"></div>
                 </div>
             </div>
 
-            <!-- Admin Tab: Broadcast -->
+            <!-- Admin Tab: Broadcast & Links -->
             <div id="adminTabBroadcast" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-navy);">
                     <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Send Global Announcement</label>
@@ -525,8 +525,6 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Admin Tab: Links -->
             <div id="adminTabLinks" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 border-l-4" style="border-left-color: var(--brand-cyan);">
                     <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Add New Link</label>
@@ -536,7 +534,6 @@
                         <button onclick="addCustomLink()" class="w-full btn-primary py-3 rounded-lg text-sm font-bold shadow-md truncate">Add Link</button>
                     </div>
                 </div>
-                
                 <div class="card overflow-hidden">
                     <div class="bg-main border-b border-main px-4 py-3">
                         <h3 class="font-bold text-main text-sm uppercase tracking-widest truncate" style="color: var(--brand-navy)">Manage Links</h3>
@@ -547,7 +544,7 @@
                 </div>
             </div>
 
-            <!-- Admin Tab: VPN Orders -->
+            <!-- Admin Tab: VPN Management -->
             <div id="adminTabVpnOrders" class="admin-content-section hidden space-y-4">
                 <div class="card overflow-hidden border-l-4" style="border-left-color: var(--brand-cyan);">
                     <div class="bg-main border-b border-main px-4 py-3">
@@ -556,8 +553,6 @@
                     <div id="adm-vpn-pending" class="p-4 space-y-4 max-h-[400px] overflow-y-auto bg-main"></div>
                 </div>
             </div>
-
-            <!-- Admin Tab: VPN Stock -->
             <div id="adminTabVpnStock" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-cyan);">
                     <b class="text-xs text-main truncate block" style="color: var(--brand-cyan)">Add to VPN Stock</b>
@@ -568,13 +563,10 @@
                 </div>
                 <div id="stock-inventory-list" class="space-y-3"></div>
             </div>
-
-            <!-- Admin Tab: VPN Brands & Pay -->
             <div id="adminTabVpnBrands" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-cyan);">
                     <b class="text-[10px] uppercase text-main truncate block" style="color: var(--brand-cyan)">VPN Payment Methods</b>
                     <div class="flex gap-2 min-w-0"><input type="text" id="pay-name" placeholder="Name (e.g. bKash)" class="w-1/2 adm-mini-input min-w-0"><input type="text" id="pay-num-in" placeholder="Number" class="w-1/2 adm-mini-input min-w-0"></div>
-                    
                     <div class="flex items-center gap-2 mt-2">
                         <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
                             <span class="text-xs text-muted font-bold block text-center truncate"><i class="fa-solid fa-image mr-1"></i> Upload Logo</span>
@@ -583,16 +575,12 @@
                         <span class="text-xs font-bold text-muted">OR</span>
                         <input type="text" id="pay-logo-in" placeholder="Image URL" class="adm-mini-input flex-1">
                     </div>
-
                     <button onclick="addPay()" class="btn-primary w-full py-2.5 text-xs truncate mt-2">Add Method</button>
                     <div id="pay-list" class="space-y-2 mt-3"></div>
                 </div>
-                
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-cyan);">
                     <b class="text-[10px] uppercase text-main truncate block" style="color: var(--brand-cyan)">Create VPN Brand</b>
-                    <div class="flex gap-2 min-w-0">
-                        <input type="text" id="v-name" placeholder="VPN Brand Name" class="adm-mini-input w-full">
-                    </div>
+                    <div class="flex gap-2 min-w-0"><input type="text" id="v-name" placeholder="VPN Brand Name" class="adm-mini-input w-full"></div>
                     <div class="flex items-center gap-2 mt-2">
                         <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
                             <span class="text-xs text-muted font-bold block text-center truncate"><i class="fa-solid fa-image mr-1"></i> Upload Logo</span>
@@ -637,7 +625,6 @@
         </button>
     </nav>
 
-    <!-- VPN Modals -->
     <div id="plan-modal" class="modal"><div class="sheet" id="plan-content"></div></div>
     <div id="stock-select-modal" class="modal"><div class="sheet" id="stock-select-content"></div></div>
     <div id="pay-modal" class="modal">
@@ -678,8 +665,7 @@
             projectId: "numax-otp-c8f73",
             storageBucket: "numax-otp-c8f73.firebasestorage.app",
             messagingSenderId: "570043028345",
-            appId: "1:570043028345:web:a01537ee6fb311aa4e15a8",
-            measurementId: "G-0GSBVM07G1"
+            appId: "1:570043028345:web:a01537ee6fb311aa4e15a8"
         };
 
         const firebaseConfigVPN = {
@@ -689,8 +675,7 @@
             projectId: "phantom-vpn-zone",
             storageBucket: "phantom-vpn-zone.firebasestorage.app",
             messagingSenderId: "632752430859",
-            appId: "1:632752430859:web:f999cff55e6d78dd280c0e",
-            measurementId: "G-SK65GSPHVV"
+            appId: "1:632752430859:web:f999cff55e6d78dd280c0e"
         };
 
         const appOTP = initializeApp(firebaseConfigOTP);
@@ -704,7 +689,7 @@
         const ADMIN_ID = "8505710811";
         let tgUser = { id: 'unknown', first_name: 'Guest', username: '' };
         let currentUserData = null;
-        let globalSettings = { stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", customLinks: [], refComm: 0.05, minWithdraw: 10, enableStex: true, enableVoltx: true, welcomeMsg: "Welcome to NumaX OTP!" };
+        let globalSettings = { appName: "NumaX", appLogo: "", stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", customLinks: [], refComm: 0.05, minWithdraw: 10, enableStex: true, enableVoltx: true, welcomeMsg: "Welcome to NumaX OTP!" };
         
         let rangeStats = {}; 
         let activeRequests = []; 
@@ -718,103 +703,44 @@
 
         const COUNTRY_FLAGS = {
             "afghanistan": "🇦🇫", "albania": "🇦🇱", "algeria": "🇩🇿", "andorra": "🇦🇩", "angola": "🇦🇴",
-            "antigua and barbuda": "🇦🇬", "argentina": "🇦🇷", "armenia": "🇦🇲", "australia": "🇦🇺",
-            "austria": "🇦🇹", "azerbaijan": "🇦🇿", "bahamas": "🇧🇸", "bahrain": "🇧🇭",
-            "bangladesh": "🇧🇩", "barbados": "🇧🇧", "belarus": "🇧🇾", "belgium": "🇧🇪", "belize": "🇧🇿",
-            "benin": "🇧🇯", "bhutan": "🇧🇹", "bolivia": "🇧🇴", "bosnia and herzegovina": "🇧🇦",
-            "botswana": "🇧🇼", "brazil": "🇧🇷", "brunei": "🇧🇳", "bulgaria": "🇧🇬",
-            "burkina faso": "🇧🇫", "burundi": "🇧🇮", "cambodia": "🇰🇭", "cameroon": "🇨🇲",
-            "canada": "🇨🇦", "cape verde": "🇨🇻", "central african republic": "🇨🇫", "chad": "🇹🇩",
-            "chile": "🇨🇱", "china": "🇨🇳", "colombia": "🇨🇴", "comoros": "🇰🇲", "congo": "🇨🇬",
-            "costa rica": "🇨🇷", "cote d'ivoire": "🇨🇮", "ivory coast": "🇨🇮",
-            "croatia": "🇭🇷", "cuba": "🇨🇺", "cyprus": "🇨🇾", "czech republic": "🇨🇿",
-            "denmark": "🇩🇰", "djibouti": "🇩🇯", "dominica": "🇩🇲", "dominican republic": "🇩🇴",
-            "drc": "🇨🇩", "ecuador": "🇪🇨", "egypt": "🇪🇬", "el salvador": "🇸🇻",
-            "equatorial guinea": "🇬🇶", "eritrea": "🇪🇷", "estonia": "🇪🇪", "eswatini": "🇸🇿",
-            "ethiopia": "🇪🇹", "fiji": "🇫🇯", "finland": "🇫🇮", "france": "🇫🇷",
-            "gabon": "🇬🇦", "gambia": "🇬🇲", "georgia": "🇬🇪", "germany": "🇩🇪", "ghana": "🇬🇭",
-            "greece": "🇬🇷", "grenada": "🇬🇩", "guatemala": "🇬🇹", "guinea": "🇬🇳",
-            "guinea bissau": "🇬🇼", "guyana": "🇬🇾", "haiti": "🇭🇹", "honduras": "🇭🇳",
-            "hong kong": "🇭🇰", "hungary": "🇭🇺", "iceland": "🇮🇸", "india": "🇮🇳",
-            "indonesia": "🇮🇩", "iran": "🇮🇷", "iraq": "🇮🇶", "ireland": "🇮🇪", "israel": "🇮🇱",
-            "italy": "🇮🇹", "jamaica": "🇯🇲", "japan": "🇯🇵", "jordan": "🇯🇴", "kazakhstan": "🇰🇿",
-            "kenya": "🇰🇪", "kiribati": "🇰🇮", "kosovo": "🇽🇰", "kuwait": "🇰🇼", "kyrgyzstan": "🇰🇬",
-            "laos": "🇱🇦", "latvia": "🇱🇻", "lebanon": "🇱🇧", "lesotho": "🇱🇸", "liberia": "🇱🇷",
-            "libya": "🇱🇾", "liechtenstein": "🇱🇮", "lithuania": "🇱🇹", "luxembourg": "🇱🇺",
-            "macau": "🇲🇴", "madagascar": "🇲🇬", "malawi": "🇲🇼", "malaysia": "🇲🇾", "maldives": "🇲🇻",
-            "mali": "🇲🇱", "malta": "🇲🇹", "marshall islands": "🇲🇭", "mauritania": "🇲🇷",
-            "mauritius": "🇲🇺", "mexico": "🇲🇽", "micronesia": "🇫🇲", "moldova": "🇲🇩",
-            "monaco": "🇲🇨", "mongolia": "🇲🇳", "montenegro": "🇲🇪", "morocco": "🇲🇦",
-            "mozambique": "🇲🇿", "myanmar": "🇲🇲", "namibia": "🇳🇦", "nauru": "🇳🇷", "nepal": "🇳🇵",
-            "netherlands": "🇳🇱", "new zealand": "🇳🇿", "nicaragua": "🇳🇮", "niger": "🇳🇪",
-            "nigeria": "🇳🇬", "north korea": "🇰🇵", "north macedonia": "🇲🇰", "norway": "🇳🇴",
-            "oman": "🇴🇲", "pakistan": "🇵🇰", "palau": "🇵🇼", "palestine": "🇵🇸", "panama": "🇵🇦",
-            "papua new guinea": "🇵🇬", "paraguay": "🇵🇾", "peru": "🇵🇪", "philippines": "🇵🇭",
-            "poland": "🇵🇱", "portugal": "🇵🇹", "qatar": "🇶🇦", "romania": "🇷🇴", "russia": "🇷🇺",
-            "rwanda": "🇷🇼", "saint kitts and nevis": "🇰🇳", "saint lucia": "🇱🇨",
-            "saint vincent and the grenadines": "🇻🇨", "samoa": "🇼🇸", "san marino": "🇸🇲",
-            "sao tome and principe": "🇸🇹", "saudi arabia": "🇸🇦", "senegal": "🇸🇳", "serbia": "🇷🇸",
-            "seychelles": "🇸🇨", "sierra leone": "🇸🇱", "singapore": "🇸🇬", "slovakia": "🇸🇰",
-            "slovenia": "🇸🇮", "solomon islands": "🇸🇧", "somalia": "🇸🇴", "south africa": "🇿🇦",
-            "south korea": "🇰🇷", "south sudan": "🇸🇸", "spain": "🇪🇸", "sri lanka": "🇱🇰",
-            "sudan": "🇸🇩", "suriname": "🇸🇷", "sweden": "🇸🇪", "switzerland": "🇨🇭", "syria": "🇸🇾",
-            "taiwan": "🇹🇼", "tajikistan": "🇹🇯", "tanzania": "🇹🇿", "thailand": "🇹🇭",
-            "timor leste": "🇹🇱", "togo": "🇹🇬", "tonga": "🇹🇴", "trinidad and tobago": "🇹🇹",
-            "tunisia": "🇹🇳", "turkey": "🇹🇷", "turkmenistan": "🇹🇲", "tuvalu": "🇹🇻",
-            "uganda": "🇺🇬", "ukraine": "🇺🇦", "uae": "🇦🇪", "united arab emirates": "🇦🇪",
-            "united kingdom": "🇬🇧", "uk": "🇬🇧", "usa": "🇺🇸", "united states": "🇺🇸",
-            "uruguay": "🇺🇾", "uzbekistan": "🇺🇿", "vanuatu": "🇻🇺", "vatican city": "🇻🇦",
-            "venezuela": "🇻🇪", "vietnam": "🇻🇳", "yemen": "🇾🇪", "zambia": "🇿🇲", "zimbabwe": "🇿🇼"
+            "argentina": "🇦🇷", "armenia": "🇦🇲", "australia": "🇦🇺", "austria": "🇦🇹", "azerbaijan": "🇦🇿",
+            "bahrain": "🇧🇭", "bangladesh": "🇧🇩", "belarus": "🇧🇾", "belgium": "🇧🇪", "bolivia": "🇧🇴",
+            "bosnia and herzegovina": "🇧🇦", "brazil": "🇧🇷", "bulgaria": "🇧🇬", "cambodia": "🇰🇭", "cameroon": "🇨🇲",
+            "canada": "🇨🇦", "chile": "🇨🇱", "china": "🇨🇳", "colombia": "🇨🇴", "costa rica": "🇨🇷",
+            "cote d'ivoire": "🇨🇮", "ivory coast": "🇨🇮", "croatia": "🇭🇷", "cuba": "🇨🇺", "cyprus": "🇨🇾", "czech republic": "🇨🇿",
+            "denmark": "🇩🇰", "dominican republic": "🇩🇴", "ecuador": "🇪🇨", "egypt": "🇪🇬", "el salvador": "🇸🇻",
+            "estonia": "🇪🇪", "finland": "🇫🇮", "france": "🇫🇷", "georgia": "🇬🇪", "germany": "🇩🇪", "ghana": "🇬🇭",
+            "greece": "🇬🇷", "guinea": "🇬🇳", "hong kong": "🇭🇰", "hungary": "🇭🇺", "india": "🇮🇳", "indonesia": "🇮🇩", "iran": "🇮🇷",
+            "iraq": "🇮🇶", "ireland": "🇮🇪", "israel": "🇮🇱", "italy": "🇮🇹", "jamaica": "🇯🇲", "japan": "🇯🇵", "jordan": "🇯🇴",
+            "kazakhstan": "🇰🇿", "kenya": "🇰🇪", "kuwait": "🇰🇼", "kyrgyzstan": "🇰🇬", "latvia": "🇱🇻", "lebanon": "🇱🇧",
+            "libya": "🇱🇾", "lithuania": "🇱🇹", "macau": "🇲🇴", "malaysia": "🇲🇾", "mexico": "🇲🇽", "moldova": "🇲🇩",
+            "mongolia": "🇲🇳", "morocco": "🇲🇦", "myanmar": "🇲🇲", "nepal": "🇳🇵", "netherlands": "🇳🇱", "new zealand": "🇳🇿",
+            "nigeria": "🇳🇬", "north macedonia": "🇲🇰", "norway": "🇳🇴", "oman": "🇴🇲", "pakistan": "🇵🇰", "panama": "🇵🇦",
+            "paraguay": "🇵🇾", "peru": "🇵🇪", "philippines": "🇵🇭", "poland": "🇵🇱", "portugal": "🇵🇹", "qatar": "🇶🇦",
+            "romania": "🇷🇴", "russia": "🇷🇺", "saudi arabia": "🇸🇦", "senegal": "🇸🇳", "serbia": "🇷🇸", "singapore": "🇸🇬",
+            "slovakia": "🇸🇰", "slovenia": "🇸🇮", "south africa": "🇿🇦", "south korea": "🇰🇷", "spain": "🇪🇸", "sri lanka": "🇱🇰",
+            "sweden": "🇸🇪", "switzerland": "🇨🇭", "syria": "🇸🇾", "taiwan": "🇹🇼", "tajikistan": "🇹🇯", "tanzania": "🇹🇿",
+            "thailand": "🇹🇭", "togo": "🇹🇬", "tunisia": "🇹🇳", "turkey": "🇹🇷", "turkmenistan": "🇹🇲", "uae": "🇦🇪",
+            "united kingdom": "🇬🇧", "uk": "🇬🇧", "usa": "🇺🇸", "united states": "🇺🇸", "uruguay": "🇺🇾", "uzbekistan": "🇺🇿",
+            "venezuela": "🇻🇪", "vietnam": "🇻🇳", "yemen": "🇾🇪", "zimbabwe": "🇿🇼"
         };
 
         const PHONE_TO_COUNTRY = {
-            "1": "United States", "7": "Russia", "20": "Egypt", "27": "South Africa",
-            "30": "Greece", "31": "Netherlands", "32": "Belgium", "33": "France",
-            "34": "Spain", "36": "Hungary", "39": "Italy", "40": "Romania",
-            "41": "Switzerland", "43": "Austria", "44": "United Kingdom", "45": "Denmark",
-            "46": "Sweden", "47": "Norway", "48": "Poland", "49": "Germany",
-            "51": "Peru", "52": "Mexico", "53": "Cuba", "54": "Argentina",
-            "55": "Brazil", "56": "Chile", "57": "Colombia", "58": "Venezuela",
-            "60": "Malaysia", "61": "Australia", "62": "Indonesia", "63": "Philippines",
-            "64": "New Zealand", "65": "Singapore", "66": "Thailand", "81": "Japan",
-            "82": "South Korea", "84": "Vietnam", "86": "China", "90": "Turkey",
-            "91": "India", "92": "Pakistan", "93": "Afghanistan", "94": "Sri Lanka",
-            "95": "Myanmar", "98": "Iran", "211": "South Sudan", "212": "Morocco",
-            "213": "Algeria", "216": "Tunisia", "218": "Libya", "220": "Gambia",
-            "221": "Senegal", "222": "Mauritania", "223": "Mali", "224": "Guinea",
-            "225": "Cote d'Ivoire", "226": "Burkina Faso", "227": "Niger", "228": "Togo",
-            "229": "Benin", "230": "Mauritius", "231": "Liberia", "232": "Sierra Leone",
-            "233": "Ghana", "234": "Nigeria", "235": "Chad", "236": "Central African Republic",
-            "237": "Cameroon", "238": "Cape Verde", "239": "Sao Tome and Principe", "240": "Equatorial Guinea",
-            "241": "Gabon", "242": "Congo", "243": "DRC", "244": "Angola", "245": "Guinea Bissau",
-            "249": "Sudan", "250": "Rwanda", "251": "Ethiopia", "252": "Somalia", "253": "Djibouti",
-            "254": "Kenya", "255": "Tanzania", "256": "Uganda", "257": "Burundi",
-            "258": "Mozambique", "260": "Zambia", "261": "Madagascar", "262": "Reunion",
-            "263": "Zimbabwe", "264": "Namibia", "265": "Malawi", "266": "Lesotho",
-            "267": "Botswana", "268": "Eswatini", "269": "Comoros", "291": "Eritrea",
-            "350": "Gibraltar", "351": "Portugal", "352": "Luxembourg", "353": "Ireland",
-            "354": "Iceland", "355": "Albania", "356": "Malta", "357": "Cyprus",
-            "358": "Finland", "359": "Bulgaria", "370": "Lithuania", "371": "Latvia",
-            "372": "Estonia", "373": "Moldova", "374": "Armenia", "375": "Belarus",
-            "376": "Andorra", "377": "Monaco", "378": "San Marino", "379": "Vatican City",
-            "380": "Ukraine", "381": "Serbia", "382": "Montenegro", "383": "Kosovo",
-            "385": "Croatia", "386": "Slovenia", "387": "Bosnia and Herzegovina",
-            "389": "North Macedonia", "420": "Czech Republic", "421": "Slovakia",
-            "423": "Liechtenstein", "501": "Belize", "502": "Guatemala", "503": "El Salvador",
-            "504": "Honduras", "505": "Nicaragua", "506": "Costa Rica", "507": "Panama",
-            "509": "Haiti", "591": "Bolivia", "592": "Guyana", "593": "Ecuador",
-            "595": "Paraguay", "597": "Suriname", "598": "Uruguay", "670": "Timor Leste",
-            "673": "Brunei", "674": "Nauru", "675": "Papua New Guinea",
-            "676": "Tonga", "677": "Solomon Islands", "678": "Vanuatu", "679": "Fiji",
-            "680": "Palau", "685": "Samoa", "686": "Kiribati", "687": "New Caledonia",
-            "688": "Tuvalu", "689": "French Polynesia", "691": "Micronesia",
-            "692": "Marshall Islands", "850": "North Korea", "852": "Hong Kong",
-            "853": "Macau", "855": "Cambodia", "856": "Laos", "880": "Bangladesh",
-            "886": "Taiwan", "960": "Maldives", "961": "Lebanon", "962": "Jordan",
-            "963": "Syria", "964": "Iraq", "965": "Kuwait", "966": "Saudi Arabia",
-            "967": "Yemen", "968": "Oman", "970": "Palestine", "971": "UAE",
-            "972": "Israel", "973": "Bahrain", "974": "Qatar", "975": "Bhutan",
-            "976": "Mongolia", "977": "Nepal", "992": "Tajikistan", "993": "Turkmenistan",
+            "1": "United States", "7": "Russia", "20": "Egypt", "27": "South Africa", "30": "Greece", "31": "Netherlands", "32": "Belgium", "33": "France",
+            "34": "Spain", "36": "Hungary", "39": "Italy", "40": "Romania", "41": "Switzerland", "43": "Austria", "44": "United Kingdom", "45": "Denmark",
+            "46": "Sweden", "47": "Norway", "48": "Poland", "49": "Germany", "51": "Peru", "52": "Mexico", "53": "Cuba", "54": "Argentina",
+            "55": "Brazil", "56": "Chile", "57": "Colombia", "58": "Venezuela", "60": "Malaysia", "61": "Australia", "62": "Indonesia", "63": "Philippines",
+            "64": "New Zealand", "65": "Singapore", "66": "Thailand", "81": "Japan", "82": "South Korea", "84": "Vietnam", "86": "China", "90": "Turkey",
+            "91": "India", "92": "Pakistan", "93": "Afghanistan", "94": "Sri Lanka", "95": "Myanmar", "98": "Iran", "212": "Morocco", "213": "Algeria",
+            "216": "Tunisia", "218": "Libya", "221": "Senegal", "224": "Guinea", "225": "Cote d'Ivoire", "228": "Togo", "233": "Ghana", "234": "Nigeria", "237": "Cameroon",
+            "243": "DRC", "244": "Angola", "249": "Sudan", "251": "Ethiopia", "254": "Kenya", "255": "Tanzania", "256": "Uganda", "258": "Mozambique",
+            "260": "Zambia", "263": "Zimbabwe", "351": "Portugal", "353": "Ireland", "355": "Albania", "357": "Cyprus", "358": "Finland", "359": "Bulgaria",
+            "370": "Lithuania", "371": "Latvia", "372": "Estonia", "373": "Moldova", "374": "Armenia", "375": "Belarus", "380": "Ukraine", "381": "Serbia",
+            "385": "Croatia", "386": "Slovenia", "387": "Bosnia and Herzegovina", "389": "North Macedonia", "420": "Czech Republic", "421": "Slovakia",
+            "502": "Guatemala", "503": "El Salvador", "504": "Honduras", "505": "Nicaragua", "506": "Costa Rica", "507": "Panama", "591": "Bolivia",
+            "593": "Ecuador", "595": "Paraguay", "598": "Uruguay", "852": "Hong Kong", "853": "Macau", "855": "Cambodia", "880": "Bangladesh", "886": "Taiwan",
+            "961": "Lebanon", "962": "Jordan", "963": "Syria", "964": "Iraq", "965": "Kuwait", "966": "Saudi Arabia", "967": "Yemen", "968": "Oman",
+            "971": "UAE", "972": "Israel", "973": "Bahrain", "974": "Qatar", "976": "Mongolia", "977": "Nepal", "992": "Tajikistan", "993": "Turkmenistan",
             "994": "Azerbaijan", "995": "Georgia", "996": "Kyrgyzstan", "998": "Uzbekistan"
         };
 
@@ -823,11 +749,12 @@
         window.updateUserProp = updateUserProp; window.deleteUser = deleteUser; window.useRange = useRange; window.closeBroadcast = closeBroadcast; window.sendBroadcast = sendBroadcast;
         window.useMaxWithdraw = useMaxWithdraw; window.submitWithdraw = submitWithdraw; window.addWithdrawMethod = addWithdrawMethod; window.removeWithdrawMethod = removeWithdrawMethod;
         window.toggleGlobalWithdraw = toggleGlobalWithdraw; window.updateWithdrawStatus = updateWithdrawStatus; window.addCustomLink = addCustomLink; window.removeCustomLink = removeCustomLink;
-        window.copyReferralLink = copyReferralLink; window.filterNumberList = filterNumberList; window.toggleTheme = toggleTheme;
+        window.copyReferralLink = copyReferralLink; window.filterNumberList = filterNumberList; window.toggleTheme = toggleTheme; window.animateRefresh = animateRefresh; window.removeAppLogo = removeAppLogo;
         
         window.openPlans = openPlans; window.goPay = goPay; window.setPay = setPay; window.orderNow = orderNow;
         window.showStockList = showStockList; window.approveSelected = approveSelected; window.rejectOrder = rejectOrder; window.toggleV = toggleV;
         window.addPay = addPay; window.delPay = delPay; window.addVpn = addVpn; window.delV = delV; window.saveV = saveV; window.addStock = addStock; window.delStockItem = delStockItem;
+        window.renderActiveNumbers = renderActiveNumbers; window.loadConsoleData = loadConsoleData;
 
         // Theme Logic
         const themes = ['soft-light', 'dark', 'neon-purple', 'gray'];
@@ -862,7 +789,13 @@
 
         function getCountryInfo(numStr) {
             const digits = (numStr||"").replace(/\D/g, ''); let mc = null;
-            for(let len=3; len>=1; len--) { if(digits.length>=len) { const p = digits.substring(0,len); if(PHONE_TO_COUNTRY[p]) { mc = PHONE_TO_COUNTRY[p]; break; } } }
+            // Now checking up to 4 digits to properly catch countries like Guinea (224), etc.
+            for(let len=4; len>=1; len--) { 
+                if(digits.length>=len) { 
+                    const p = digits.substring(0,len); 
+                    if(PHONE_TO_COUNTRY[p]) { mc = PHONE_TO_COUNTRY[p]; break; } 
+                } 
+            }
             if(!mc) return { name: "Unknown", flag: "🏳️" };
             return { name: mc, flag: COUNTRY_FLAGS[mc.toLowerCase()] || "🏳️" };
         }
@@ -870,19 +803,42 @@
         function esc(v) { return String(v ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[m])); }
         function jsStr(v) { return String(v ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, ' '); }
 
+        // Local Storage for Persistent Numbers
+        function saveRequestsToStorage() {
+            if(!tgUser || !tgUser.id) return;
+            const key = `numax_reqs_${tgUser.id}`;
+            const cutoff = Date.now() - (24 * 60 * 60 * 1000); // 24 hours
+            const toSave = activeRequests.filter(r => r.startTime > cutoff).map(r => {
+                const {intervalId, ...rest} = r; 
+                return rest;
+            });
+            localStorage.setItem(key, JSON.stringify(toSave));
+        }
+
+        function loadStoredRequests() {
+            if(!tgUser || !tgUser.id) return;
+            const key = `numax_reqs_${tgUser.id}`;
+            try {
+                const stored = localStorage.getItem(key);
+                if(stored) {
+                    const parsed = JSON.parse(stored);
+                    const cutoff = Date.now() - (24 * 60 * 60 * 1000);
+                    activeRequests = parsed.filter(r => r.startTime > cutoff);
+                    activeRequests.forEach(req => { if(req.status === 'PENDING') startPolling(req); });
+                }
+            } catch(e) {}
+        }
+
         async function initApp() {
             if (window.Telegram && window.Telegram.WebApp) {
                 try { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); } catch(e) {}
                 const initData = window.Telegram.WebApp.initDataUnsafe;
-                
                 const urlParams = new URLSearchParams(window.location.search);
                 const queryUid = urlParams.get('uid');
                 
-                if (initData && initData.user) {
-                    tgUser = initData.user;
-                } else if (queryUid) {
-                    tgUser = { id: queryUid, first_name: 'AdminPreview', username: 'admin' };
-                } else {
+                if (initData && initData.user) { tgUser = initData.user; } 
+                else if (queryUid) { tgUser = { id: queryUid, first_name: 'AdminPreview', username: 'admin' }; } 
+                else {
                     let randId = 'web_' + Math.floor(Math.random() * 900000 + 100000);
                     if(localStorage.getItem('numax_web_uid')) randId = localStorage.getItem('numax_web_uid');
                     else localStorage.setItem('numax_web_uid', randId);
@@ -898,14 +854,24 @@
 
             if (String(tgUser.id) === ADMIN_ID) document.getElementById('adminMenuBtn').classList.remove('hidden');
 
+            loadStoredRequests();
+
             try {
                 await signInAnonymously(auth);
                 listenToGlobalSettings(); listenToBroadcasts(); await syncUser();
                 syncVPN();
-                document.getElementById('loadingView').classList.add('hidden');
+                
+                // Hide Loading Screen gracefully
+                setTimeout(() => {
+                    const loader = document.getElementById('appLoadingScreen');
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.classList.add('hidden'), 500);
+                }, 800);
+                
                 switchView('dashboard');
             } catch (err) {
-                document.getElementById('loadingView').classList.add('hidden');
+                const loader = document.getElementById('appLoadingScreen');
+                loader.classList.add('hidden');
                 showToast("Connection Error", "error"); switchView('dashboard');
             }
         }
@@ -914,7 +880,7 @@
             const input = document.getElementById(fileInputId);
             if (!input || !input.files || input.files.length === 0) return null;
             const file = input.files[0];
-            const name = `logos/${Date.now()}_${file.name}`;
+            const name = `uploads/${Date.now()}_${file.name}`;
             const fileRef = sRef(storage, name);
             try {
                 await uploadBytes(fileRef, file);
@@ -926,6 +892,25 @@
             onSnapshot(doc(db, 'global', 'settings'), (snap) => {
                 if (snap.exists()) {
                     globalSettings = snap.data();
+                    
+                    // Update Branding
+                    const appName = globalSettings.appName || "NumaX";
+                    document.getElementById('loaderAppName').innerText = appName;
+                    document.getElementById('headerAppName').innerText = appName;
+                    
+                    const logoUrl = globalSettings.appLogo;
+                    if(logoUrl) {
+                        document.getElementById('loaderLogo').src = logoUrl; document.getElementById('loaderLogo').classList.remove('hidden');
+                        document.getElementById('loaderLogoFallback').classList.add('hidden');
+                        document.getElementById('headerLogo').src = logoUrl; document.getElementById('headerLogo').classList.remove('hidden');
+                        document.getElementById('headerLogoFallback').classList.add('hidden');
+                    } else {
+                        document.getElementById('loaderLogo').classList.add('hidden'); document.getElementById('loaderLogoFallback').classList.remove('hidden');
+                        document.getElementById('headerLogo').classList.add('hidden'); document.getElementById('headerLogoFallback').classList.remove('hidden');
+                        document.getElementById('loaderLogoFallback').innerText = appName.charAt(0).toUpperCase();
+                        document.getElementById('headerLogoFallback').innerText = appName.charAt(0).toUpperCase();
+                    }
+
                     const sel = document.getElementById('withdrawMethodSelect'); sel.innerHTML = '<option value="">Select a method...</option>';
                     (globalSettings.methods || []).forEach(m => sel.innerHTML += `<option value="${m}">${m}</option>`);
                     
@@ -940,6 +925,8 @@
                     } else document.getElementById('dashLinksCard').classList.add('hidden');
 
                     if (String(tgUser.id) === ADMIN_ID) {
+                        document.getElementById('adminAppName').value = appName;
+                        document.getElementById('adminAppLogoUrl').value = logoUrl || '';
                         document.getElementById('adminStexKey').value = globalSettings.stexKey || ''; document.getElementById('adminVoltxKey').value = globalSettings.voltxKey || ''; document.getElementById('adminBotToken').value = globalSettings.botToken || ''; document.getElementById('adminEnableStex').checked = globalSettings.enableStex !== false; document.getElementById('adminEnableVoltx').checked = globalSettings.enableVoltx !== false; document.getElementById('adminRefComm').value = globalSettings.refComm || 0.05; document.getElementById('adminMinWithdraw').value = globalSettings.minWithdraw || 10; document.getElementById('adminWelcomeMsg').value = globalSettings.welcomeMsg || ''; document.getElementById('adminWithdrawToggle').checked = globalSettings.withdrawEnabled !== false;
                         const mList = document.getElementById('adminMethodList'); mList.innerHTML = '';
                         (globalSettings.methods || []).forEach(m => mList.innerHTML += `<span class="bg-main border border-main text-main text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">${m} <button onclick="removeWithdrawMethod('${m}')" class="text-danger hover:opacity-80 ml-1">x</button></span>`);
@@ -953,7 +940,6 @@
             const uidStr = String(tgUser.id);
             const userRef = doc(db, 'users', uidStr);
             const snap = await getDoc(userRef);
-            
             const startParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param || null;
             let referer = null;
             
@@ -988,6 +974,30 @@
                 }
             });
             loadUserWithdrawals();
+            loadUserEarningStats();
+        }
+
+        function loadUserEarningStats() {
+            if (!tgUser || !tgUser.id) return;
+            const uidStr = String(tgUser.id);
+            const now = new Date();
+            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+            const startOfYesterday = startOfToday - (24 * 60 * 60 * 1000);
+
+            const q = query(collection(db, 'otps'), where('uid', '==', uidStr));
+            onSnapshot(q, (snap) => {
+                let todayEarn = 0; let yestEarn = 0; let todayCount = 0;
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const ts = data.time || 0; 
+                    const earn = data.cost || 0.15;
+                    if (ts >= startOfToday) { todayEarn += earn; todayCount++; } 
+                    else if (ts >= startOfYesterday && ts < startOfToday) { yestEarn += earn; }
+                });
+                document.getElementById('dashTodayOtp').innerText = todayCount;
+                document.getElementById('dashTodayEarn').innerText = `৳${todayEarn.toFixed(2)}`;
+                document.getElementById('dashYestEarn').innerText = `৳${yestEarn.toFixed(2)}`;
+            });
         }
 
         function copyReferralLink() { copySpecificText(document.getElementById('referralLinkInput').value); }
@@ -1001,8 +1011,7 @@
             if(!rawRid) return showToast("Enter Range ID", "error");
             const rid = rawRid.replace(/#/g, '').replace(/XXX/ig, '').replace(/\+/g, '').trim();
 
-            const btn = document.getElementById('btnGetNum');
-            const loader = document.getElementById('btnGetNumLoader');
+            const btn = document.getElementById('btnGetNum'); const loader = document.getElementById('btnGetNumLoader');
             btn.disabled = true; loader.classList.remove('hidden');
 
             try {
@@ -1012,9 +1021,7 @@
                 else if(rangeStats[rid]) preferred = (rangeStats[rid].stex >= rangeStats[rid].voltx) ? 'stex' : 'voltx';
 
                 let resData = null;
-                if((preferred==='stex' && globalSettings.enableStex) || (preferred==='voltx' && globalSettings.enableVoltx)) {
-                    resData = await tryGetNum(preferred, rid);
-                }
+                if((preferred==='stex' && globalSettings.enableStex) || (preferred==='voltx' && globalSettings.enableVoltx)) resData = await tryGetNum(preferred, rid);
 
                 if (!resData || (resData.meta && resData.meta.code !== 200)) {
                     let other = preferred === 'stex' ? 'voltx' : 'stex';
@@ -1028,6 +1035,7 @@
                     const allocatedNum = resData.data.no_plus_number;
                     const newReq = { fullNumber: allocatedNum, panel: preferred, startTime: Date.now(), status: 'PENDING', message: '', code: '' };
                     activeRequests.unshift(newReq);
+                    saveRequestsToStorage();
                     renderActiveNumbers();
                     copySpecificText("+" + allocatedNum);
                     startPolling(newReq);
@@ -1051,48 +1059,45 @@
             renderActiveNumbers();
         }
 
+        function animateRefresh(btn) {
+            const icon = btn.querySelector('.refresh-icon');
+            if(icon) {
+                icon.classList.add('animate-spin');
+                setTimeout(() => icon.classList.remove('animate-spin'), 600);
+            }
+        }
+
         function renderActiveNumbers() {
             const listEl = document.getElementById('activeNumbersList');
             listEl.innerHTML = '';
             
-            const todayStart = new Date().setHours(0,0,0,0);
-            activeRequests = activeRequests.filter(req => req.startTime > todayStart);
+            const cutoff = Date.now() - (24 * 60 * 60 * 1000);
+            activeRequests = activeRequests.filter(req => req.startTime > cutoff);
 
             const filtered = currentNumberFilter === 'ALL' ? activeRequests : activeRequests.filter(r => r.status === currentNumberFilter);
             
-            if (filtered.length === 0) { listEl.innerHTML = '<div class="p-8 text-center text-sm text-muted font-semibold break-words">No numbers here.</div>'; return; }
+            if (filtered.length === 0) { listEl.innerHTML = '<div class="p-8 text-center text-sm text-muted font-semibold break-words">No activity here.</div>'; return; }
 
             filtered.forEach((req) => {
                 let action = '';
                 const country = getCountryInfo(req.fullNumber);
 
                 if (req.status === 'PENDING') {
-                    action = `<span class="badge-warning text-[9px] font-black tracking-widest uppercase">Waiting SMS</span>`;
+                    action = `<span class="badge-warning text-[9px] font-black tracking-widest uppercase shadow-sm px-2 py-1 rounded">Waiting SMS</span>`;
                 } else if (req.status === 'SUCCESS') {
-                    action = `<div class="flex flex-col items-end gap-1.5"><div onclick="copySpecificText('${req.code}')" class="text-2xl font-black cursor-pointer hover:opacity-80 drop-shadow-sm transition-opacity" style="color: var(--brand-cyan);" title="Click to copy OTP">${req.code}</div><button onclick="copySpecificText('${req.code}')" class="text-[9px] px-2.5 py-1 rounded font-bold uppercase shadow-sm" style="background: var(--cyan-light); color: var(--brand-cyan); border: 1px solid var(--cyan-light);">Copy OTP</button></div>`;
+                    action = `<button onclick="copySpecificText('${req.code}')" class="text-lg font-black px-4 py-1.5 rounded-lg shadow-sm hover:opacity-80 transition-opacity tracking-widest" style="background: var(--bg-success); color: var(--text-success); border: 1px solid var(--border-success);" title="Click to copy OTP">${req.code}</button>`;
                 } else if (req.status === 'FAILED') {
-                    action = `<span class="badge-danger text-[9px] font-black tracking-widest uppercase">Timeout</span>`;
+                    action = `<span class="badge-danger text-[9px] font-black tracking-widest uppercase shadow-sm px-2 py-1 rounded">Timeout</span>`;
                 }
 
-                listEl.innerHTML += `
-                    <div class="p-4 flex justify-between items-center bg-card border-b border-main">
-                        <div class="flex flex-col gap-1 min-w-0">
-                            <span onclick="copySpecificText('+${req.fullNumber}')" class="font-mono font-black text-lg text-main cursor-pointer hover:opacity-80 transition-opacity truncate" style="color: var(--brand-navy)">+${req.fullNumber}</span>
-                            <div class="flex items-center gap-1.5 text-xs text-muted font-bold truncate">
-                                <span>${country.flag}</span> <span class="truncate">${country.name}</span>
-                                ${req.status === 'SUCCESS' ? `<span class="badge-success text-[8px] ml-1">SUCCESS</span>` : ''}
-                            </div>
-                        </div>
-                        <div class="flex justify-end flex-shrink-0 ml-2">${action}</div>
-                    </div>
-                `;
+                listEl.innerHTML += `<div class="p-4 flex justify-between items-center bg-card border-b border-main hover:bg-[var(--bg-main)] transition-colors"><div class="flex flex-col gap-1 min-w-0"><span onclick="copySpecificText('+${req.fullNumber}')" class="font-mono font-black text-lg text-main cursor-pointer hover:opacity-80 transition-opacity truncate" style="color: var(--brand-navy)">+${req.fullNumber}</span><div class="flex items-center gap-1.5 text-xs text-muted font-bold truncate"><span>${country.flag}</span> <span class="truncate">${country.name}</span>${req.status === 'SUCCESS' ? `<span class="badge-success text-[8px] ml-1 px-1 rounded">SUCCESS</span>` : ''}</div></div><div class="flex justify-end items-center flex-shrink-0 ml-2">${action}</div></div>`;
             });
         }
 
         function startPolling(reqObj) {
             const timeout = 20 * 60 * 1000;
             reqObj.intervalId = setInterval(async () => {
-                if (Date.now() - reqObj.startTime > timeout) { clearInterval(reqObj.intervalId); reqObj.status = 'FAILED'; renderActiveNumbers(); return; }
+                if (Date.now() - reqObj.startTime > timeout) { clearInterval(reqObj.intervalId); reqObj.status = 'FAILED'; saveRequestsToStorage(); renderActiveNumbers(); return; }
                 const base = reqObj.panel === 'stex' ? 'https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api' : 'https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api';
                 const key = reqObj.panel === 'stex' ? globalSettings.stexKey : globalSettings.voltxKey;
 
@@ -1103,9 +1108,11 @@
                         const match = data.data.otps.find(o => o.number === reqObj.fullNumber);
                         if (match) {
                             clearInterval(reqObj.intervalId);
+                            // Only capture the OTP digits
                             const codeMatch = match.message.match(/\b\d{3}\s?\d{3,5}\b|\b\d{4,8}\b/);
-                            reqObj.status = 'SUCCESS'; reqObj.message = match.message; reqObj.code = codeMatch ? codeMatch[0].trim() : "CODE";
-                            renderActiveNumbers(); showToast("OTP Received", "success");
+                            reqObj.status = 'SUCCESS'; reqObj.message = match.message; 
+                            reqObj.code = codeMatch ? codeMatch[0].replace(/\s+/g, '') : "CODE";
+                            saveRequestsToStorage(); renderActiveNumbers(); showToast("OTP Received", "success");
                             saveReceivedOTP(match, reqObj.code, reqObj.panel);
                         }
                     }
@@ -1120,7 +1127,6 @@
                 const earn = currentUserData ? currentUserData.rate : 0.15;
                 await setDoc(docRef, { uid: String(tgUser.id), number: otpData.number, message: otpData.message, code, time: otpData.time, cost: earn, panel: panelName });
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(earn) });
-                
                 if (currentUserData && currentUserData.referredBy) {
                     const refEarn = globalSettings.refComm || 0.05;
                     await updateDoc(doc(db, 'users', currentUserData.referredBy), { balance: increment(refEarn), referralEarnings: increment(refEarn) });
@@ -1128,8 +1134,7 @@
             }
         }
 
-        let allConsoleHits = [];
-        let debounceTimer;
+        let allConsoleHits = []; let debounceTimer;
         window.debounceFilterConsole = function() { clearTimeout(debounceTimer); debounceTimer = setTimeout(filterConsole, 300); };
 
         async function loadConsoleData() {
@@ -1153,43 +1158,19 @@
             const list = document.getElementById('consoleList'); list.innerHTML = '';
             
             let filtered = allConsoleHits;
-            if (q) filtered = allConsoleHits.filter(h => { const c = getCountryInfo(h.range); return h.sid.toLowerCase().includes(q) || h.range.includes(q) || (h.message && h.message.toLowerCase().includes(q)) || c.name.toLowerCase().includes(q); });
+            if (q) filtered = allConsoleHits.filter(h => h.range.includes(q) || (h.message && h.message.toLowerCase().includes(q)));
             if (filtered.length === 0) { list.innerHTML = '<div class="text-center text-sm text-muted py-10 card font-medium break-words">No results found.</div>'; return; }
             
             let htmlStr = '';
             filtered.slice(0, 60).forEach(h => {
                 const time = new Date(h.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
-                const cleanR = h.range.replace('XXX','');
-                const c = getCountryInfo(h.range);
-
-                htmlStr += `
-                    <div class="console-row">
-                        <div class="flex justify-between items-start mb-1 flex-wrap gap-2">
-                            <div class="flex items-center gap-2 flex-wrap min-w-0">
-                                <span class="text-[9px] font-bold text-muted whitespace-nowrap">${time}</span>
-                                <span class="font-black uppercase text-[11px] tracking-wider truncate" style="color: var(--brand-navy);">${h.sid}</span>
-                                <span class="text-muted text-[10px] whitespace-nowrap">::</span>
-                                <span class="font-mono text-main font-bold text-xs tracking-wide truncate">${h.range}</span>
-                                <span class="text-[10px] bg-main text-muted px-1.5 py-0.5 rounded font-bold flex items-center gap-1 border border-main shadow-sm truncate">
-                                    <span>${c.flag}</span> <span class="truncate">${c.name}</span>
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-1 flex-shrink-0">
-                                <button onclick="copySpecificText('${cleanR}')" class="text-[9px] text-muted bg-main border border-main hover:opacity-80 px-2 py-1 rounded font-bold uppercase transition">Copy</button>
-                                <button onclick="useRange('${cleanR}')" class="text-[9px] font-bold uppercase px-2 py-1 rounded shadow-sm transition" style="color: var(--brand-cyan); background-color: var(--cyan-light); border: 1px solid var(--cyan-light);">Use</button>
-                            </div>
-                        </div>
-                        <div class="pl-[3.5rem] flex items-start gap-1.5 mt-1">
-                            <span class="font-black text-sm flex-shrink-0" style="color: var(--brand-cyan);">→</span>
-                            <span class="text-muted font-mono text-[11px] font-medium leading-relaxed break-words max-w-full">${h.message}</span>
-                        </div>
-                    </div>`;
+                const cleanR = h.range.replace('XXX',''); const c = getCountryInfo(h.range);
+                htmlStr += `<div class="console-row"><div class="flex justify-between items-start mb-1 flex-wrap gap-2"><div class="flex items-center gap-2 flex-wrap min-w-0"><span class="text-[9px] font-bold text-muted whitespace-nowrap">${time}</span><span class="font-black uppercase text-[11px] tracking-wider truncate" style="color: var(--brand-navy);">${h.sid}</span><span class="text-muted text-[10px] whitespace-nowrap">::</span><span class="font-mono text-main font-bold text-xs tracking-wide truncate">${h.range}</span><span class="text-[10px] bg-main text-muted px-1.5 py-0.5 rounded font-bold flex items-center gap-1 border border-main shadow-sm truncate"><span>${c.flag}</span> <span class="truncate">${c.name}</span></span></div><div class="flex items-center gap-1 flex-shrink-0"><button onclick="copySpecificText('${cleanR}')" class="text-[9px] text-muted bg-main border border-main hover:opacity-80 px-2 py-1 rounded font-bold uppercase transition">Copy</button><button onclick="useRange('${cleanR}')" class="text-[9px] font-bold uppercase px-2 py-1 rounded shadow-sm transition" style="color: var(--brand-cyan); background-color: var(--cyan-light); border: 1px solid var(--cyan-light);">Use</button></div></div><div class="pl-[3.5rem] flex items-start gap-1.5 mt-1"><span class="font-black text-sm flex-shrink-0" style="color: var(--brand-cyan);">→</span><span class="text-muted font-mono text-[11px] font-medium leading-relaxed break-words max-w-full">${h.message}</span></div></div>`;
             });
             list.innerHTML = htmlStr;
         }
 
         function useMaxWithdraw() { if(currentUserData && currentUserData.balance > 0) document.getElementById('withdrawAmountInput').value = currentUserData.balance; }
-
         async function submitWithdraw() {
             if(globalSettings.withdrawEnabled === false) return showToast("Withdrawals disabled", "error");
             if(currentUserData.banned) return;
@@ -1199,7 +1180,6 @@
             const minW = globalSettings.minWithdraw || 10;
             if(amt < minW) return showToast(`Minimum withdraw is ৳${minW}`, "warning");
             if(amt > currentUserData.balance) return showToast("Insufficient balance", "error");
-
             const btn = document.getElementById('btnWithdrawSubmit'); btn.disabled = true; btn.innerText = "Processing...";
             try {
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-amt) });
@@ -1207,27 +1187,19 @@
                 showToast("Request submitted!", "success"); document.getElementById('withdrawAmountInput').value = ''; document.getElementById('withdrawNumberInput').value = '';
             } catch(e) { showToast("Failed to submit", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Request"; }
         }
-
         function loadUserWithdrawals() {
             const q = query(collection(db, 'withdrawals'), where('uid', '==', String(tgUser.id)));
             onSnapshot(q, (snap) => {
-                const list = document.getElementById('userWithdrawList');
-                list.innerHTML = '';
-                let reqs = []; snap.forEach(d => reqs.push({id: d.id, ...d.data()}));
-                reqs.sort((a,b) => b.timestamp - a.timestamp);
-                
-                if(reqs.length===0) { list.innerHTML='<p class="text-center text-sm text-muted py-6 font-medium">No previous requests.</p>'; return;}
+                const list = document.getElementById('userWithdrawList'); list.innerHTML = '';
+                let reqs = []; snap.forEach(d => reqs.push({id: d.id, ...d.data()})); reqs.sort((a,b) => b.timestamp - a.timestamp);
+                if(reqs.length===0) { list.innerHTML='<p class="text-center text-sm text-muted py-6 font-medium break-words">No previous requests.</p>'; return;}
                 reqs.forEach(r => {
                     const date = new Date(r.timestamp).toLocaleDateString([], {month:'short', day:'numeric'});
                     let badge = '';
                     if(r.status==='PENDING') badge = `<span class="badge-warning text-[9px] uppercase">Pending</span>`;
                     if(r.status==='APPROVED') badge = `<span class="badge-success text-[9px] uppercase">Paid</span>`;
                     if(r.status==='REJECTED') badge = `<span class="badge-danger text-[9px] uppercase">Rejected</span>`;
-                    
-                    list.innerHTML += `<div class="p-4 flex justify-between items-center bg-card border-b border-main text-sm">
-                        <div><p class="font-bold text-main" style="color: var(--brand-navy);">${r.method} • ${r.number}</p><p class="text-xs text-muted mt-1">${date}</p></div>
-                        <div class="text-right flex flex-col items-end gap-1"><p class="font-black text-lg text-main" style="color: var(--brand-navy);">৳${r.amount}</p>${badge}</div>
-                    </div>`;
+                    list.innerHTML += `<div class="p-4 flex justify-between items-center bg-card border-b border-main text-sm"><div><p class="font-bold text-main" style="color: var(--brand-navy);">${r.method} • ${r.number}</p><p class="text-xs text-muted mt-1">${date}</p></div><div class="text-right flex flex-col items-end gap-1"><p class="font-black text-lg text-main" style="color: var(--brand-navy);">৳${r.amount}</p>${badge}</div></div>`;
                 });
             });
         }
@@ -1237,32 +1209,13 @@
         function syncVPN() {
             onValue(ref(rtdb, 'vpns'), (s) => {
                 const uBox = document.getElementById('vpn-list'), aBox = document.getElementById('adm-vpn-list'), sSelect = document.getElementById('stock-vpn-id'), sInv = document.getElementById('stock-inventory-list');
-                uBox.innerHTML = ''; aBox.innerHTML = ''; sSelect.innerHTML = ''; sInv.innerHTML = '';
-                const d = s.val();
-                if (!d) {
-                    uBox.innerHTML = `<div class="p-5 text-center text-muted font-bold bg-main border border-main rounded-2xl">No VPN available.</div>`;
-                    aBox.innerHTML = `<div class="p-4 text-center text-muted text-xs border border-main rounded-xl">No VPN brand found.</div>`;
-                    sSelect.innerHTML = `<option value="">No VPN available</option>`; return;
-                }
-
+                uBox.innerHTML = ''; aBox.innerHTML = ''; sSelect.innerHTML = ''; sInv.innerHTML = ''; const d = s.val();
+                if (!d) { uBox.innerHTML = `<div class="p-5 text-center text-muted font-bold bg-main border border-main rounded-2xl">No VPN available.</div>`; aBox.innerHTML = `<div class="p-4 text-center text-muted text-xs border border-main rounded-xl">No VPN brand found.</div>`; sSelect.innerHTML = `<option value="">No VPN available</option>`; return; }
                 Object.keys(d).forEach(id => {
                     const v = d[id] || {}; const stockCount = v.stock ? Object.keys(v.stock).length : 0; const isOff = v.status === "OFF";
                     const safeName = esc(v.name || 'VPN'); const logo = v.logo || getVpnLogo(v.name || 'vpn');
-
-                    uBox.innerHTML += `<div onclick="${!isOff ? `openPlans('${id}')` : ''}" class="card p-4 flex justify-between items-center cursor-pointer hover:border-[var(--brand-cyan)] transition-colors ${isOff ? 'opacity-50 grayscale pointer-events-none' : ''}">
-                        <div class="flex items-center gap-4 min-w-0"><img src="${logo}" class="w-12 h-12 rounded-xl object-cover border border-main flex-shrink-0"><div class="min-w-0"><b class="text-main text-base truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider mt-0.5 truncate">Stock: ${stockCount}</p></div></div>
-                        <span class="text-[9px] font-black px-2.5 py-1 rounded-lg border flex-shrink-0 ml-2 ${!isOff ? 'badge-success' : 'badge-danger'}">${isOff ? 'OFFLINE' : 'ONLINE'}</span></div>`;
-
-                    aBox.innerHTML += `<div class="card p-4 space-y-4">
-                        <div class="flex justify-between items-center border-b border-main pb-3">
-                            <div class="flex items-center gap-3 min-w-0"><img src="${logo}" class="w-8 h-8 rounded-lg shadow-sm border border-main flex-shrink-0"><div class="min-w-0"><b class="text-sm text-main truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Stock: ${stockCount}</p></div></div>
-                            <div class="flex items-center gap-3 flex-shrink-0"><label class="switch"><input type="checkbox" ${!isOff?'checked':''} onchange="toggleV('${id}', this.checked)"><span class="slider"></span></label><button onclick="delV('${id}')" class="w-7 h-7 badge-danger rounded-lg hover:opacity-80"><svg class="w-3 h-3 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div><input type="text" id="p1n-${id}" value="${esc(v.p1n||'')}" placeholder="Plan 1 Name" class="adm-mini-input mb-2"><input type="number" id="p1p-${id}" value="${esc(v.p1p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div>
-                            <div><input type="text" id="p2n-${id}" value="${esc(v.p2n||'')}" placeholder="Plan 2 Name" class="adm-mini-input mb-2"><input type="number" id="p2p-${id}" value="${esc(v.p2p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div>
-                        </div><button onclick="saveV('${id}')" class="btn-primary w-full py-2.5 text-xs shadow-sm truncate">Save Plan</button></div>`;
-
+                    uBox.innerHTML += `<div onclick="${!isOff ? `openPlans('${id}')` : ''}" class="card p-4 flex justify-between items-center cursor-pointer hover:border-[var(--brand-cyan)] transition-colors ${isOff ? 'opacity-50 grayscale pointer-events-none' : ''}"><div class="flex items-center gap-4 min-w-0"><img src="${logo}" class="w-12 h-12 rounded-xl object-cover border border-main flex-shrink-0"><div class="min-w-0"><b class="text-main text-base truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider mt-0.5 truncate">Stock: ${stockCount}</p></div></div><span class="text-[9px] font-black px-2.5 py-1 rounded-lg border flex-shrink-0 ml-2 ${!isOff ? 'badge-success' : 'badge-danger'}">${isOff ? 'OFFLINE' : 'ONLINE'}</span></div>`;
+                    aBox.innerHTML += `<div class="card p-4 space-y-4"><div class="flex justify-between items-center border-b border-main pb-3"><div class="flex items-center gap-3 min-w-0"><img src="${logo}" class="w-8 h-8 rounded-lg shadow-sm border border-main flex-shrink-0"><div class="min-w-0"><b class="text-sm text-main truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Stock: ${stockCount}</p></div></div><div class="flex items-center gap-3 flex-shrink-0"><label class="switch"><input type="checkbox" ${!isOff?'checked':''} onchange="toggleV('${id}', this.checked)"><span class="slider"></span></label><button onclick="delV('${id}')" class="w-7 h-7 badge-danger rounded-lg hover:opacity-80"><svg class="w-3 h-3 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><div class="grid grid-cols-2 gap-3"><div><input type="text" id="p1n-${id}" value="${esc(v.p1n||'')}" placeholder="Plan 1 Name" class="adm-mini-input mb-2"><input type="number" id="p1p-${id}" value="${esc(v.p1p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div><div><input type="text" id="p2n-${id}" value="${esc(v.p2n||'')}" placeholder="Plan 2 Name" class="adm-mini-input mb-2"><input type="number" id="p2p-${id}" value="${esc(v.p2p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div></div><button onclick="saveV('${id}')" class="btn-primary w-full py-2.5 text-xs shadow-sm truncate">Save Plan</button></div>`;
                     sSelect.innerHTML += `<option value="${id}">${safeName}</option>`;
                     if(v.stock) {
                         let inv = `<div class="card p-4"><b class="text-xs text-main border-b border-main pb-2 block mb-3 truncate" style="color: var(--brand-navy)">${safeName} <span class="text-[9px] text-muted font-normal">(${stockCount} items)</span></b><div class="space-y-2">`;
@@ -1279,40 +1232,16 @@
                     const o = d[id] || {};
                     if(o.st === "Pending") {
                         pCount++;
-                        aP.innerHTML += `<div class="card p-4 space-y-3">
-                            <div class="flex justify-between items-start border-b border-main pb-2 gap-2">
-                                <div class="min-w-0"><b class="text-sm text-main truncate block" style="color: var(--brand-navy)">${esc(o.user || 'Guest')}</b><p class="text-[9px] font-mono text-muted mt-0.5 truncate">UID: ${esc(o.uid || '')}</p></div>
-                                <div class="text-right flex-shrink-0"><span class="text-[9px] font-black badge-warning px-2 py-1 rounded uppercase block truncate">${esc(o.st || '')}</span><p class="text-[9px] text-muted mt-1 truncate">${esc(o.date || '')}</p></div>
-                            </div>
-                            <div class="bg-main p-3 rounded-xl border border-main text-xs overflow-hidden">
-                                <p class="truncate"><span class="text-muted font-bold w-16 inline-block">Item:</span> <b class="text-main">${esc(o.vpn || 'VPN')} (${esc(o.plan || '')})</b></p>
-                                <p class="my-1 truncate"><span class="text-muted font-bold w-16 inline-block">Price:</span> <b style="color: var(--brand-cyan);">৳${esc(o.price || '')}</b></p>
-                                <p class="truncate"><span class="text-muted font-bold w-16 inline-block">Method:</span> <b class="uppercase text-main">${esc(o.method || '')}</b></p>
-                                <p class="mt-1 truncate"><span class="text-muted font-bold w-16 inline-block">TrxID:</span> <b class="font-mono bg-card px-1.5 py-0.5 rounded border border-main" style="color: var(--brand-navy);">${esc(o.trx || '')}</b></p>
-                            </div>
-                            <div class="flex gap-2 pt-1">
-                                <button onclick="showStockList('${id}','${esc(o.vpn_id || '')}')" class="btn-primary py-2.5 text-xs shadow-sm flex-1 truncate">Deliver</button>
-                                <button onclick="rejectOrder('${id}')" class="badge-danger w-auto px-4"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                            </div>
-                        </div>`;
+                        aP.innerHTML += `<div class="card p-4 space-y-3"><div class="flex justify-between items-start border-b border-main pb-2 gap-2"><div class="min-w-0"><b class="text-sm text-main truncate block" style="color: var(--brand-navy)">${esc(o.user || 'Guest')}</b><p class="text-[9px] font-mono text-muted mt-0.5 truncate">UID: ${esc(o.uid || '')}</p></div><div class="text-right flex-shrink-0"><span class="text-[9px] font-black badge-warning px-2 py-1 rounded uppercase block truncate">${esc(o.st || '')}</span><p class="text-[9px] text-muted mt-1 truncate">${esc(o.date || '')}</p></div></div><div class="bg-main p-3 rounded-xl border border-main text-xs overflow-hidden"><p class="truncate"><span class="text-muted font-bold w-16 inline-block">Item:</span> <b class="text-main">${esc(o.vpn || 'VPN')} (${esc(o.plan || '')})</b></p><p class="my-1 truncate"><span class="text-muted font-bold w-16 inline-block">Price:</span> <b style="color: var(--brand-cyan);">৳${esc(o.price || '')}</b></p><p class="truncate"><span class="text-muted font-bold w-16 inline-block">Method:</span> <b class="uppercase text-main">${esc(o.method || '')}</b></p><p class="mt-1 truncate"><span class="text-muted font-bold w-16 inline-block">TrxID:</span> <b class="font-mono bg-card px-1.5 py-0.5 rounded border border-main" style="color: var(--brand-navy);">${esc(o.trx || '')}</b></p></div><div class="flex gap-2 pt-1"><button onclick="showStockList('${id}','${esc(o.vpn_id || '')}')" class="btn-primary py-2.5 text-xs shadow-sm flex-1 truncate">Deliver</button><button onclick="rejectOrder('${id}')" class="badge-danger w-auto px-4"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div></div>`;
                     }
                     if(o.uid == String(tgUser.id)) {
                         cOS[id] = o.st; let stC = o.st === "Approved" ? "badge-success" : (o.st === "Rejected" ? "badge-danger" : "badge-warning");
-                        uBox.innerHTML += `<div class="card p-4 space-y-3">
-                            <div class="flex justify-between items-start border-b border-main pb-2 gap-2">
-                                <div class="min-w-0"><b class="text-sm text-main block truncate" style="color: var(--brand-navy)">${esc(o.vpn || 'VPN')} <span class="text-xs text-muted font-normal">(${esc(o.plan || '')})</span></b><p class="text-[9px] text-muted font-bold mt-1 uppercase tracking-wider truncate">${esc(o.date || '')}</p></div>
-                                <span class="text-[9px] font-black px-2 py-1 rounded border uppercase tracking-wider flex-shrink-0 ${stC}">${esc(o.st || '')}</span>
-                            </div>
-                            ${o.email ? `<div class="space-y-2 pt-1"><div class="bg-main border border-main rounded-xl p-3 flex justify-between items-center cursor-pointer hover:opacity-80 transition min-w-0" onclick="copySpecificText('${jsStr(o.email)}')"><div class="flex flex-col min-w-0 pr-2"><span class="text-[9px] font-bold text-muted uppercase tracking-widest truncate">Email / ID</span><span class="font-mono text-xs font-bold text-main break-all mt-0.5">${esc(o.email)}</span></div><svg class="w-4 h-4 flex-shrink-0" style="color: var(--brand-cyan);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></div><div class="bg-main border border-main rounded-xl p-3 flex justify-between items-center cursor-pointer hover:opacity-80 transition min-w-0" onclick="copySpecificText('${jsStr(o.pass)}')"><div class="flex flex-col min-w-0 pr-2"><span class="text-[9px] font-bold text-muted uppercase tracking-widest truncate">Password</span><span class="font-mono text-xs font-bold text-main break-all mt-0.5">${esc(o.pass)}</span></div><svg class="w-4 h-4 flex-shrink-0" style="color: var(--brand-cyan);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></div></div>` : `<p class="text-xs text-muted font-medium italic py-1 break-words">Admin is reviewing your payment (${esc(o.trx||'')}). Details will appear here.</p>`}
-                            ${o.st === "Rejected" ? `<p class="text-xs font-bold p-2 rounded-lg mt-2 break-words badge-danger">Order rejected. Contact support.</p>` : ''}
-                        </div>`;
+                        uBox.innerHTML += `<div class="card p-4 space-y-3"><div class="flex justify-between items-start border-b border-main pb-2 gap-2"><div class="min-w-0"><b class="text-sm text-main block truncate" style="color: var(--brand-navy)">${esc(o.vpn || 'VPN')} <span class="text-xs text-muted font-normal">(${esc(o.plan || '')})</span></b><p class="text-[9px] text-muted font-bold mt-1 uppercase tracking-wider truncate">${esc(o.date || '')}</p></div><span class="text-[9px] font-black px-2 py-1 rounded border uppercase tracking-wider flex-shrink-0 ${stC}">${esc(o.st || '')}</span></div>${o.email ? `<div class="space-y-2 pt-1"><div class="bg-main border border-main rounded-xl p-3 flex justify-between items-center cursor-pointer hover:opacity-80 transition min-w-0" onclick="copySpecificText('${jsStr(o.email)}')"><div class="flex flex-col min-w-0 pr-2"><span class="text-[9px] font-bold text-muted uppercase tracking-widest truncate">Email / ID</span><span class="font-mono text-xs font-bold text-main break-all mt-0.5">${esc(o.email)}</span></div><svg class="w-4 h-4 flex-shrink-0" style="color: var(--brand-cyan);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></div><div class="bg-main border border-main rounded-xl p-3 flex justify-between items-center cursor-pointer hover:opacity-80 transition min-w-0" onclick="copySpecificText('${jsStr(o.pass)}')"><div class="flex flex-col min-w-0 pr-2"><span class="text-[9px] font-bold text-muted uppercase tracking-widest truncate">Password</span><span class="font-mono text-xs font-bold text-main break-all mt-0.5">${esc(o.pass)}</span></div><svg class="w-4 h-4 flex-shrink-0" style="color: var(--brand-cyan);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></div></div>` : `<p class="text-xs text-muted font-medium italic py-1 break-words">Admin is reviewing your payment (${esc(o.trx||'')}). Details will appear here.</p>`}${o.st === "Rejected" ? `<p class="text-xs font-bold p-2 rounded-lg mt-2 break-words badge-danger">Order rejected. Contact support.</p>` : ''}</div>`;
                     }
                 });
                 if (!aP.innerHTML.trim()) aP.innerHTML = `<div class="p-4 text-center text-muted font-medium border border-main rounded-xl border-dashed break-words">No pending orders.</div>`;
                 if (!uBox.innerHTML.trim()) uBox.innerHTML = `<div class="p-6 text-center text-muted font-medium bg-main border border-main rounded-2xl break-words">You haven't purchased any VPNs yet.</div>`;
-                
-                const bEl = document.getElementById('p-count-badge');
-                if(bEl) { bEl.innerText = pCount; bEl.classList.toggle('hidden', pCount === 0); }
+                const bEl = document.getElementById('p-count-badge'); if(bEl) { bEl.innerText = pCount; bEl.classList.toggle('hidden', pCount === 0); }
                 userVpnOrderStates = cOS;
             });
 
@@ -1341,35 +1270,23 @@
         function goPay(n, p) { 
             curPl = n; curPr = parseFloat(p); curMethod = ''; isWalletPay = false;
             document.getElementById('plan-modal').style.display='none'; document.getElementById('pay-modal').style.display='flex'; document.getElementById('pay-details').classList.add('hidden'); document.getElementById('active-method-wrap').innerHTML = ''; document.getElementById('target-price').innerHTML = `Pay <span class="text-xl font-black">৳${p}</span>`; 
-            
-            const uP = document.getElementById('user-pay-options');
-            let balanceBtn = '';
-            if (currentUserData && currentUserData.balance >= curPr) {
-                balanceBtn = `<button onclick="setPay('App Balance', 'AUTO', '', this, true)" class="pay-card hover:border-[var(--brand-cyan)] vpn-grad-card border-none group relative overflow-hidden"><div class="relative z-10 flex flex-col items-center gap-2"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg><span class="truncate w-full text-center text-white">App Wallet</span></div></button>`;
-            } else {
-                balanceBtn = `<div class="pay-card opacity-50 grayscale border-dashed border-main"><svg class="w-8 h-8 text-muted mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg><span class="truncate w-full text-center">Wallet (Need ৳${curPr})</span></div>`;
-            }
+            const uP = document.getElementById('user-pay-options'); let balanceBtn = '';
+            if (currentUserData && currentUserData.balance >= curPr) { balanceBtn = `<button onclick="setPay('App Balance', 'AUTO', '', this, true)" class="pay-card hover:border-[var(--brand-cyan)] vpn-grad-card border-none group relative overflow-hidden"><div class="relative z-10 flex flex-col items-center gap-2"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg><span class="truncate w-full text-center text-white">App Wallet</span></div></button>`; } 
+            else { balanceBtn = `<div class="pay-card opacity-50 grayscale border-dashed border-main"><svg class="w-8 h-8 text-muted mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg><span class="truncate w-full text-center">Wallet (Need ৳${curPr})</span></div>`; }
             uP.innerHTML = balanceBtn;
-            get(ref(rtdb, 'payments')).then(s => {
-                const d = s.val(); if(d) Object.keys(d).forEach(id => { const p=d[id]||{}; const nm=p.name||'Pay'; const l=p.logo||getVpnLogo(nm); uP.innerHTML += `<button onclick="setPay('${jsStr(nm)}','${jsStr(p.num)}','${jsStr(l)}', this, false)" class="pay-card hover:border-[var(--brand-cyan)] group"><div class="pay-logo-wrap"><img src="${esc(l)}" class="w-10 h-10 rounded-xl object-cover" onerror="this.style.display='none'"></div><span class="group-hover:text-[var(--brand-cyan)] transition-colors truncate w-full">${esc(nm)}</span></button>`; });
-            });
+            get(ref(rtdb, 'payments')).then(s => { const d = s.val(); if(d) Object.keys(d).forEach(id => { const p=d[id]||{}; const nm=p.name||'Pay'; const l=p.logo||getVpnLogo(nm); uP.innerHTML += `<button onclick="setPay('${jsStr(nm)}','${jsStr(p.num)}','${jsStr(l)}', this, false)" class="pay-card hover:border-[var(--brand-cyan)] group"><div class="pay-logo-wrap"><img src="${esc(l)}" class="w-10 h-10 rounded-xl object-cover" onerror="this.style.display='none'"></div><span class="group-hover:text-[var(--brand-cyan)] transition-colors truncate w-full">${esc(nm)}</span></button>`; }); });
         }
 
         function setPay(n, m, logo = '', el = null, isWallet = false) { 
             curMethod = n; isWalletPay = isWallet;
             document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('active', 'ring-2', 'ring-[var(--brand-cyan)]')); 
             if(el) { el.classList.add('active'); if(isWallet) el.classList.add('ring-2', 'ring-white'); }
-            
-            const trxArea = document.getElementById('trx-input-area');
-            const detailsArea = document.getElementById('pay-details');
-            
+            const trxArea = document.getElementById('trx-input-area'); const detailsArea = document.getElementById('pay-details');
             if(isWallet) {
-                document.getElementById('active-num').innerText = "NumaX Wallet";
-                document.getElementById('active-method-wrap').innerHTML = `<span class="badge-success px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-sm">Paying via Balance</span>`;
+                document.getElementById('active-num').innerText = "NumaX Wallet"; document.getElementById('active-method-wrap').innerHTML = `<span class="badge-success px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-sm">Paying via Balance</span>`;
                 trxArea.classList.add('hidden'); document.getElementById('trx-id').value = 'AUTO-WALLET';
             } else {
-                document.getElementById('active-num').innerText = m;
-                document.getElementById('active-method-wrap').innerHTML = `<span class="px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-sm flex items-center gap-2 justify-center mx-auto w-max max-w-full" style="background: var(--cyan-light); color: var(--brand-navy); border: 1px solid var(--cyan-light);"><img src="${logo||getVpnLogo(n)}" class="w-5 h-5 rounded object-cover" onerror="this.style.display='none'"><span class="truncate">${esc(n)}</span></span>`;
+                document.getElementById('active-num').innerText = m; document.getElementById('active-method-wrap').innerHTML = `<span class="px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-sm flex items-center gap-2 justify-center mx-auto w-max max-w-full" style="background: var(--cyan-light); color: var(--brand-navy); border: 1px solid var(--cyan-light);"><img src="${logo||getVpnLogo(n)}" class="w-5 h-5 rounded object-cover" onerror="this.style.display='none'"><span class="truncate">${esc(n)}</span></span>`;
                 trxArea.classList.remove('hidden'); document.getElementById('trx-id').value = '';
             }
             detailsArea.classList.remove('hidden'); 
@@ -1377,33 +1294,21 @@
         
         async function orderNow() {
             const trx = document.getElementById('trx-id').value.trim(); if(!curMethod) return showToast('Select payment method', 'warning'); if(!trx) return showToast('Enter TrxID', 'warning');
-            
-            if (isWalletPay) {
-                if(!currentUserData || currentUserData.balance < curPr) return showToast('Insufficient Wallet Balance', 'error');
-                await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-curPr) });
-            }
-
+            if (isWalletPay) { if(!currentUserData || currentUserData.balance < curPr) return showToast('Insufficient Wallet Balance', 'error'); await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-curPr) }); }
             const now = new Date(); const dateStr = now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            push(ref(rtdb, 'orders'), { vpn: curV, vpn_id: curVid, plan: curPl, price: curPr, trx: trx.toUpperCase(), method: curMethod, uid: String(tgUser.id), user: tgUser.first_name, st: "Pending", date: dateStr }).then(() => {
-                showToast('Order sent successfully!', 'success'); document.getElementById('pay-modal').style.display = 'none'; document.getElementById('trx-id').value = '';
-                switchView('vpnOrders');
-            });
+            push(ref(rtdb, 'orders'), { vpn: curV, vpn_id: curVid, plan: curPl, price: curPr, trx: trx.toUpperCase(), method: curMethod, uid: String(tgUser.id), user: tgUser.first_name, st: "Pending", date: dateStr }).then(() => { showToast('Order sent successfully!', 'success'); document.getElementById('pay-modal').style.display = 'none'; document.getElementById('trx-id').value = ''; switchView('vpnOrders'); });
         }
 
         async function addVpn() { 
-            const n = document.getElementById('v-name').value.trim(); 
-            let l = document.getElementById('vpn-logo-in').value.trim();
+            const n = document.getElementById('v-name').value.trim(); let l = document.getElementById('vpn-logo-in').value.trim();
             if(!n) return showToast('Enter VPN brand name', 'warning'); 
-            const upUrl = await uploadFileToStorage('vpn-logo-file');
-            if(upUrl) l = upUrl;
+            const upUrl = await uploadFileToStorage('vpn-logo-file'); if(upUrl) l = upUrl;
             push(ref(rtdb,'vpns'),{name:n, status: "ON", logo: l}).then(() => { document.getElementById('v-name').value=''; document.getElementById('vpn-logo-in').value=''; document.getElementById('vpn-logo-file').value=''; showToast('Brand created', 'success'); }); 
         }
         async function addPay() { 
-            const n = document.getElementById('pay-name').value.trim(), m = document.getElementById('pay-num-in').value.trim(); 
-            let l = document.getElementById('pay-logo-in').value.trim(); 
+            const n = document.getElementById('pay-name').value.trim(), m = document.getElementById('pay-num-in').value.trim(); let l = document.getElementById('pay-logo-in').value.trim(); 
             if(!n || !m) return showToast('Enter name and number', 'warning');
-            const upUrl = await uploadFileToStorage('pay-logo-file');
-            if(upUrl) l = upUrl;
+            const upUrl = await uploadFileToStorage('pay-logo-file'); if(upUrl) l = upUrl;
             push(ref(rtdb,'payments'),{name:n,num:m,logo:l}).then(() => { document.getElementById('pay-name').value=''; document.getElementById('pay-num-in').value=''; document.getElementById('pay-logo-in').value=''; document.getElementById('pay-logo-file').value=''; showToast('Method added', 'success'); }); 
         }
 
@@ -1417,16 +1322,7 @@
                 content.innerHTML = h; document.getElementById('stock-select-modal').style.display = 'flex';
             });
         }
-
-        function approveSelected(orderId, vpnId, stockKey) {
-            get(ref(rtdb, `vpns/${vpnId}/stock/${stockKey}`)).then(snap => {
-                if(!snap.exists()) return showToast('Stock not found', 'error');
-                update(ref(rtdb, `orders/${orderId}`), { st: "Approved", email: snap.val().email, pass: snap.val().pass }).then(()=> {
-                    remove(ref(rtdb, `vpns/${vpnId}/stock/${stockKey}`)); document.getElementById('stock-select-modal').style.display = 'none'; showToast('Delivered', 'success');
-                });
-            });
-        }
-
+        function approveSelected(orderId, vpnId, stockKey) { get(ref(rtdb, `vpns/${vpnId}/stock/${stockKey}`)).then(snap => { if(!snap.exists()) return showToast('Stock not found', 'error'); update(ref(rtdb, `orders/${orderId}`), { st: "Approved", email: snap.val().email, pass: snap.val().pass }).then(()=> { remove(ref(rtdb, `vpns/${vpnId}/stock/${stockKey}`)); document.getElementById('stock-select-modal').style.display = 'none'; showToast('Delivered', 'success'); }); }); }
         function rejectOrder(id) { update(ref(rtdb, `orders/${id}`), { st: "Rejected" }).then(() => showToast('Rejected', 'success')); }
         function saveV(id) { update(ref(rtdb,`vpns/${id}`), { p1n: document.getElementById(`p1n-${id}`).value.trim(), p1p: document.getElementById(`p1p-${id}`).value.trim(), p2n: document.getElementById(`p2n-${id}`).value.trim(), p2p: document.getElementById(`p2p-${id}`).value.trim() }).then(() => showToast('Saved', 'success')); }
         function addStock() { const e = document.getElementById('stock-email').value.trim(), p = document.getElementById('stock-pass').value.trim(), vid = document.getElementById('stock-vpn-id').value; if(!vid || !e || !p) return showToast('Fill all fields', 'warning'); push(ref(rtdb, `vpns/${vid}/stock`), { email: e, pass: p }).then(() => { document.getElementById('stock-email').value = ''; document.getElementById('stock-pass').value = ''; showToast('Stock added', 'success'); }); }
@@ -1436,21 +1332,15 @@
         function delPay(id) { remove(ref(rtdb,`payments/${id}`)).then(() => showToast('Removed', 'success')); }
 
         function switchView(vid) {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
-            document.getElementById(vid + 'View').classList.remove('hidden');
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            const navBtn = document.getElementById('nav-' + (vid==='vpnStore' ? 'dashboard' : vid));
-            if(navBtn) navBtn.classList.add('active');
-            
-            if(vid === 'console') { loadConsoleData(); if(!consoleUpdateInterval) consoleUpdateInterval = setInterval(loadConsoleData, 5000); } 
-            else { clearInterval(consoleUpdateInterval); consoleUpdateInterval = null; }
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden')); document.getElementById(vid + 'View').classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); const navBtn = document.getElementById('nav-' + (vid==='vpnStore' ? 'dashboard' : vid)); if(navBtn) navBtn.classList.add('active');
+            if(vid === 'console') { loadConsoleData(); if(!consoleUpdateInterval) consoleUpdateInterval = setInterval(loadConsoleData, 5000); } else { clearInterval(consoleUpdateInterval); consoleUpdateInterval = null; }
             if(vid === 'getnumber') renderActiveNumbers();
         }
 
         function switchAdminTab(tabId) {
             document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active')); document.getElementById('tab-' + tabId).classList.add('active');
-            document.querySelectorAll('.admin-content-section').forEach(s => s.classList.add('hidden'));
-            const map = {stats:'adminTabStats', api:'adminTabApi', withdrawals:'adminTabWithdrawals', users:'adminTabUsers', broadcast:'adminTabBroadcast', links:'adminTabLinks', vpnOrders:'adminTabVpnOrders', vpnStock:'adminTabVpnStock', vpnBrands:'adminTabVpnBrands'};
+            document.querySelectorAll('.admin-content-section').forEach(s => s.classList.add('hidden')); const map = {stats:'adminTabStats', api:'adminTabApi', withdrawals:'adminTabWithdrawals', users:'adminTabUsers', broadcast:'adminTabBroadcast', links:'adminTabLinks', vpnOrders:'adminTabVpnOrders', vpnStock:'adminTabVpnStock', vpnBrands:'adminTabVpnBrands'};
             if(map[tabId]) document.getElementById(map[tabId]).classList.remove('hidden');
             if(tabId === 'users') loadAdminUsers();
         }
@@ -1458,19 +1348,33 @@
         function filterAdminUsers() {
             const q = document.getElementById('adminUserSearch').value.toLowerCase(); const list = document.getElementById('adminUserList'); list.innerHTML = '';
             const filtered = q ? adminUsersCache.filter(u => u.name.toLowerCase().includes(q) || u.uid.includes(q)) : adminUsersCache;
-            filtered.forEach(u => {
-                const bStyle = u.banned ? 'background: var(--bg-success); color: var(--text-success); border-color: var(--border-success);' : 'background: var(--bg-danger); color: var(--text-danger); border-color: var(--border-danger);';
+            filtered.forEach(u => { const bStyle = u.banned ? 'background: var(--bg-success); color: var(--text-success); border-color: var(--border-success);' : 'background: var(--bg-danger); color: var(--text-danger); border-color: var(--border-danger);';
                 list.innerHTML += `<div class="p-4 bg-card border border-main rounded-xl mb-2 flex flex-col gap-3 min-w-0"><div class="flex justify-between items-start gap-2"><div class="min-w-0"><p class="font-bold text-main text-sm truncate" style="color: var(--brand-navy)">${esc(u.name)}</p><p class="text-[10px] text-muted font-mono mt-0.5 truncate">UID: ${esc(u.uid)}</p></div><button onclick="deleteUser('${esc(u.uid)}')" class="text-[10px] text-danger hover:opacity-80 font-bold uppercase underline flex-shrink-0">Delete</button></div><div class="grid grid-cols-2 gap-2"><div class="flex flex-col bg-main p-2 rounded-lg border border-main"><span class="text-[9px] font-bold text-muted uppercase">Rate</span><input type="number" step="0.01" value="${u.rate}" onchange="updateUserProp('${esc(u.uid)}', 'rate', this.value)" class="bg-transparent border-b border-main w-full text-xs font-bold outline-none pt-1 text-main"></div><div class="flex flex-col bg-main p-2 rounded-lg border border-main"><span class="text-[9px] font-bold text-muted uppercase">Bal (৳)</span><input type="number" step="1" value="${(u.balance||0).toFixed(2)}" onchange="updateUserProp('${esc(u.uid)}', 'balance', this.value)" class="bg-transparent border-b border-main w-full text-xs font-black outline-none pt-1" style="color: var(--brand-cyan);"></div></div><button onclick="updateUserProp('${esc(u.uid)}', 'banned', ${!u.banned})" class="w-full py-2 rounded-lg text-xs font-black border uppercase tracking-wider truncate" style="${bStyle}">${u.banned?'Unban User':'Ban User'}</button></div>`;
             });
         }
-        async function loadAdminUsers() {
-            const list = document.getElementById('adminUserList'); list.innerHTML = '<div class="p-3 text-center text-xs text-muted">Loading...</div>';
-            try { const snap = await getDocs(collection(db, 'users')); adminUsersCache = []; snap.forEach(d => adminUsersCache.push(d.data())); document.getElementById('adminTotalUsersCount').innerText = snap.size; filterAdminUsers(); } catch(e) { list.innerHTML = "Error"; }
-        }
+        async function loadAdminUsers() { const list = document.getElementById('adminUserList'); list.innerHTML = '<div class="p-3 text-center text-xs text-muted">Loading...</div>'; try { const snap = await getDocs(collection(db, 'users')); adminUsersCache = []; snap.forEach(d => adminUsersCache.push(d.data())); document.getElementById('adminTotalUsersCount').innerText = snap.size; filterAdminUsers(); } catch(e) { list.innerHTML = "Error"; } }
         async function updateUserProp(uid, p, val) { try { let v = (p==='rate' || p==='balance') ? parseFloat(val) : val; await updateDoc(doc(db, 'users', uid), { [p]: v }); showToast("Updated", "success"); if(p==='banned') loadAdminUsers(); } catch(e) { showToast("Failed", "error"); } }
         async function deleteUser(uid) { try { await deleteDoc(doc(db, 'users', uid)); showToast("Deleted", "success"); loadAdminUsers(); } catch(e) { showToast("Failed", "error"); } }
         
-        async function saveAdminApi() { try { await updateDoc(doc(db, 'global', 'settings'), { stexKey: document.getElementById('adminStexKey').value.trim(), voltxKey: document.getElementById('adminVoltxKey').value.trim(), botToken: document.getElementById('adminBotToken').value.trim(), enableStex: document.getElementById('adminEnableStex').checked, enableVoltx: document.getElementById('adminEnableVoltx').checked, refComm: parseFloat(document.getElementById('adminRefComm').value)||0.05, minWithdraw: parseFloat(document.getElementById('adminMinWithdraw').value)||10, welcomeMsg: document.getElementById('adminWelcomeMsg').value.trim() }); showToast("Settings Saved", "success"); } catch(e) { showToast("Error", "error"); } }
+        async function removeAppLogo() {
+            try { await updateDoc(doc(db, 'global', 'settings'), { appLogo: "" }); document.getElementById('adminAppLogoUrl').value = ''; document.getElementById('adminAppLogoFile').value = ''; showToast("Logo removed", "success"); } catch(e) {}
+        }
+
+        async function saveAdminApi() { 
+            try { 
+                let newLogoUrl = document.getElementById('adminAppLogoUrl').value.trim();
+                const upLogo = await uploadFileToStorage('adminAppLogoFile');
+                if(upLogo) newLogoUrl = upLogo;
+
+                await updateDoc(doc(db, 'global', 'settings'), { 
+                    appName: document.getElementById('adminAppName').value.trim() || "NumaX",
+                    appLogo: newLogoUrl,
+                    stexKey: document.getElementById('adminStexKey').value.trim(), voltxKey: document.getElementById('adminVoltxKey').value.trim(), botToken: document.getElementById('adminBotToken').value.trim(), enableStex: document.getElementById('adminEnableStex').checked, enableVoltx: document.getElementById('adminEnableVoltx').checked, refComm: parseFloat(document.getElementById('adminRefComm').value)||0.05, minWithdraw: parseFloat(document.getElementById('adminMinWithdraw').value)||10, welcomeMsg: document.getElementById('adminWelcomeMsg').value.trim() 
+                }); 
+                showToast("Settings & Branding Saved", "success"); 
+            } catch(e) { showToast("Error saving", "error"); } 
+        }
+        
         async function toggleGlobalWithdraw() { try { await updateDoc(doc(db, 'global', 'settings'), { withdrawEnabled: document.getElementById('adminWithdrawToggle').checked }); showToast("Status updated", "success"); } catch(e) { showToast("Error", "error"); } }
         async function addWithdrawMethod() { const m = document.getElementById('adminNewMethodInput').value.trim(); if(!m) return; try { await updateDoc(doc(db, 'global', 'settings'), { methods: [...(globalSettings.methods || []), m] }); document.getElementById('adminNewMethodInput').value=''; } catch(e){} }
         async function removeWithdrawMethod(m) { try { await updateDoc(doc(db, 'global', 'settings'), { methods: (globalSettings.methods || []).filter(x => x !== m) }); } catch(e){} }
@@ -1487,27 +1391,15 @@
                 if(sendDm && globalSettings.botToken) {
                     const snap = await getDocs(collection(db, 'users')); const uids = []; snap.forEach(d => { if(!d.data().banned) uids.push(d.id); });
                     let successCount = 0;
-                    for (let i = 0; i < uids.length; i++) {
-                        try { await fetch(`https://api.telegram.org/bot${globalSettings.botToken}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: uids[i], text: `📢 <b>Announcement</b>\n\n${msg}`, parse_mode: 'HTML' }) }); successCount++; } catch(e) {}
-                        await new Promise(r => setTimeout(r, 35));
-                    }
+                    for (let i = 0; i < uids.length; i++) { try { await fetch(`https://api.telegram.org/bot${globalSettings.botToken}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: uids[i], text: `📢 <b>Announcement</b>\n\n${msg}`, parse_mode: 'HTML' }) }); successCount++; } catch(e) {} await new Promise(r => setTimeout(r, 35)); }
                     showToast(`Broadcast Sent! App updated & ${successCount} DMs sent.`, "success");
                 } else showToast("Broadcast Sent to Web App!", "success");
                 document.getElementById('adminBroadcastMessage').value = ''; document.getElementById('adminSendTgDm').checked = false;
             } catch(e) { showToast("Error", "error"); } finally { btn.disabled = false; btn.innerHTML = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg> Send Broadcast`; }
         }
 
-        function copySpecificText(t) {
-            const el = document.createElement("textarea"); el.value = t; document.body.appendChild(el); el.select();
-            try { document.execCommand('copy'); showToast("Copied", "success"); } catch(e) {} el.remove();
-        }
-        function useRange(r) {
-            switchView('getnumber');
-            document.getElementById('rangeInput').value = r;
-            const btn = document.getElementById('btnGetNum');
-            btn.classList.add('ring-4', 'ring-[#11B6B9]/40');
-            setTimeout(() => btn.classList.remove('ring-4', 'ring-[#11B6B9]/40'), 1000);
-        }
+        function copySpecificText(t) { const el = document.createElement("textarea"); el.value = t; document.body.appendChild(el); el.select(); try { document.execCommand('copy'); showToast("Copied", "success"); } catch(e) {} el.remove(); }
+        function useRange(r) { switchView('getnumber'); document.getElementById('rangeInput').value = r; const btn = document.getElementById('btnGetNum'); btn.classList.add('ring-4', 'ring-[#11B6B9]/40'); setTimeout(() => btn.classList.remove('ring-4', 'ring-[#11B6B9]/40'), 1000); }
         
         initApp();
     </script>
