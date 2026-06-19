@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>NumaX Unified App</title>
+    <title id="pageTitleText">NumaX Unified App</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -13,37 +13,69 @@
     <style>
         /* Eye-Protected Default (Soft Light) */
         :root[data-theme="soft-light"] {
-            --brand-navy: #0F172A; --brand-cyan: #0D9488; --bg-main: #F8FAFC; --bg-card: #FFFFFF;
-            --text-dark: #0F172A; --text-muted: #64748B; --border-light: #E2E8F0; --glass-bg: rgba(255, 255, 255, 0.95);
-            --cyan-light: rgba(13, 148, 136, 0.1); --bg-success: #ECFDF5; --text-success: #059669; --border-success: #A7F3D0;
-            --bg-danger: #FEF2F2; --text-danger: #DC2626; --border-danger: #FECACA; --bg-warning: #FFFBEB; --text-warning: #D97706; --border-warning: #FDE68A;
+            --brand-navy: #0F172A; 
+            --brand-cyan: #0D9488; 
+            --bg-main: #F8FAFC; 
+            --bg-card: #FFFFFF;
+            --text-dark: #0F172A; 
+            --text-muted: #64748B;
+            --border-light: #E2E8F0; 
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --cyan-light: rgba(13, 148, 136, 0.1);
+            --bg-success: #ECFDF5; --text-success: #059669; --border-success: #A7F3D0;
+            --bg-danger: #FEF2F2; --text-danger: #DC2626; --border-danger: #FECACA;
+            --bg-warning: #FFFBEB; --text-warning: #D97706; --border-warning: #FDE68A;
             --btn-grad-1: #0B3A64; --btn-grad-2: #11B6B9;
         }
 
         /* Dark Theme */
         :root[data-theme="dark"] {
-            --brand-navy: #60A5FA; --brand-cyan: #2DD4BF; --bg-main: #020617; --bg-card: #0F172A;
-            --text-dark: #F8FAFC; --text-muted: #94A3B8; --border-light: #1E293B; --glass-bg: rgba(15, 23, 42, 0.95);
-            --cyan-light: rgba(45, 212, 191, 0.15); --bg-success: rgba(16, 185, 129, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
-            --bg-danger: rgba(239, 68, 68, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3); --bg-warning: rgba(245, 158, 11, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
+            --brand-navy: #60A5FA; 
+            --brand-cyan: #2DD4BF; 
+            --bg-main: #020617; 
+            --bg-card: #0F172A;
+            --text-dark: #F8FAFC; 
+            --text-muted: #94A3B8;
+            --border-light: #1E293B; 
+            --glass-bg: rgba(15, 23, 42, 0.95);
+            --cyan-light: rgba(45, 212, 191, 0.15);
+            --bg-success: rgba(16, 185, 129, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
+            --bg-danger: rgba(239, 68, 68, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3);
+            --bg-warning: rgba(245, 158, 11, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
             --btn-grad-1: #1E3A8A; --btn-grad-2: #0D9488;
         }
 
         /* Neon Purple Theme */
         :root[data-theme="neon-purple"] {
-            --brand-navy: #D8B4FE; --brand-cyan: #F472B6; --bg-main: #090014; --bg-card: #1A0B2E;
-            --text-dark: #FDF4FF; --text-muted: #D8B4FE; --border-light: #3B0764; --glass-bg: rgba(26, 11, 46, 0.95);
-            --cyan-light: rgba(244, 114, 182, 0.15); --bg-success: rgba(45, 212, 191, 0.15); --text-success: #2DD4BF; --border-success: rgba(45, 212, 191, 0.3);
-            --bg-danger: rgba(251, 113, 133, 0.15); --text-danger: #FB7185; --border-danger: rgba(251, 113, 133, 0.3); --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
+            --brand-navy: #D8B4FE; 
+            --brand-cyan: #F472B6; 
+            --bg-main: #090014; 
+            --bg-card: #1A0B2E;
+            --text-dark: #FDF4FF; 
+            --text-muted: #D8B4FE;
+            --border-light: #3B0764; 
+            --glass-bg: rgba(26, 11, 46, 0.95);
+            --cyan-light: rgba(244, 114, 182, 0.15);
+            --bg-success: rgba(45, 212, 191, 0.15); --text-success: #2DD4BF; --border-success: rgba(45, 212, 191, 0.3);
+            --bg-danger: rgba(251, 113, 133, 0.15); --text-danger: #FB7185; --border-danger: rgba(251, 113, 133, 0.3);
+            --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
             --btn-grad-1: #4C1D95; --btn-grad-2: #D946EF;
         }
 
         /* Gray Theme */
         :root[data-theme="gray"] {
-            --brand-navy: #F4F4F5; --brand-cyan: #38BDF8; --bg-main: #18181B; --bg-card: #27272A;
-            --text-dark: #FAFAFA; --text-muted: #A1A1AA; --border-light: #3F3F46; --glass-bg: rgba(39, 39, 42, 0.95);
-            --cyan-light: rgba(56, 189, 248, 0.15); --bg-success: rgba(52, 211, 153, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
-            --bg-danger: rgba(248, 113, 113, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3); --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
+            --brand-navy: #F4F4F5; 
+            --brand-cyan: #38BDF8; 
+            --bg-main: #18181B; 
+            --bg-card: #27272A;
+            --text-dark: #FAFAFA; 
+            --text-muted: #A1A1AA;
+            --border-light: #3F3F46; 
+            --glass-bg: rgba(39, 39, 42, 0.95);
+            --cyan-light: rgba(56, 189, 248, 0.15);
+            --bg-success: rgba(52, 211, 153, 0.15); --text-success: #34D399; --border-success: rgba(52, 211, 153, 0.3);
+            --bg-danger: rgba(248, 113, 113, 0.15); --text-danger: #F87171; --border-danger: rgba(248, 113, 113, 0.3);
+            --bg-warning: rgba(251, 191, 36, 0.15); --text-warning: #FBBF24; --border-warning: rgba(251, 191, 36, 0.3);
             --btn-grad-1: #3F3F46; --btn-grad-2: #71717A;
         }
 
@@ -59,14 +91,14 @@
         .input-field:focus, .adm-mini-input:focus { outline: none; border-color: var(--brand-cyan); box-shadow: 0 0 0 3px var(--cyan-light); background-color: var(--bg-card); }
 
         .text-main { color: var(--text-dark); } .text-muted { color: var(--text-muted); } .bg-main { background-color: var(--bg-main); } .bg-card { background-color: var(--bg-card); } .border-main { border-color: var(--border-light); }
-
         .badge-success { background: var(--bg-success); color: var(--text-success); border: 1px solid var(--border-success); }
         .badge-danger { background: var(--bg-danger); color: var(--text-danger); border: 1px solid var(--border-danger); }
         .badge-warning { background: var(--bg-warning); color: var(--text-warning); border: 1px solid var(--border-warning); }
         .text-success { color: var(--text-success); } .text-danger { color: var(--text-danger); }
 
         .btn-primary, .vpn-grad-card { background: linear-gradient(135deg, var(--btn-grad-1), var(--btn-grad-2)); color: white !important; font-weight: 700; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.15s ease; border: none; }
-        .btn-primary:active { transform: scale(0.98); box-shadow: none; }
+        .btn-primary:active:not(:disabled) { transform: scale(0.98); box-shadow: none; }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
         
         .nav-item { color: var(--text-muted); transition: all 0.2s ease; } .nav-item.active { color: var(--brand-cyan); } .nav-item.active svg { stroke: var(--brand-cyan); fill: var(--cyan-light); }
         .console-row { background: var(--bg-card); border: 1px solid var(--border-light); border-left: 3px solid var(--brand-cyan); border-radius: 10px; margin-bottom: 8px; padding: 10px 12px; word-wrap: break-word; }
@@ -91,7 +123,6 @@
 </head>
 <body class="min-h-screen flex flex-col antialiased">
 
-    <!-- Loading Screen -->
     <div id="appLoadingScreen" class="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[var(--bg-main)] transition-opacity duration-500">
         <div class="relative flex flex-col items-center">
             <div class="absolute inset-0 bg-[var(--brand-cyan)] blur-[60px] opacity-20 rounded-full w-32 h-32 -z-10"></div>
@@ -106,7 +137,6 @@
         </div>
     </div>
 
-    <!-- Ban Screen -->
     <div id="banScreen" class="fixed inset-0 bg-[var(--bg-main)] z-[9999] hidden flex-col items-center justify-center p-6 text-center">
         <div class="w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-lg badge-danger border-none">
             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
@@ -115,7 +145,6 @@
         <p class="text-muted font-medium max-w-xs">Your access has been revoked.</p>
     </div>
 
-    <!-- Broadcast Modal -->
     <div id="broadcastModal" class="fixed inset-0 bg-black/60 z-[90] hidden flex-col items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-card border-main border rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl">
             <div class="vpn-grad-card p-4 flex items-center gap-2">
@@ -129,7 +158,6 @@
         </div>
     </div>
 
-    <!-- Header -->
     <header class="glass-header fixed top-0 w-full z-40 px-4 py-3 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
             <img id="headerLogo" src="" alt="App Logo" class="w-8 h-8 rounded-lg object-cover shadow-sm hidden">
@@ -151,15 +179,14 @@
     <main id="mainContainer" class="pt-20 pb-24 px-4 max-w-2xl mx-auto w-full flex-grow relative">
         
         <div id="dashboardView" class="view-section hidden space-y-4">
-            <!-- Buy VPN Card -->
             <div onclick="switchView('vpnStore')" class="vpn-grad-card card p-0 overflow-hidden cursor-pointer group hover:shadow-lg transition-all relative border-none mb-2">
                 <div class="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition-colors"></div>
                 <div class="p-4 flex justify-between items-center relative z-10">
                     <div class="flex items-center gap-4 min-w-0">
                         <div class="bg-white/20 p-2.5 rounded-xl text-white text-2xl shadow-inner flex-shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
                         <div class="flex flex-col min-w-0 text-white">
-                            <span class="font-black text-lg tracking-wide drop-shadow-md truncate text-white">Buy Premium VPN</span>
-                            <span class="text-white/80 text-[10px] font-bold uppercase tracking-widest truncate">High-Speed Secure Servers</span>
+                            <span class="font-black text-lg tracking-wide drop-shadow-md truncate text-white">Buy NumaX VPN</span>
+                            <span class="text-white/80 text-[10px] font-bold uppercase tracking-widest truncate">Premium High-Speed Servers</span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
@@ -169,7 +196,6 @@
                 </div>
             </div>
 
-            <!-- Earning Stats Cards -->
             <div class="grid grid-cols-3 gap-2 mb-2">
                 <div class="card p-3 text-center border-t-2" style="border-top-color: var(--brand-cyan);">
                     <p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Today OTP</p>
@@ -185,7 +211,6 @@
                 </div>
             </div>
 
-            <!-- Refer Friends Card -->
             <div class="card overflow-hidden bg-main border-main">
                 <div class="px-5 py-4">
                     <div class="flex items-center gap-3 mb-2">
@@ -225,29 +250,53 @@
         </div>
 
         <div id="getnumberView" class="view-section hidden space-y-4">
-            <div class="card p-5">
-                <label class="block text-xs font-black text-muted uppercase tracking-widest mb-2 break-words">Target Range</label>
+            
+            <div class="card p-5 border-t-4" style="border-top-color: var(--brand-cyan);">
+                <label class="block text-[10px] font-black text-muted uppercase tracking-widest mb-2 break-words"><i class="fa-solid fa-magnifying-glass mr-1"></i> Find Best Range</label>
+                <div class="flex gap-2">
+                    <input type="text" id="serviceNameInput" placeholder="e.g. Instagram, WhatsApp" class="w-full p-3 input-field font-bold text-sm">
+                    <button onclick="suggestBestRange()" class="bg-[var(--cyan-light)] text-[var(--brand-cyan)] border border-[var(--brand-cyan)] px-4 rounded-xl font-black uppercase tracking-wider text-[10px] shadow-sm flex-shrink-0 hover:opacity-80 transition-opacity">Find</button>
+                </div>
+            </div>
+
+            <div class="card p-5 mt-4">
+                <label class="block text-[10px] font-black text-muted uppercase tracking-widest mb-2 break-words">Target Range</label>
                 <div class="flex flex-col gap-3">
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-muted font-bold">#</span>
-                        <input type="text" id="rangeInput" placeholder="e.g. 2290195" class="w-full pl-8 pr-4 py-3.5 input-field font-mono text-lg font-bold">
+                        <input type="text" id="rangeInput" placeholder="e.g. 2290195" class="w-full pl-8 pr-4 py-3.5 input-field font-mono text-lg font-bold transition-all">
                     </div>
                     <button id="btnGetNum" onclick="requestNumber()" class="btn-primary w-full py-4 flex justify-center items-center shadow-md">
-                        <span id="btnGetNumText" class="flex items-center gap-2 text-sm uppercase tracking-wider truncate">Allocate Number</span>
+                        <span id="btnGetNumText" class="flex items-center gap-2 text-sm uppercase tracking-wider font-black truncate">Allocate Number</span>
                         <svg id="btnGetNumLoader" class="hidden animate-spin ml-2 h-5 w-5 text-white flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     </button>
                 </div>
             </div>
 
-            <div class="flex justify-between items-center px-1 mt-2">
-                <h3 class="font-bold text-main text-sm truncate" style="color: var(--brand-navy)">Number Activity</h3>
-                <button onclick="animateRefresh(this); renderActiveNumbers()" class="text-xs font-bold bg-card border border-main text-main px-3 py-1.5 rounded-lg shadow-sm hover:opacity-80 flex items-center gap-1.5 transition-colors">
-                    <svg class="w-3.5 h-3.5 refresh-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                    Refresh
-                </button>
+            <div onclick="switchView('fetchOtp')" class="card p-4 mt-4 border border-[var(--brand-cyan)] bg-[var(--cyan-light)] cursor-pointer hover:opacity-80 transition-opacity flex justify-between items-center shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="bg-[var(--brand-cyan)] p-2.5 rounded-lg text-white shadow-sm flex items-center justify-center"><i class="fa-solid fa-radar text-lg"></i></div>
+                    <div>
+                        <h3 class="font-black text-main text-sm" style="color: var(--brand-navy)">Fetch All OTP</h3>
+                        <p class="text-[9px] font-bold text-muted uppercase mt-0.5 tracking-wider">Find lost codes for any number</p>
+                    </div>
+                </div>
+                <div class="bg-card border border-[var(--brand-cyan)] text-[var(--brand-cyan)] rounded-full w-8 h-8 flex items-center justify-center shadow-sm"><i class="fa-solid fa-chevron-right text-xs"></i></div>
             </div>
 
-            <!-- Active Requests / Today's Activity -->
+            <div class="flex justify-between items-center px-1 mt-4">
+                <h3 class="font-bold text-main text-sm truncate" style="color: var(--brand-navy)">Number Activity</h3>
+                <div class="flex gap-2">
+                    <button onclick="clearNumberHistory()" class="text-[9px] font-black tracking-widest bg-danger/10 border border-danger/20 text-danger px-3 py-1.5 rounded-lg shadow-sm hover:opacity-80 transition-colors uppercase">
+                        Clear All
+                    </button>
+                    <button onclick="animateRefresh(this); renderActiveNumbers()" class="text-[9px] font-black tracking-widest bg-card border border-main text-main px-3 py-1.5 rounded-lg shadow-sm hover:opacity-80 flex items-center gap-1.5 transition-colors uppercase">
+                        <svg class="w-3 h-3 refresh-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+
             <div class="card overflow-hidden mt-2">
                 <div class="flex border-b border-main overflow-x-auto scrollbar-hide">
                     <button class="number-tab active flex-1 py-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors border-[var(--brand-navy)] text-[var(--brand-navy)] whitespace-nowrap px-3" id="tab-num-all" onclick="filterNumberList('ALL')">ALL</button>
@@ -256,7 +305,27 @@
                     <button class="number-tab flex-1 py-3 text-xs font-bold uppercase tracking-wider border-b-2 transition-colors border-transparent text-muted whitespace-nowrap px-3" id="tab-num-failed" onclick="filterNumberList('FAILED')">FAILED</button>
                 </div>
                 <div id="activeNumbersList" class="divide-y divide-main max-h-[55vh] overflow-y-auto pb-4">
-                    <div class="p-8 text-center text-sm text-muted font-semibold break-words">No activity today.</div>
+                    <div class="p-8 text-center text-sm text-muted font-semibold break-words">No history available.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="fetchOtpView" class="view-section hidden space-y-4">
+            <div class="flex items-center gap-3 mb-2 px-1">
+                <button onclick="switchView('getnumber')" class="bg-main border border-main text-main p-2 rounded-xl hover:opacity-80 transition-colors shadow-sm flex-shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <h2 class="text-xl font-black text-main truncate" style="color: var(--brand-navy)">Fetch All OTP</h2>
+            </div>
+            
+            <div class="card p-5 border-t-4" style="border-top-color: var(--brand-cyan);">
+                <p class="text-xs font-bold text-muted mb-4 leading-relaxed break-words">Enter a full phone number to fetch all recent OTPs received for it across our servers. System will scan live data for 30 seconds.</p>
+                <div class="flex flex-col gap-3">
+                    <input type="text" id="manualOtpNumber" placeholder="Enter Full Number (e.g. 88017...)" class="w-full p-3.5 input-field font-mono text-sm font-bold">
+                    <button id="btnFetchManualOtp" onclick="fetchManualOtp()" class="btn-primary w-full py-3.5 flex justify-center items-center shadow-md text-sm uppercase tracking-wider font-bold">
+                        Fetch OTP
+                    </button>
+                    <div id="manualOtpResult" class="empty:hidden flex flex-col gap-2 mt-2"></div>
                 </div>
             </div>
         </div>
@@ -267,7 +336,7 @@
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </span>
-                    <input type="text" id="consoleSearch" placeholder="Search message or range..." oninput="debounceFilterConsole()" class="w-full pl-10 pr-4 py-3 text-sm input-field font-medium shadow-sm">
+                    <input type="text" id="consoleSearch" placeholder="Search range or message..." oninput="debounceFilterConsole()" class="w-full pl-10 pr-4 py-3 text-sm input-field font-medium shadow-sm">
                 </div>
                 <button onclick="animateRefresh(this); loadConsoleData()" class="bg-card border border-main text-main px-4 py-3 rounded-xl shadow-sm hover:opacity-80 flex-shrink-0 flex items-center justify-center transition-colors">
                     <svg class="w-5 h-5 refresh-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
@@ -342,7 +411,7 @@
                     </div>
                 </div>
 
-                <button id="adminMenuBtn" onclick="switchView('admin')" class="hidden mt-6 w-full border border-[var(--brand-navy)] text-[var(--brand-navy)] bg-main py-3 rounded-xl font-bold flex justify-center items-center gap-2 hover:bg-[var(--brand-navy)] hover:text-white transition truncate px-2 shadow-sm">
+                <button id="adminMenuBtn" onclick="switchView('admin')" class="hidden mt-6 w-full border border-[var(--brand-navy)] text-[var(--brand-navy)] bg-main py-3 rounded-xl font-black flex justify-center items-center gap-2 hover:bg-[var(--brand-navy)] hover:text-white transition truncate px-2 shadow-sm">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Manage Admin Panel
                 </button>
@@ -359,7 +428,6 @@
             <div id="vpn-list" class="space-y-3"></div>
         </div>
 
-        <!-- VPN Orders View -->
         <div id="vpnOrdersView" class="view-section hidden space-y-4">
             <h2 class="text-xl font-black text-main mb-2 px-1 truncate" style="color: var(--brand-navy)">VPN Orders</h2>
             <div id="user-orders" class="space-y-3"></div>
@@ -411,7 +479,7 @@
                         <div class="flex items-center gap-2 mt-1">
                             <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
                                 <span class="text-xs text-muted font-bold block text-center truncate"><i class="fa-solid fa-image mr-1"></i> Upload Image</span>
-                                <input type="file" id="adminAppLogoFile" accept="image/*">
+                                <input type="file" id="adminAppLogoFile" accept="image/*" onchange="this.previousElementSibling.innerHTML = '<i class=\'fa-solid fa-check mr-1\'></i> Selected'">
                             </div>
                             <span class="text-xs font-bold text-muted">OR</span>
                             <input type="text" id="adminAppLogoUrl" placeholder="Image URL" class="adm-mini-input flex-1">
@@ -456,7 +524,7 @@
                             <input type="number" id="adminMinWithdraw" placeholder="10" class="w-full input-field p-3 font-mono text-sm mt-1">
                         </div>
                     </div>
-                    <button onclick="saveAdminApi()" class="w-full btn-primary py-3.5 shadow-md truncate">Save Settings & Branding</button>
+                    <button id="btnSaveApiSet" onclick="saveAdminApi()" class="w-full btn-primary py-3.5 shadow-md truncate">Save Settings & Branding</button>
                 </div>
             </div>
 
@@ -570,12 +638,12 @@
                     <div class="flex items-center gap-2 mt-2">
                         <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
                             <span class="text-xs text-muted font-bold block text-center truncate"><i class="fa-solid fa-image mr-1"></i> Upload Logo</span>
-                            <input type="file" id="pay-logo-file" accept="image/*">
+                            <input type="file" id="pay-logo-file" accept="image/*" onchange="this.previousElementSibling.innerHTML = '<i class=\'fa-solid fa-check mr-1\'></i> Selected'">
                         </div>
                         <span class="text-xs font-bold text-muted">OR</span>
                         <input type="text" id="pay-logo-in" placeholder="Image URL" class="adm-mini-input flex-1">
                     </div>
-                    <button onclick="addPay()" class="btn-primary w-full py-2.5 text-xs truncate mt-2">Add Method</button>
+                    <button id="btnAddPayMethod" onclick="addPay()" class="btn-primary w-full py-2.5 text-xs truncate mt-2">Add Method</button>
                     <div id="pay-list" class="space-y-2 mt-3"></div>
                 </div>
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-cyan);">
@@ -584,12 +652,12 @@
                     <div class="flex items-center gap-2 mt-2">
                         <div class="file-upload-wrapper bg-main border border-main rounded-xl p-2.5 flex-1 cursor-pointer hover:opacity-80 transition relative">
                             <span class="text-xs text-muted font-bold block text-center truncate"><i class="fa-solid fa-image mr-1"></i> Upload Logo</span>
-                            <input type="file" id="vpn-logo-file" accept="image/*">
+                            <input type="file" id="vpn-logo-file" accept="image/*" onchange="this.previousElementSibling.innerHTML = '<i class=\'fa-solid fa-check mr-1\'></i> Selected'">
                         </div>
                         <span class="text-xs font-bold text-muted">OR</span>
                         <input type="text" id="vpn-logo-in" placeholder="Image URL" class="adm-mini-input flex-1">
                     </div>
-                    <button onclick="addVpn()" class="btn-primary w-full py-3 text-xs truncate mt-2">Create VPN</button>
+                    <button id="btnCreateVpn" onclick="addVpn()" class="btn-primary w-full py-3 text-xs truncate mt-2">Create VPN</button>
                 </div>
                 <div id="adm-vpn-list" class="space-y-4 pb-12"></div>
             </div>
@@ -625,6 +693,7 @@
         </button>
     </nav>
 
+    <!-- VPN Modals -->
     <div id="plan-modal" class="modal"><div class="sheet" id="plan-content"></div></div>
     <div id="stock-select-modal" class="modal"><div class="sheet" id="stock-select-content"></div></div>
     <div id="pay-modal" class="modal">
@@ -754,7 +823,8 @@
         window.openPlans = openPlans; window.goPay = goPay; window.setPay = setPay; window.orderNow = orderNow;
         window.showStockList = showStockList; window.approveSelected = approveSelected; window.rejectOrder = rejectOrder; window.toggleV = toggleV;
         window.addPay = addPay; window.delPay = delPay; window.addVpn = addVpn; window.delV = delV; window.saveV = saveV; window.addStock = addStock; window.delStockItem = delStockItem;
-        window.renderActiveNumbers = renderActiveNumbers; window.loadConsoleData = loadConsoleData;
+        window.renderActiveNumbers = renderActiveNumbers; window.loadConsoleData = loadConsoleData; window.suggestBestRange = suggestBestRange; window.clearNumberHistory = clearNumberHistory;
+        window.fetchManualOtp = fetchManualOtp; window.debounceFilterConsole = debounceFilterConsole;
 
         // Theme Logic
         const themes = ['soft-light', 'dark', 'neon-purple', 'gray'];
@@ -789,7 +859,6 @@
 
         function getCountryInfo(numStr) {
             const digits = (numStr||"").replace(/\D/g, ''); let mc = null;
-            // Now checking up to 4 digits to properly catch countries like Guinea (224), etc.
             for(let len=4; len>=1; len--) { 
                 if(digits.length>=len) { 
                     const p = digits.substring(0,len); 
@@ -803,12 +872,11 @@
         function esc(v) { return String(v ?? '').replace(/[&<>"]/g, m => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[m])); }
         function jsStr(v) { return String(v ?? '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, ' '); }
 
-        // Local Storage for Persistent Numbers
+        // Local Storage for Persistent Numbers (History)
         function saveRequestsToStorage() {
             if(!tgUser || !tgUser.id) return;
             const key = `numax_reqs_${tgUser.id}`;
-            const cutoff = Date.now() - (24 * 60 * 60 * 1000); // 24 hours
-            const toSave = activeRequests.filter(r => r.startTime > cutoff).map(r => {
+            const toSave = activeRequests.slice(0, 150).map(r => {
                 const {intervalId, ...rest} = r; 
                 return rest;
             });
@@ -821,12 +889,29 @@
             try {
                 const stored = localStorage.getItem(key);
                 if(stored) {
-                    const parsed = JSON.parse(stored);
-                    const cutoff = Date.now() - (24 * 60 * 60 * 1000);
-                    activeRequests = parsed.filter(r => r.startTime > cutoff);
-                    activeRequests.forEach(req => { if(req.status === 'PENDING') startPolling(req); });
+                    activeRequests = JSON.parse(stored);
+                    activeRequests.forEach(req => { 
+                        if(!req.otps) req.otps = [];
+                        if(!req.processedIds) req.processedIds = [];
+                        if(req.code && req.otps.length === 0) {
+                            req.otps.push({code: req.code, message: req.message, time: req.startTime});
+                        }
+                        
+                        if (Date.now() - req.startTime < 20 * 60 * 1000) {
+                            startPolling(req); 
+                        } else if (req.status === 'PENDING') {
+                            req.status = 'FAILED';
+                        }
+                    });
                 }
             } catch(e) {}
+        }
+
+        function clearNumberHistory() {
+            activeRequests = [];
+            saveRequestsToStorage();
+            renderActiveNumbers();
+            showToast("History cleared successfully", "success");
         }
 
         async function initApp() {
@@ -861,7 +946,10 @@
                 listenToGlobalSettings(); listenToBroadcasts(); await syncUser();
                 syncVPN();
                 
-                // Hide Loading Screen gracefully
+                // Call loadConsoleData early so that 'Find Best Range' has data
+                loadConsoleData();
+                
+                // Hide Loading Screen
                 setTimeout(() => {
                     const loader = document.getElementById('appLoadingScreen');
                     loader.style.opacity = '0';
@@ -893,10 +981,11 @@
                 if (snap.exists()) {
                     globalSettings = snap.data();
                     
-                    // Update Branding
+                    // Update Branding Dynamically
                     const appName = globalSettings.appName || "NumaX";
+                    document.getElementById('pageTitleText').innerText = appName + " Unified App";
                     document.getElementById('loaderAppName').innerText = appName;
-                    document.getElementById('headerAppName').innerText = appName;
+                    document.getElementById('headerAppName').innerHTML = appName.substring(0, appName.length - 1) + `<span style="color: var(--brand-cyan);">${appName.slice(-1)}</span>`;
                     
                     const logoUrl = globalSettings.appLogo;
                     if(logoUrl) {
@@ -1005,6 +1094,36 @@
         function listenToBroadcasts() { onSnapshot(doc(db, 'global', 'broadcast'), (snap) => { if(snap.exists()){ const b=snap.data(); if(b?.timestamp && currentUserData && (!currentUserData.lastSeenBroadcast || currentUserData.lastSeenBroadcast < b.timestamp)){ document.getElementById('broadcastMessageText').innerText=b.message; document.getElementById('broadcastModal').classList.remove('hidden'); document.getElementById('broadcastModal').classList.add('flex'); } } }); }
         async function closeBroadcast() { document.getElementById('broadcastModal').classList.add('hidden'); document.getElementById('broadcastModal').classList.remove('flex'); const ts=Date.now(); await updateDoc(doc(db, 'users', String(tgUser.id)), {lastSeenBroadcast: ts}); currentUserData.lastSeenBroadcast=ts; }
 
+        function suggestBestRange() {
+            const svc = document.getElementById('serviceNameInput').value.trim().toLowerCase();
+            if(!svc) return showToast("Enter a service name", "warning");
+            if(!allConsoleHits || allConsoleHits.length === 0) return showToast("Fetching live data, please wait...", "info");
+
+            const rangeCounts = {};
+            allConsoleHits.forEach(h => {
+                if(h.message && h.message.toLowerCase().includes(svc)) {
+                    const r = h.range.replace('XXX', '');
+                    rangeCounts[r] = (rangeCounts[r] || 0) + 1;
+                }
+            });
+
+            let bestRange = '';
+            let maxCount = 0;
+            for(const r in rangeCounts) {
+                if(rangeCounts[r] > maxCount) { maxCount = rangeCounts[r]; bestRange = r; }
+            }
+
+            if(bestRange) {
+                document.getElementById('rangeInput').value = bestRange;
+                showToast(`Best Range Found! (${maxCount} Hits)`, "success");
+                const rInput = document.getElementById('rangeInput');
+                rInput.classList.add('ring-4', 'ring-[var(--brand-cyan)]');
+                setTimeout(() => rInput.classList.remove('ring-4', 'ring-[var(--brand-cyan)]'), 1000);
+            } else {
+                showToast(`No recent data for "${svc}"`, "warning");
+            }
+        };
+
         async function requestNumber() {
             if (currentUserData && currentUserData.banned) return;
             let rawRid = document.getElementById('rangeInput').value.trim();
@@ -1033,7 +1152,16 @@
 
                 if (resData && resData.meta && resData.meta.code === 200) {
                     const allocatedNum = resData.data.no_plus_number;
-                    const newReq = { fullNumber: allocatedNum, panel: preferred, startTime: Date.now(), status: 'PENDING', message: '', code: '' };
+                    const newReq = { 
+                        fullNumber: allocatedNum, 
+                        panel: preferred, 
+                        startTime: Date.now(), 
+                        status: 'PENDING', 
+                        message: '', 
+                        code: '',
+                        otps: [],
+                        processedIds: [] 
+                    };
                     activeRequests.unshift(newReq);
                     saveRequestsToStorage();
                     renderActiveNumbers();
@@ -1050,6 +1178,69 @@
             const res = await fetch(`${base}/getnum`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'mauthapi': key }, body: JSON.stringify({ rid }) });
             return await res.json();
         }
+
+        async function fetchManualOtp() {
+            const numInput = document.getElementById('manualOtpNumber').value.trim().replace(/\D/g, '');
+            if(!numInput) return showToast("Enter a valid number", "warning");
+
+            const btn = document.getElementById('btnFetchManualOtp');
+            const resultBox = document.getElementById('manualOtpResult');
+            btn.disabled = true;
+            resultBox.innerHTML = '';
+            
+            let timeLeft = 30;
+            let foundCodes = new Set();
+            
+            btn.innerHTML = `<span class="animate-pulse">Fetching... (${timeLeft}s)</span>`;
+
+            const interval = setInterval(async () => {
+                timeLeft -= 3;
+                
+                if(timeLeft <= 0) {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    btn.innerHTML = `Fetch OTP`;
+                    if(foundCodes.size === 0) resultBox.innerHTML = `<div class="p-3 bg-danger/10 border border-danger/20 rounded-xl text-center"><span class="text-danger font-bold text-xs">No OTP found in 30s. Try again.</span></div>`;
+                    return;
+                }
+                
+                btn.innerHTML = `<span class="animate-pulse">Fetching... (${timeLeft}s)</span>`;
+
+                try {
+                    let foundThisTick = false;
+                    for (const panel of ['stex', 'voltx']) {
+                        if (panel === 'stex' && !globalSettings.enableStex) continue;
+                        if (panel === 'voltx' && !globalSettings.enableVoltx) continue;
+
+                        const base = panel === 'stex' ? 'https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api' : 'https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api';
+                        const key = panel === 'stex' ? globalSettings.stexKey : globalSettings.voltxKey;
+
+                        const res = await fetch(`${base}/success-otp`, { headers: { 'mauthapi': key } });
+                        const data = await res.json();
+                        
+                        if (data?.meta?.code === 200 && data.data?.otps) {
+                            const matches = data.data.otps.filter(o => o.number.includes(numInput));
+                            matches.forEach(match => {
+                                const codeMatch = match.message.match(/\b\d{3}\s?\d{3,5}\b|\b\d{4,8}\b/);
+                                const code = codeMatch ? codeMatch[0].replace(/\s+/g, '') : "CODE";
+                                
+                                if(!foundCodes.has(code)) {
+                                    foundCodes.add(code);
+                                    resultBox.innerHTML += `<div class="bg-[var(--cyan-light)] border border-[var(--brand-cyan)] p-3 rounded-xl mb-1 flex flex-col gap-1 shadow-sm"><div class="flex justify-between items-center"><b class="text-xl font-black tracking-wider" style="color: var(--brand-navy);">${code}</b><button onclick="copySpecificText('${code}')" class="text-[9px] font-bold bg-main text-main px-3 py-1.5 border border-main rounded uppercase shadow-sm hover:opacity-80">Copy</button></div><span class="text-[11px] font-mono text-muted leading-relaxed break-words">${match.message}</span></div>`;
+                                    foundThisTick = true;
+                                }
+                            });
+                        }
+                    }
+                    if(foundThisTick) {
+                        clearInterval(interval);
+                        btn.disabled = false;
+                        btn.innerHTML = `Fetch OTP`;
+                        showToast("OTP Found!", "success");
+                    }
+                } catch(e) {}
+            }, 3000);
+        };
 
         function filterNumberList(status) {
             currentNumberFilter = status;
@@ -1071,33 +1262,55 @@
             const listEl = document.getElementById('activeNumbersList');
             listEl.innerHTML = '';
             
-            const cutoff = Date.now() - (24 * 60 * 60 * 1000);
-            activeRequests = activeRequests.filter(req => req.startTime > cutoff);
-
             const filtered = currentNumberFilter === 'ALL' ? activeRequests : activeRequests.filter(r => r.status === currentNumberFilter);
             
-            if (filtered.length === 0) { listEl.innerHTML = '<div class="p-8 text-center text-sm text-muted font-semibold break-words">No activity here.</div>'; return; }
+            if (filtered.length === 0) { listEl.innerHTML = '<div class="p-8 text-center text-sm text-muted font-semibold break-words">No history available.</div>'; return; }
 
             filtered.forEach((req) => {
                 let action = '';
                 const country = getCountryInfo(req.fullNumber);
+                const isPolling = (Date.now() - req.startTime) < (20 * 60 * 1000);
 
-                if (req.status === 'PENDING') {
+                if (req.status === 'PENDING' && isPolling) {
                     action = `<span class="badge-warning text-[9px] font-black tracking-widest uppercase shadow-sm px-2 py-1 rounded">Waiting SMS</span>`;
-                } else if (req.status === 'SUCCESS') {
-                    action = `<button onclick="copySpecificText('${req.code}')" class="text-lg font-black px-4 py-1.5 rounded-lg shadow-sm hover:opacity-80 transition-opacity tracking-widest" style="background: var(--bg-success); color: var(--text-success); border: 1px solid var(--border-success);" title="Click to copy OTP">${req.code}</button>`;
-                } else if (req.status === 'FAILED') {
+                } else if (req.status === 'FAILED' || (req.status === 'PENDING' && !isPolling)) {
                     action = `<span class="badge-danger text-[9px] font-black tracking-widest uppercase shadow-sm px-2 py-1 rounded">Timeout</span>`;
+                } else if (req.status === 'SUCCESS') {
+                    const isMulti = req.otps && req.otps.length > 1;
+                    let codesHtml = '';
+                    
+                    if(req.otps && req.otps.length > 0) {
+                        req.otps.forEach(otp => {
+                            codesHtml += `
+                            <div class="flex items-center gap-2 justify-end mb-1">
+                                ${isMulti ? `<span class="bg-[#F3E8FF] text-[#7E22CE] border border-[#D8B4FE] text-[9px] font-black px-1.5 py-0.5 rounded shadow-sm uppercase tracking-wider">Multi</span>` : ''}
+                                <button onclick="copySpecificText('${otp.code}')" class="text-lg font-black px-4 py-1.5 rounded-lg shadow-sm hover:opacity-80 transition-opacity tracking-widest" style="background: var(--bg-success); color: var(--text-success); border: 1px solid var(--border-success);" title="Click to copy OTP">${otp.code}</button>
+                            </div>`;
+                        });
+                    } else {
+                        codesHtml = `<button onclick="copySpecificText('${req.code}')" class="text-lg font-black px-4 py-1.5 rounded-lg shadow-sm hover:opacity-80 transition-opacity tracking-widest" style="background: var(--bg-success); color: var(--text-success); border: 1px solid var(--border-success);" title="Click to copy OTP">${req.code}</button>`;
+                    }
+                    
+                    action = `<div class="flex flex-col items-end">${codesHtml}${isPolling ? '<span class="text-[8px] font-bold text-muted animate-pulse mt-1 tracking-widest">SCANNING...</span>' : ''}</div>`;
                 }
 
-                listEl.innerHTML += `<div class="p-4 flex justify-between items-center bg-card border-b border-main hover:bg-[var(--bg-main)] transition-colors"><div class="flex flex-col gap-1 min-w-0"><span onclick="copySpecificText('+${req.fullNumber}')" class="font-mono font-black text-lg text-main cursor-pointer hover:opacity-80 transition-opacity truncate" style="color: var(--brand-navy)">+${req.fullNumber}</span><div class="flex items-center gap-1.5 text-xs text-muted font-bold truncate"><span>${country.flag}</span> <span class="truncate">${country.name}</span>${req.status === 'SUCCESS' ? `<span class="badge-success text-[8px] ml-1 px-1 rounded">SUCCESS</span>` : ''}</div></div><div class="flex justify-end items-center flex-shrink-0 ml-2">${action}</div></div>`;
+                listEl.innerHTML += `<div class="p-4 flex justify-between items-start bg-card border-b border-main hover:bg-[var(--bg-main)] transition-colors"><div class="flex flex-col gap-1 min-w-0 pt-1"><span onclick="copySpecificText('+${req.fullNumber}')" class="font-mono font-black text-lg text-main cursor-pointer hover:opacity-80 transition-opacity truncate" style="color: var(--brand-navy)">+${req.fullNumber}</span><div class="flex items-center gap-1.5 text-xs text-muted font-bold truncate"><span>${country.flag}</span> <span class="truncate">${country.name}</span>${req.status === 'SUCCESS' ? `<span class="badge-success text-[8px] ml-1 px-1 rounded">SUCCESS</span>` : ''}</div></div><div class="flex justify-end items-start flex-shrink-0 ml-2">${action}</div></div>`;
             });
         }
 
         function startPolling(reqObj) {
             const timeout = 20 * 60 * 1000;
+            if(!reqObj.otps) reqObj.otps = [];
+            if(!reqObj.processedIds) reqObj.processedIds = [];
+            
             reqObj.intervalId = setInterval(async () => {
-                if (Date.now() - reqObj.startTime > timeout) { clearInterval(reqObj.intervalId); reqObj.status = 'FAILED'; saveRequestsToStorage(); renderActiveNumbers(); return; }
+                if (Date.now() - reqObj.startTime > timeout) { 
+                    clearInterval(reqObj.intervalId); 
+                    if(reqObj.status === 'PENDING') reqObj.status = 'FAILED'; 
+                    saveRequestsToStorage(); 
+                    renderActiveNumbers(); 
+                    return; 
+                }
                 const base = reqObj.panel === 'stex' ? 'https://api.2oo9.cloud/MXS47FLFX0U/tness/@public/api' : 'https://api.2oo9.cloud/MXS47FLFX0U/tnevs/@public/api';
                 const key = reqObj.panel === 'stex' ? globalSettings.stexKey : globalSettings.voltxKey;
 
@@ -1105,15 +1318,29 @@
                     const res = await fetch(`${base}/success-otp`, { headers: { 'mauthapi': key } });
                     const data = await res.json();
                     if (data && data.meta && data.meta.code === 200 && data.data.otps) {
-                        const match = data.data.otps.find(o => o.number === reqObj.fullNumber);
-                        if (match) {
-                            clearInterval(reqObj.intervalId);
-                            // Only capture the OTP digits
-                            const codeMatch = match.message.match(/\b\d{3}\s?\d{3,5}\b|\b\d{4,8}\b/);
-                            reqObj.status = 'SUCCESS'; reqObj.message = match.message; 
-                            reqObj.code = codeMatch ? codeMatch[0].replace(/\s+/g, '') : "CODE";
-                            saveRequestsToStorage(); renderActiveNumbers(); showToast("OTP Received", "success");
-                            saveReceivedOTP(match, reqObj.code, reqObj.panel);
+                        const matches = data.data.otps.filter(o => o.number === reqObj.fullNumber);
+                        let newFound = false;
+
+                        matches.forEach(match => {
+                            if(!reqObj.processedIds.includes(match.otp_id)) {
+                                reqObj.processedIds.push(match.otp_id);
+                                const codeMatch = match.message.match(/\b\d{3}\s?\d{3,5}\b|\b\d{4,8}\b/);
+                                const code = codeMatch ? codeMatch[0].replace(/\s+/g, '') : "CODE";
+                                
+                                reqObj.otps.push({ code: code, message: match.message, time: match.time });
+                                reqObj.status = 'SUCCESS';
+                                reqObj.code = code; 
+                                reqObj.message = match.message;
+                                
+                                saveReceivedOTP(match, code, reqObj.panel);
+                                newFound = true;
+                            }
+                        });
+
+                        if(newFound) {
+                            saveRequestsToStorage(); 
+                            renderActiveNumbers(); 
+                            showToast("OTP Received", "success");
                         }
                     }
                 } catch(e) {} 
@@ -1135,7 +1362,7 @@
         }
 
         let allConsoleHits = []; let debounceTimer;
-        window.debounceFilterConsole = function() { clearTimeout(debounceTimer); debounceTimer = setTimeout(filterConsole, 300); };
+        function debounceFilterConsole() { clearTimeout(debounceTimer); debounceTimer = setTimeout(filterConsole, 300); }
 
         async function loadConsoleData() {
             try {
@@ -1209,15 +1436,35 @@
         function syncVPN() {
             onValue(ref(rtdb, 'vpns'), (s) => {
                 const uBox = document.getElementById('vpn-list'), aBox = document.getElementById('adm-vpn-list'), sSelect = document.getElementById('stock-vpn-id'), sInv = document.getElementById('stock-inventory-list');
-                uBox.innerHTML = ''; aBox.innerHTML = ''; sSelect.innerHTML = ''; sInv.innerHTML = ''; const d = s.val();
-                if (!d) { uBox.innerHTML = `<div class="p-5 text-center text-muted font-bold bg-main border border-main rounded-2xl">No VPN available.</div>`; aBox.innerHTML = `<div class="p-4 text-center text-muted text-xs border border-main rounded-xl">No VPN brand found.</div>`; sSelect.innerHTML = `<option value="">No VPN available</option>`; return; }
+                if(uBox) uBox.innerHTML = ''; if(aBox) aBox.innerHTML = ''; if(sSelect) sSelect.innerHTML = ''; if(sInv) sInv.innerHTML = ''; 
+                const d = s.val();
+                if (!d) { 
+                    if(uBox) uBox.innerHTML = `<div class="p-5 text-center text-muted font-bold bg-main border border-main rounded-2xl">No VPN available.</div>`; 
+                    if(aBox) aBox.innerHTML = `<div class="p-4 text-center text-muted text-xs border border-main rounded-xl">No VPN brand found.</div>`; 
+                    if(sSelect) sSelect.innerHTML = `<option value="">No VPN available</option>`; 
+                    return; 
+                }
+
                 Object.keys(d).forEach(id => {
                     const v = d[id] || {}; const stockCount = v.stock ? Object.keys(v.stock).length : 0; const isOff = v.status === "OFF";
                     const safeName = esc(v.name || 'VPN'); const logo = v.logo || getVpnLogo(v.name || 'vpn');
-                    uBox.innerHTML += `<div onclick="${!isOff ? `openPlans('${id}')` : ''}" class="card p-4 flex justify-between items-center cursor-pointer hover:border-[var(--brand-cyan)] transition-colors ${isOff ? 'opacity-50 grayscale pointer-events-none' : ''}"><div class="flex items-center gap-4 min-w-0"><img src="${logo}" class="w-12 h-12 rounded-xl object-cover border border-main flex-shrink-0"><div class="min-w-0"><b class="text-main text-base truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider mt-0.5 truncate">Stock: ${stockCount}</p></div></div><span class="text-[9px] font-black px-2.5 py-1 rounded-lg border flex-shrink-0 ml-2 ${!isOff ? 'badge-success' : 'badge-danger'}">${isOff ? 'OFFLINE' : 'ONLINE'}</span></div>`;
-                    aBox.innerHTML += `<div class="card p-4 space-y-4"><div class="flex justify-between items-center border-b border-main pb-3"><div class="flex items-center gap-3 min-w-0"><img src="${logo}" class="w-8 h-8 rounded-lg shadow-sm border border-main flex-shrink-0"><div class="min-w-0"><b class="text-sm text-main truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Stock: ${stockCount}</p></div></div><div class="flex items-center gap-3 flex-shrink-0"><label class="switch"><input type="checkbox" ${!isOff?'checked':''} onchange="toggleV('${id}', this.checked)"><span class="slider"></span></label><button onclick="delV('${id}')" class="w-7 h-7 badge-danger rounded-lg hover:opacity-80"><svg class="w-3 h-3 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div></div><div class="grid grid-cols-2 gap-3"><div><input type="text" id="p1n-${id}" value="${esc(v.p1n||'')}" placeholder="Plan 1 Name" class="adm-mini-input mb-2"><input type="number" id="p1p-${id}" value="${esc(v.p1p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div><div><input type="text" id="p2n-${id}" value="${esc(v.p2n||'')}" placeholder="Plan 2 Name" class="adm-mini-input mb-2"><input type="number" id="p2p-${id}" value="${esc(v.p2p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div></div><button onclick="saveV('${id}')" class="btn-primary w-full py-2.5 text-xs shadow-sm truncate">Save Plan</button></div>`;
-                    sSelect.innerHTML += `<option value="${id}">${safeName}</option>`;
-                    if(v.stock) {
+
+                    if(uBox) uBox.innerHTML += `<div onclick="${!isOff ? `openPlans('${id}')` : ''}" class="card p-4 flex justify-between items-center cursor-pointer hover:border-[var(--brand-cyan)] transition-colors ${isOff ? 'opacity-50 grayscale pointer-events-none' : ''}">
+                        <div class="flex items-center gap-4 min-w-0"><img src="${logo}" class="w-12 h-12 rounded-xl object-cover border border-main flex-shrink-0"><div class="min-w-0"><b class="text-main text-base truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider mt-0.5 truncate">Stock: ${stockCount}</p></div></div>
+                        <span class="text-[9px] font-black px-2.5 py-1 rounded-lg border flex-shrink-0 ml-2 ${!isOff ? 'badge-success' : 'badge-danger'}">${isOff ? 'OFFLINE' : 'ONLINE'}</span></div>`;
+
+                    if(aBox) aBox.innerHTML += `<div class="card p-4 space-y-4">
+                        <div class="flex justify-between items-center border-b border-main pb-3">
+                            <div class="flex items-center gap-3 min-w-0"><img src="${logo}" class="w-8 h-8 rounded-lg shadow-sm border border-main flex-shrink-0"><div class="min-w-0"><b class="text-sm text-main truncate block" style="color: var(--brand-navy)">${safeName}</b><p class="text-[9px] text-muted font-bold uppercase tracking-wider truncate">Stock: ${stockCount}</p></div></div>
+                            <div class="flex items-center gap-3 flex-shrink-0"><label class="switch"><input type="checkbox" ${!isOff?'checked':''} onchange="toggleV('${id}', this.checked)"><span class="slider"></span></label><button onclick="delV('${id}')" class="w-7 h-7 badge-danger rounded-lg hover:opacity-80"><svg class="w-3 h-3 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div><input type="text" id="p1n-${id}" value="${esc(v.p1n||'')}" placeholder="Plan 1 Name" class="adm-mini-input mb-2"><input type="number" id="p1p-${id}" value="${esc(v.p1p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div>
+                            <div><input type="text" id="p2n-${id}" value="${esc(v.p2n||'')}" placeholder="Plan 2 Name" class="adm-mini-input mb-2"><input type="number" id="p2p-${id}" value="${esc(v.p2p||'')}" placeholder="Price (৳)" class="adm-mini-input"></div>
+                        </div><button onclick="saveV('${id}')" class="btn-primary w-full py-2.5 text-xs shadow-sm truncate">Save Plan</button></div>`;
+
+                    if(sSelect) sSelect.innerHTML += `<option value="${id}">${safeName}</option>`;
+                    if(v.stock && sInv) {
                         let inv = `<div class="card p-4"><b class="text-xs text-main border-b border-main pb-2 block mb-3 truncate" style="color: var(--brand-navy)">${safeName} <span class="text-[9px] text-muted font-normal">(${stockCount} items)</span></b><div class="space-y-2">`;
                         Object.keys(v.stock).forEach(sk => { const item = v.stock[sk] || {}; inv += `<div class="flex justify-between items-center text-xs bg-main p-2.5 rounded-lg border border-main min-w-0"><span class="font-mono font-medium truncate">${esc(item.email || 'No email')}</span><button onclick="delStockItem('${id}','${sk}')" class="text-danger hover:opacity-80 flex-shrink-0 ml-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>`; });
                         sInv.innerHTML += inv + `</div></div>`;
@@ -1227,7 +1474,7 @@
 
             onValue(ref(rtdb, 'orders'), (s) => {
                 const aP = document.getElementById('adm-vpn-pending'), uBox = document.getElementById('user-orders');
-                aP.innerHTML = ''; uBox.innerHTML = ''; let pCount = 0; const cOS = {}; const d = s.val();
+                if(aP) aP.innerHTML = ''; if(uBox) uBox.innerHTML = ''; let pCount = 0; const cOS = {}; const d = s.val();
                 if(d) Object.keys(d).reverse().forEach(id => {
                     const o = d[id] || {};
                     if(o.st === "Pending") {
@@ -1247,8 +1494,8 @@
 
             onValue(ref(rtdb, 'payments'), (s) => {
                 const uP = document.getElementById('user-pay-options'), pL = document.getElementById('pay-list');
-                uP.innerHTML = ''; pL.innerHTML = ''; const d = s.val();
-                if(!d) { uP.innerHTML = `<div class="col-span-2 p-3 text-center text-muted text-xs border border-main rounded-xl border-dashed break-words">No payment methods.</div>`; return; }
+                if(uP) uP.innerHTML = ''; if(pL) pL.innerHTML = ''; const d = s.val();
+                if(!d) { if(uP) uP.innerHTML = `<div class="col-span-2 p-3 text-center text-muted text-xs border border-main rounded-xl border-dashed break-words">No payment methods.</div>`; return; }
                 Object.keys(d).forEach(id => {
                     const p = d[id]||{}, n=p.name||'Pay', m=p.num||'', l=p.logo||getVpnLogo(n);
                     uP.innerHTML += `<button onclick="setPay('${jsStr(n)}','${jsStr(m)}','${jsStr(l)}', this, false)" class="pay-card hover:border-[var(--brand-cyan)] group"><div class="pay-logo-wrap"><img src="${esc(l)}" class="w-10 h-10 rounded-xl object-cover" onerror="this.style.display='none'"></div><span class="group-hover:text-[var(--brand-cyan)] transition-colors truncate w-full">${esc(n)}</span></button>`;
@@ -1302,14 +1549,29 @@
         async function addVpn() { 
             const n = document.getElementById('v-name').value.trim(); let l = document.getElementById('vpn-logo-in').value.trim();
             if(!n) return showToast('Enter VPN brand name', 'warning'); 
-            const upUrl = await uploadFileToStorage('vpn-logo-file'); if(upUrl) l = upUrl;
-            push(ref(rtdb,'vpns'),{name:n, status: "ON", logo: l}).then(() => { document.getElementById('v-name').value=''; document.getElementById('vpn-logo-in').value=''; document.getElementById('vpn-logo-file').value=''; showToast('Brand created', 'success'); }); 
+            const btn = document.getElementById('btnCreateVpn'); const orig = btn.innerHTML;
+            btn.innerHTML = "Uploading & Saving..."; btn.disabled = true;
+            try {
+                if(document.getElementById('vpn-logo-file').files.length > 0) { const upUrl = await uploadFileToStorage('vpn-logo-file'); if(upUrl) l = upUrl; }
+                await push(ref(rtdb,'vpns'),{name:n, status: "ON", logo: l});
+                document.getElementById('v-name').value=''; document.getElementById('vpn-logo-in').value=''; document.getElementById('vpn-logo-file').value='';
+                document.getElementById('vpn-logo-file').previousElementSibling.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Logo';
+                showToast('Brand created', 'success'); 
+            } catch(e) { showToast("Error", "error"); } finally { btn.innerHTML = orig; btn.disabled = false; }
         }
+
         async function addPay() { 
             const n = document.getElementById('pay-name').value.trim(), m = document.getElementById('pay-num-in').value.trim(); let l = document.getElementById('pay-logo-in').value.trim(); 
             if(!n || !m) return showToast('Enter name and number', 'warning');
-            const upUrl = await uploadFileToStorage('pay-logo-file'); if(upUrl) l = upUrl;
-            push(ref(rtdb,'payments'),{name:n,num:m,logo:l}).then(() => { document.getElementById('pay-name').value=''; document.getElementById('pay-num-in').value=''; document.getElementById('pay-logo-in').value=''; document.getElementById('pay-logo-file').value=''; showToast('Method added', 'success'); }); 
+            const btn = document.getElementById('btnAddPayMethod'); const orig = btn.innerHTML;
+            btn.innerHTML = "Uploading & Saving..."; btn.disabled = true;
+            try {
+                if(document.getElementById('pay-logo-file').files.length > 0) { const upUrl = await uploadFileToStorage('pay-logo-file'); if(upUrl) l = upUrl; }
+                await push(ref(rtdb,'payments'),{name:n,num:m,logo:l});
+                document.getElementById('pay-name').value=''; document.getElementById('pay-num-in').value=''; document.getElementById('pay-logo-in').value=''; document.getElementById('pay-logo-file').value='';
+                document.getElementById('pay-logo-file').previousElementSibling.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Logo';
+                showToast('Method added', 'success'); 
+            } catch(e) { showToast("Error", "error"); } finally { btn.innerHTML = orig; btn.disabled = false; }
         }
 
         function showStockList(orderId, vpnId) {
@@ -1332,9 +1594,19 @@
         function delPay(id) { remove(ref(rtdb,`payments/${id}`)).then(() => showToast('Removed', 'success')); }
 
         function switchView(vid) {
-            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden')); document.getElementById(vid + 'View').classList.remove('hidden');
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); const navBtn = document.getElementById('nav-' + (vid==='vpnStore' ? 'dashboard' : vid)); if(navBtn) navBtn.classList.add('active');
-            if(vid === 'console') { loadConsoleData(); if(!consoleUpdateInterval) consoleUpdateInterval = setInterval(loadConsoleData, 5000); } else { clearInterval(consoleUpdateInterval); consoleUpdateInterval = null; }
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden')); 
+            document.getElementById(vid + 'View').classList.remove('hidden');
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active')); 
+            
+            let activeNavId = vid;
+            if(vid === 'vpnStore') activeNavId = 'dashboard';
+            if(vid === 'fetchOtp') activeNavId = 'getnumber';
+            
+            const navBtn = document.getElementById('nav-' + activeNavId); 
+            if(navBtn) navBtn.classList.add('active');
+            
+            if(vid === 'console') { loadConsoleData(); if(!consoleUpdateInterval) consoleUpdateInterval = setInterval(loadConsoleData, 5000); } 
+            else { clearInterval(consoleUpdateInterval); consoleUpdateInterval = null; }
             if(vid === 'getnumber') renderActiveNumbers();
         }
 
@@ -1357,22 +1629,28 @@
         async function deleteUser(uid) { try { await deleteDoc(doc(db, 'users', uid)); showToast("Deleted", "success"); loadAdminUsers(); } catch(e) { showToast("Failed", "error"); } }
         
         async function removeAppLogo() {
-            try { await updateDoc(doc(db, 'global', 'settings'), { appLogo: "" }); document.getElementById('adminAppLogoUrl').value = ''; document.getElementById('adminAppLogoFile').value = ''; showToast("Logo removed", "success"); } catch(e) {}
+            try { await updateDoc(doc(db, 'global', 'settings'), { appLogo: "" }); document.getElementById('adminAppLogoUrl').value = ''; document.getElementById('adminAppLogoFile').value = ''; document.getElementById('adminAppLogoFile').previousElementSibling.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Image'; showToast("Logo removed", "success"); } catch(e) {}
         }
 
         async function saveAdminApi() { 
+            const btn = document.getElementById('btnSaveApiSet'); const orig = btn.innerHTML;
+            btn.innerHTML = "Uploading & Saving..."; btn.disabled = true;
             try { 
                 let newLogoUrl = document.getElementById('adminAppLogoUrl').value.trim();
-                const upLogo = await uploadFileToStorage('adminAppLogoFile');
-                if(upLogo) newLogoUrl = upLogo;
+                if(document.getElementById('adminAppLogoFile').files.length > 0) {
+                    const upLogo = await uploadFileToStorage('adminAppLogoFile');
+                    if(upLogo) newLogoUrl = upLogo;
+                }
 
                 await updateDoc(doc(db, 'global', 'settings'), { 
                     appName: document.getElementById('adminAppName').value.trim() || "NumaX",
                     appLogo: newLogoUrl,
                     stexKey: document.getElementById('adminStexKey').value.trim(), voltxKey: document.getElementById('adminVoltxKey').value.trim(), botToken: document.getElementById('adminBotToken').value.trim(), enableStex: document.getElementById('adminEnableStex').checked, enableVoltx: document.getElementById('adminEnableVoltx').checked, refComm: parseFloat(document.getElementById('adminRefComm').value)||0.05, minWithdraw: parseFloat(document.getElementById('adminMinWithdraw').value)||10, welcomeMsg: document.getElementById('adminWelcomeMsg').value.trim() 
                 }); 
+                document.getElementById('adminAppLogoFile').previousElementSibling.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Image';
                 showToast("Settings & Branding Saved", "success"); 
             } catch(e) { showToast("Error saving", "error"); } 
+            finally { btn.innerHTML = orig; btn.disabled = false; }
         }
         
         async function toggleGlobalWithdraw() { try { await updateDoc(doc(db, 'global', 'settings'), { withdrawEnabled: document.getElementById('adminWithdrawToggle').checked }); showToast("Status updated", "success"); } catch(e) { showToast("Error", "error"); } }
@@ -1398,9 +1676,20 @@
             } catch(e) { showToast("Error", "error"); } finally { btn.disabled = false; btn.innerHTML = `<svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg> Send Broadcast`; }
         }
 
-        function copySpecificText(t) { const el = document.createElement("textarea"); el.value = t; document.body.appendChild(el); el.select(); try { document.execCommand('copy'); showToast("Copied", "success"); } catch(e) {} el.remove(); }
-        function useRange(r) { switchView('getnumber'); document.getElementById('rangeInput').value = r; const btn = document.getElementById('btnGetNum'); btn.classList.add('ring-4', 'ring-[#11B6B9]/40'); setTimeout(() => btn.classList.remove('ring-4', 'ring-[#11B6B9]/40'), 1000); }
-        
+        function copySpecificText(t) {
+            const el = document.createElement("textarea"); el.value = t; document.body.appendChild(el); el.select();
+            try { document.execCommand('copy'); showToast("Copied", "success"); } catch(e) {} el.remove();
+        }
+
+        function useRange(r) {
+            switchView('getnumber');
+            document.getElementById('rangeInput').value = r;
+            const rInput = document.getElementById('rangeInput');
+            rInput.classList.add('ring-4', 'ring-[var(--brand-cyan)]');
+            setTimeout(() => rInput.classList.remove('ring-4', 'ring-[var(--brand-cyan)]'), 1000);
+            showToast("Range Selected", "success");
+        }
+
         initApp();
     </script>
 </body>
