@@ -85,13 +85,13 @@
 
         /* NEONE DARK (Requested Premium Neon Dark Theme) */
         :root[data-theme="neon-dark"] {
-            --brand-navy: #00FFCC; /* Glow Cyber Mint */
-            --brand-cyan: #FF007F; /* Glow Hot Neon Pink */
+            --brand-navy: #00FFCC; /* Glowing Cyber Mint */
+            --brand-cyan: #FF007F; /* Glowing Hot Neon Pink */
             --bg-main: #020205; /* Black Abyss */
             --bg-card: #0A0A14; /* Deep Tech Slate */
             --text-dark: #FFFFFF; 
             --text-muted: #9EAFCE;
-            --border-light: #1A1A30; /* Neon Tech Border */
+            --border-light: #1A1A30; /* Tech Borders */
             --glass-bg: rgba(10, 10, 20, 0.95);
             --cyan-light: rgba(255, 0, 127, 0.15);
             --bg-success: rgba(57, 255, 20, 0.12); --text-success: #39FF14; --border-success: rgba(57, 255, 20, 0.4);
@@ -184,14 +184,13 @@
         </div>
     </div>
 
-    <header class="glass-header fixed top-0 w-full z-40 px-4 py-3 flex justify-between items-center shadow-sm animate-fade">
+    <header class="glass-header fixed top-0 w-full z-40 px-4 py-3 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
             <img id="headerLogo" src="" alt="App Logo" class="w-8 h-8 rounded-lg object-cover shadow-sm hidden">
             <div id="headerLogoFallback" class="w-8 h-8 rounded-lg vpn-grad-card flex items-center justify-center font-black text-lg shadow-md border-none">N</div>
             <h1 id="headerAppName" class="text-lg font-black tracking-tight" style="color: var(--brand-navy);">NumaX</h1>
         </div>
         <div class="flex items-center gap-3">
-            <!-- Theme cycle button -->
             <button onclick="toggleTheme()" class="w-8 h-8 rounded-full bg-main border-main border text-muted flex items-center justify-center hover:opacity-80 transition shadow-sm" title="Switch Theme">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
             </button>
@@ -501,7 +500,7 @@
                 </div>
             </div>
 
-            <!-- Admin Tab: API & Branding (Base64 file readers implemented to completely avoid Storage Permissions) -->
+            <!-- Admin Tab: API & Branding -->
             <div id="adminTabApi" class="admin-content-section hidden space-y-4">
                 <div class="card p-5 space-y-4 border-t-4 mt-2" style="border-top-color: var(--text-warning);">
                     <h3 class="font-black text-sm text-main uppercase tracking-widest border-b border-main pb-2 truncate" style="color: var(--brand-navy)">App Branding</h3>
@@ -540,6 +539,10 @@
                     <div>
                         <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">VOLTX API Key</label>
                         <input type="password" id="adminVoltxKey" class="w-full input-field p-3 font-mono text-sm mt-1">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Telegram Bot Username (Without @)</label>
+                        <input type="text" id="adminBotUsername" placeholder="e.g. NumaXOTP_Bot" class="w-full input-field p-3 font-mono text-sm mt-1 font-bold">
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-muted uppercase tracking-wider break-words">Telegram Bot Token (For DMs)</label>
@@ -667,7 +670,7 @@
                 <div id="stock-inventory-list" class="space-y-3"></div>
             </div>
             <div id="adminTabVpnBrands" class="admin-content-section hidden space-y-4">
-                <!-- Payment methods with Storage-free base64 uploads -->
+                <!-- Payment Methods -->
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-cyan);">
                     <b class="text-[10px] uppercase text-main truncate block" style="color: var(--brand-cyan)">VPN Payment Methods</b>
                     <div class="flex gap-2 min-w-0"><input type="text" id="pay-name" placeholder="Name (e.g. bKash)" class="w-1/2 adm-mini-input min-w-0"><input type="text" id="pay-num-in" placeholder="Number" class="w-1/2 adm-mini-input min-w-0"></div>
@@ -683,7 +686,7 @@
                     <div id="pay-list" class="space-y-2 mt-3"></div>
                 </div>
 
-                <!-- Create VPN brands with Storage-free base64 uploads -->
+                <!-- Create VPN Brands -->
                 <div class="card p-5 space-y-3 border-t-4" style="border-top-color: var(--brand-cyan);">
                     <b class="text-[10px] uppercase text-main truncate block" style="color: var(--brand-cyan)">Create VPN Brand</b>
                     <div class="flex gap-2 min-w-0"><input type="text" id="v-name" placeholder="VPN Brand Name" class="adm-mini-input w-full"></div>
@@ -794,20 +797,19 @@
         const ADMIN_ID = "8505710811";
         let tgUser = { id: 'unknown', first_name: 'Guest', username: '' };
         let currentUserData = null;
-        let globalSettings = { appName: "NumaX", appLogo: "", stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", customLinks: [], refComm: 0.05, minWithdraw: 10, enableStex: true, enableVoltx: true, welcomeMsg: "Welcome to NumaX OTP!" };
+        let globalSettings = { appName: "NumaX", appLogo: "", stexKey: "M5OHT1ZBKCD", voltxKey: "MUBHNSX3UB3", withdrawEnabled: true, methods: ["bKash", "Nagad"], botToken: "", botUsername: "NumaXOTP_Bot", customLinks: [], refComm: 0.05, minWithdraw: 10, enableStex: true, enableVoltx: true, welcomeMsg: "Welcome to NumaX OTP!" };
         
         let rangeStats = {}; 
         let activeRequests = []; 
         let currentNumberFilter = 'ALL';
         let consoleUpdateInterval = null;
-        let countdownTickerInterval = null; // Timer loop for active countdowns
+        let countdownTickerInterval = null;
         let adminUsersCache = [];
         
         let lastVpnPendingCount = 0;
         let userVpnOrderStates = {};
         let curV = '', curPl = '', curPr = 0, curVid = '', curMethod = '', isWalletPay = false;
 
-        // STRICTLY USING USER PROVIDED FLAGS, ISO, PHONE CODES AND SERVICES
         const COUNTRY_FLAGS = {
             "afghanistan": "🇦🇫", "albania": "🇦🇱", "algeria": "🇩🇿", "andorra": "🇦🇩", "angola": "🇦🇴",
             "antigua and barbuda": "🇦🇬", "argentina": "🇦🇷", "armenia": "🇦🇲", "australia": "🇦🇺",
@@ -994,6 +996,8 @@
         window.renderActiveNumbers = renderActiveNumbers; window.loadConsoleData = loadConsoleData; window.suggestBestRange = suggestBestRange; window.clearNumberHistory = clearNumberHistory;
         window.fetchManualOtp = fetchManualOtp; window.debounceFilterConsole = debounceFilterConsole;
         window.handleLogoSelection = handleLogoSelection;
+        
+        window.approveWithdrawRequest = approveWithdrawRequest; window.rejectWithdrawRequest = rejectWithdrawRequest;
 
         const themes = ['soft-light', 'dark', 'neon-purple', 'gray', 'neon-dark'];
         let currentThemeIdx = 0;
@@ -1026,9 +1030,7 @@
             setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'all 0.3s ease'; setTimeout(() => toast.remove(), 300); }, 3000);
         }
 
-        /* Helper function to convert local image uploads directly to Base64 String.
-           This allows logo branding, VPN brands, and payments to instantly update 
-           without requiring Firebase Storage permissions! */
+        /* CLIENT-SIDE STORAGE: Convert local files to Base64 String to bypass Firebase Storage entirely! */
         function readAsBase64(fileInputId) {
             return new Promise((resolve) => {
                 const input = document.getElementById(fileInputId);
@@ -1109,6 +1111,64 @@
             showToast("History cleared successfully", "success");
         }
 
+        async function sendTelegramMessage(chatId, text, inlineKeyboard = null) {
+            if (!globalSettings.botToken) return;
+            const payload = {
+                chat_id: chatId,
+                text: text,
+                parse_mode: 'HTML'
+            };
+            if (inlineKeyboard) {
+                payload.reply_markup = JSON.stringify({ inline_keyboard: inlineKeyboard });
+            }
+            try {
+                await fetch(`https://api.telegram.org/bot${globalSettings.botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {
+                console.error("Telegram message sending error: ", e);
+            }
+        }
+
+        async function checkTelegramDeepLinking() {
+            const startParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param || null;
+            if (startParam && String(tgUser.id) === ADMIN_ID) {
+                if (startParam.startsWith('approve_w_')) {
+                    const withdrawId = startParam.replace('approve_w_', '');
+                    await processDirectAdminAction(withdrawId, 'APPROVED');
+                } else if (startParam.startsWith('reject_w_')) {
+                    const withdrawId = startParam.replace('reject_w_', '');
+                    await processDirectAdminAction(withdrawId, 'REJECTED');
+                }
+            }
+        }
+
+        async function processDirectAdminAction(withdrawId, targetStatus) {
+            showToast(`Processing action...`, 'info');
+            try {
+                const docRef = doc(db, 'withdrawals', withdrawId);
+                const snap = await getDoc(docRef);
+                if (!snap.exists()) {
+                    showToast("Withdrawal not found", "error");
+                    return;
+                }
+                const data = snap.data();
+                if (data.status !== 'PENDING') {
+                    showToast(`Already processed as: ${data.status}`, "warning");
+                    return;
+                }
+                if (targetStatus === 'APPROVED') {
+                    await approveWithdrawRequest(withdrawId, data.amount, data.uid, data.name);
+                } else {
+                    await rejectWithdrawRequest(withdrawId, data.amount, data.uid, data.name);
+                }
+            } catch (e) {
+                showToast("Action failed", "error");
+            }
+        }
+
         async function initApp() {
             if (window.Telegram && window.Telegram.WebApp) {
                 try { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); } catch(e) {}
@@ -1132,7 +1192,9 @@
             const pfpUrl = tgUser.photo_url || `https://ui-avatars.com/api/?name=${tgUser.first_name}&background=0B3A64&color=fff`;
             document.getElementById('headerPfp').src = pfpUrl; document.getElementById('profPfp2').src = pfpUrl;
 
-            if (String(tgUser.id) === ADMIN_ID) document.getElementById('adminMenuBtn').classList.remove('hidden');
+            if (String(tgUser.id) === ADMIN_ID) {
+                document.getElementById('adminMenuBtn').classList.remove('hidden');
+            }
 
             loadStoredRequests();
 
@@ -1140,12 +1202,16 @@
                 await signInAnonymously(auth);
                 listenToGlobalSettings(); listenToBroadcasts(); await syncUser();
                 syncVPN();
+                listenToAdminWithdrawals();
                 
                 // Initialize console search hits
                 loadConsoleData();
                 
                 // Active ticking countdown timers
                 startCountdownTicker();
+
+                // Check deep link commands from Admin inbox
+                await checkTelegramDeepLinking();
 
                 setTimeout(() => {
                     const loader = document.getElementById('appLoadingScreen');
@@ -1166,7 +1232,7 @@
                 if (snap.exists()) {
                     globalSettings = snap.data();
                     
-                    // App Name & Branding Update (Saves directly to settings instantly!)
+                    // Update Branding Dynamically
                     const appName = globalSettings.appName || "NumaX";
                     document.getElementById('pageTitleText').innerText = appName + " Unified App";
                     document.getElementById('loaderAppName').innerText = appName;
@@ -1198,9 +1264,15 @@
                         document.getElementById('dashLinksContainer').innerHTML = links.map(lnk => `<a href="${lnk.url}" target="_blank" class="bg-main border border-main rounded-xl p-3 flex flex-col items-center justify-center gap-1.5 transition-colors text-center shadow-sm hover:opacity-80"><svg class="w-5 h-5" style="color: var(--brand-cyan);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg><span class="text-xs font-black text-main truncate w-full px-1">${lnk.name}</span></a>`).join('');
                     } else document.getElementById('dashLinksCard').classList.add('hidden');
 
+                    if (currentUserData) {
+                        const botUser = globalSettings.botUsername || "NumaXOTP_Bot";
+                        document.getElementById('referralLinkInput').value = `https://t.me/${botUser}?start=ref_${currentUserData.uid}`;
+                    }
+
                     if (String(tgUser.id) === ADMIN_ID) {
                         document.getElementById('adminAppName').value = appName;
                         document.getElementById('adminAppLogoUrl').value = logoUrl || '';
+                        document.getElementById('adminBotUsername').value = globalSettings.botUsername || 'NumaXOTP_Bot';
                         document.getElementById('adminStexKey').value = globalSettings.stexKey || ''; document.getElementById('adminVoltxKey').value = globalSettings.voltxKey || ''; document.getElementById('adminBotToken').value = globalSettings.botToken || ''; document.getElementById('adminEnableStex').checked = globalSettings.enableStex !== false; document.getElementById('adminEnableVoltx').checked = globalSettings.enableVoltx !== false; document.getElementById('adminRefComm').value = globalSettings.refComm || 0.05; document.getElementById('adminMinWithdraw').value = globalSettings.minWithdraw || 10; document.getElementById('adminWelcomeMsg').value = globalSettings.welcomeMsg || ''; document.getElementById('adminWithdrawToggle').checked = globalSettings.withdrawEnabled !== false;
                         const mList = document.getElementById('adminMethodList'); mList.innerHTML = '';
                         (globalSettings.methods || []).forEach(m => mList.innerHTML += `<span class="bg-main border border-main text-main text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">${m} <button onclick="removeWithdrawMethod('${m}')" class="text-danger hover:opacity-80 ml-1">x</button></span>`);
@@ -1234,7 +1306,7 @@
                 }
             }
             
-            const botUsername = "NumaXOTP_Bot"; 
+            const botUsername = globalSettings.botUsername || "NumaXOTP_Bot"; 
             document.getElementById('referralLinkInput').value = `https://t.me/${botUsername}?start=ref_${uidStr}`;
 
             enforceBanUI();
@@ -1439,7 +1511,7 @@
             const icon = btn.querySelector('.refresh-icon');
             if(icon) {
                 icon.classList.add('animate-spin');
-                setTimeout(() => icon.classList.remove('animate-spin'), 600);
+                setTimeout(() => icon.classList.remove('refresh-icon'), 600);
             }
         }
 
@@ -1617,6 +1689,7 @@
         }
 
         function useMaxWithdraw() { if(currentUserData && currentUserData.balance > 0) document.getElementById('withdrawAmountInput').value = currentUserData.balance; }
+        
         async function submitWithdraw() {
             if(globalSettings.withdrawEnabled === false) return showToast("Withdrawals disabled", "error");
             if(currentUserData.banned) return;
@@ -1626,13 +1699,50 @@
             const minW = globalSettings.minWithdraw || 10;
             if(amt < minW) return showToast(`Minimum withdraw is ৳${minW}`, "warning");
             if(amt > currentUserData.balance) return showToast("Insufficient balance", "error");
+            
             const btn = document.getElementById('btnWithdrawSubmit'); btn.disabled = true; btn.innerText = "Processing...";
             try {
+                // Deduct Balance First
                 await updateDoc(doc(db, 'users', String(tgUser.id)), { balance: increment(-amt) });
-                await addDoc(collection(db, 'withdrawals'), { uid: String(tgUser.id), username: tgUser.username, name: tgUser.first_name, method: method, number: num, amount: amt, status: 'PENDING', timestamp: Date.now() });
-                showToast("Request submitted!", "success"); document.getElementById('withdrawAmountInput').value = ''; document.getElementById('withdrawNumberInput').value = '';
-            } catch(e) { showToast("Failed to submit", "error"); } finally { btn.disabled = false; btn.innerText = "Submit Request"; }
+                
+                // Add Request to DB
+                const withdrawRef = await addDoc(collection(db, 'withdrawals'), { 
+                    uid: String(tgUser.id), 
+                    username: tgUser.username || "no_username", 
+                    name: tgUser.first_name, 
+                    method: method, 
+                    number: num, 
+                    amount: amt, 
+                    status: 'PENDING', 
+                    timestamp: Date.now() 
+                });
+
+                showToast("Request submitted!", "success"); 
+                document.getElementById('withdrawAmountInput').value = ''; 
+                document.getElementById('withdrawNumberInput').value = '';
+
+                // Send Telegram Notification to the User
+                const userMsg = `YOUR WITHDRAW REQUEST SEND TO ADMIN FOR REVIEW\nMETHOD : ${method}\nNUMBER : ${num}\nAMOUNT : ৳${amt}`;
+                await sendTelegramMessage(String(tgUser.id), userMsg);
+
+                // Send Alert to Admin Chat with Inline Buttons
+                const botUser = globalSettings.botUsername || "NumaXOTP_Bot";
+                const adminMsg = `🔔 <b>NEW WITHDRAW REQUEST</b>\n\nUser: ${tgUser.first_name} (@${tgUser.username || 'N/A'})\nUID: ${tgUser.id}\nMETHOD: ${method}\nNUMBER: ${num}\nAMOUNT: ৳${amt}\n\nSelect action to instantly process:`;
+                const inlineButtons = [
+                    [
+                        { text: "Accept ✅", url: `https://t.me/${botUser}/app?startapp=approve_w_${withdrawRef.id}` },
+                        { text: "Decline ❌", url: `https://t.me/${botUser}/app?startapp=reject_w_${withdrawRef.id}` }
+                    ]
+                ];
+                await sendTelegramMessage(ADMIN_ID, adminMsg, inlineButtons);
+
+            } catch(e) { 
+                showToast("Failed to submit request", "error"); 
+            } finally { 
+                btn.disabled = false; btn.innerText = "Submit Request"; 
+            }
         }
+
         function loadUserWithdrawals() {
             const q = query(collection(db, 'withdrawals'), where('uid', '==', String(tgUser.id)));
             onSnapshot(q, (snap) => {
@@ -1648,6 +1758,81 @@
                     list.innerHTML += `<div class="p-4 flex justify-between items-center bg-card border-b border-main text-sm"><div><p class="font-bold text-main" style="color: var(--brand-navy);">${r.method} • ${r.number}</p><p class="text-xs text-muted mt-1">${date}</p></div><div class="text-right flex flex-col items-end gap-1"><p class="font-black text-lg text-main" style="color: var(--brand-navy);">৳${r.amount}</p>${badge}</div></div>`;
                 });
             });
+        }
+
+        function listenToAdminWithdrawals() {
+            if (String(tgUser.id) !== ADMIN_ID) return;
+            const q = query(collection(db, 'withdrawals'), where('status', '==', 'PENDING'));
+            onSnapshot(q, (snap) => {
+                const list = document.getElementById('adminPendingWithdrawList');
+                if(!list) return;
+                list.innerHTML = '';
+                let reqs = [];
+                snap.forEach(d => reqs.push({id: d.id, ...d.data()}));
+                reqs.sort((a,b) => b.timestamp - a.timestamp);
+                if(reqs.length === 0) {
+                    list.innerHTML = '<div class="p-4 text-center text-sm text-muted font-medium break-words">No pending requests.</div>';
+                    return;
+                }
+                reqs.forEach(r => {
+                    const date = new Date(r.timestamp).toLocaleDateString([], {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+                    list.innerHTML += `
+                    <div class="p-4 flex flex-col gap-3 bg-card border-b border-main text-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-bold text-main" style="color: var(--brand-navy);">${r.name} (@${r.username || 'N/A'})</p>
+                                <p class="text-xs text-muted mt-1">UID: ${r.uid} • ${date}</p>
+                            </div>
+                            <p class="font-black text-lg text-success">৳${r.amount}</p>
+                        </div>
+                        <div class="bg-main p-2.5 rounded-xl border border-main">
+                            <p class="text-xs text-muted font-bold">Method: <span class="text-main">${r.method}</span></p>
+                            <p class="text-xs text-muted font-bold mt-1">Number: <span class="text-main font-mono">${r.number}</span></p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="approveWithdrawRequest('${r.id}', ${r.amount}, '${r.uid}', '${r.name}')" class="btn-primary flex-1 py-2.5 text-xs shadow-sm truncate">Accept (Pay)</button>
+                            <button onclick="rejectWithdrawRequest('${r.id}', ${r.amount}, '${r.uid}', '${r.name}')" class="badge-danger flex-1 py-2.5 text-xs shadow-sm rounded-xl font-bold truncate">Decline (Refund)</button>
+                        </div>
+                    </div>`;
+                });
+            }, (err) => {
+                console.error("Admin snapshot error: ", err);
+            });
+        }
+
+        async function approveWithdrawRequest(id, amount, uid, name) {
+            try {
+                await updateDoc(doc(db, 'withdrawals', id), { status: 'APPROVED' });
+                showToast("Withdrawal approved successfully", "success");
+
+                // Get withdrawal details for notification
+                const docSnap = await getDoc(doc(db, 'withdrawals', id));
+                const data = docSnap.exists() ? docSnap.data() : { method: 'N/A', number: 'N/A' };
+
+                // Message to user
+                const userMsg = `✅ <b>YOUR WITHDRAW REQUEST HAS BEEN APPROVED!</b>\n\nMETHOD : ${data.method}\nNUMBER : ${data.number}\nAMOUNT : ৳${amount}\nStatus : Paid (Completed)`;
+                await sendTelegramMessage(uid, userMsg);
+            } catch (e) {
+                showToast("Error approving withdrawal", "error");
+            }
+        }
+
+        async function rejectWithdrawRequest(id, amount, uid, name) {
+            try {
+                await updateDoc(doc(db, 'withdrawals', id), { status: 'REJECTED' });
+                await updateDoc(doc(db, 'users', uid), { balance: increment(amount) });
+                showToast("Withdrawal rejected and refunded", "success");
+
+                // Get withdrawal details for notification
+                const docSnap = await getDoc(doc(db, 'withdrawals', id));
+                const data = docSnap.exists() ? docSnap.data() : { method: 'N/A', number: 'N/A' };
+
+                // Message to user
+                const userMsg = `❌ <b>YOUR WITHDRAW REQUEST HAS BEEN DECLINED!</b>\n\nMETHOD : ${data.method}\nNUMBER : ${data.number}\nAMOUNT : ৳${amount}\nStatus : Rejected (Refunded to Wallet)`;
+                await sendTelegramMessage(uid, userMsg);
+            } catch (e) {
+                showToast("Error rejecting withdrawal", "error");
+            }
         }
 
         function getVpnLogo(name) { const domain = name.toLowerCase().replace(/\s/g, '') + ".com"; return `https://www.google.com/s2/favicons?sz=128&domain=${domain}`; }
@@ -1861,32 +2046,23 @@
 
         async function saveAdminApi() { 
             const btn = document.getElementById('btnSaveApiSet'); const orig = btn.innerHTML;
-            btn.innerHTML = "Saving Settings..."; btn.disabled = true;
+            btn.innerHTML = "Uploading & Saving..."; btn.disabled = true;
             try { 
                 let newLogoUrl = document.getElementById('adminAppLogoUrl').value.trim();
-                
-                // Fetch local Base64 URL directly from FileReader
-                const localBase64 = await readAsBase64('adminAppLogoFile');
-                if (localBase64) newLogoUrl = localBase64;
-
-                const newName = document.getElementById('adminAppName').value.trim() || "NumaX";
+                if(document.getElementById('adminAppLogoFile').files.length > 0) {
+                    const upLogo = await readAsBase64('adminAppLogoFile');
+                    if(upLogo) newLogoUrl = upLogo;
+                }
 
                 await updateDoc(doc(db, 'global', 'settings'), { 
-                    appName: newName,
+                    appName: document.getElementById('adminAppName').value.trim() || "NumaX",
                     appLogo: newLogoUrl,
-                    stexKey: document.getElementById('adminStexKey').value.trim(), 
-                    voltxKey: document.getElementById('adminVoltxKey').value.trim(), 
-                    botToken: document.getElementById('adminBotToken').value.trim(), 
-                    enableStex: document.getElementById('adminEnableStex').checked, 
-                    enableVoltx: document.getElementById('adminEnableVoltx').checked, 
-                    refComm: parseFloat(document.getElementById('adminRefComm').value)||0.05, 
-                    minWithdraw: parseFloat(document.getElementById('adminMinWithdraw').value)||10, 
-                    welcomeMsg: document.getElementById('adminWelcomeMsg').value.trim() 
+                    botUsername: document.getElementById('adminBotUsername').value.trim() || "NumaXOTP_Bot",
+                    stexKey: document.getElementById('adminStexKey').value.trim(), voltxKey: document.getElementById('adminVoltxKey').value.trim(), botToken: document.getElementById('adminBotToken').value.trim(), enableStex: document.getElementById('adminEnableStex').checked, enableVoltx: document.getElementById('adminEnableVoltx').checked, refComm: parseFloat(document.getElementById('adminRefComm').value)||0.05, minWithdraw: parseFloat(document.getElementById('adminMinWithdraw').value)||10, welcomeMsg: document.getElementById('adminWelcomeMsg').value.trim() 
                 }); 
-                document.getElementById('adminAppLogoFile').value = '';
-                document.getElementById('adminAppLogoFileLabel').innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Image';
+                document.getElementById('adminAppLogoFile').previousElementSibling.innerHTML = '<i class="fa-solid fa-image mr-1"></i> Upload Image';
                 showToast("Settings & Branding Saved", "success"); 
-            } catch(e) { showToast("Error saving configurations", "error"); } 
+            } catch(e) { showToast("Error saving", "error"); } 
             finally { btn.innerHTML = orig; btn.disabled = false; }
         }
         
